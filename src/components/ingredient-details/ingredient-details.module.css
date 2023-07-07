@@ -1,0 +1,42 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  align-items: center;
+  
+}
+
+.header {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.picture {
+  height: 240px;
+
+}
+
+.name {
+  text-align: center;
+
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-left: 0;
+  column-gap: 20px;
+  list-style-type: none;
+
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  align-items: center;
+  column-gap: 8px;
+
+}

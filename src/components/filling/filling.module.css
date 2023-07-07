@@ -1,0 +1,31 @@
+.filling {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  width: 568px;
+  height: 656px;
+  list-style-type: none;
+  padding-left: 0;
+  overflow-y: scroll;
+
+  }
+      
+  .filling::-webkit-scrollbar {
+    width: 8px;
+    background: #2F2F37;
+
+  }
+      
+  .filling::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+
+  }
+
+  .string {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    column-gap: 8px;
+    align-items: center;
+  
+  }
