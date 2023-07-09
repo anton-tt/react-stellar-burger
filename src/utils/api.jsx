@@ -1,4 +1,4 @@
-function chekResponse(res) {
+const chekResponse = (res) => {
   if (res.ok) {
     return res.json();
   }

@@ -9,16 +9,16 @@ function AppHeader() {
         
         <ul className={styles.list}>
           <li>
-          <button className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
+            <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
               <BurgerIcon type="primary" />
               <p className="text text_type_main-default"> Конструктор </p>
-            </button>
+            </a>
           </li>
           <li>
-            <button className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
-              <ListIcon type="primary" />
+            <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
+              <ListIcon type="secondary" />
               <p className="text text_type_main-default text_color_inactive"> Лента заказов </p>
-            </button>   
+            </a>   
           </li>
         </ul>
         
@@ -28,10 +28,10 @@ function AppHeader() {
         
         <ul className={styles.list}>
           <li>
-            <button className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
-              <ProfileIcon type="primary" />
+            <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
+              <ProfileIcon type="secondary" />
               <p className="text text_type_main-default text_color_inactive"> Личный кабинет </p>
-            </button>  
+            </a>  
           </li>
         </ul>
       </nav>

@@ -10,22 +10,22 @@
 
   }
       
-  .filling::-webkit-scrollbar {
-    width: 8px;
-    background: #2F2F37;
+.filling::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
 
-  }
+}
       
-  .filling::-webkit-scrollbar-thumb {
-    background-color: #8585AD;
+.filling::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
 
-  }
+}
 
-  .string {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    column-gap: 8px;
-    align-items: center;
+.string {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  column-gap: 8px;
+  align-items: center;
   
-  }
+}

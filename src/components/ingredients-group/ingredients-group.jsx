@@ -1,19 +1,17 @@
 import { useState } from "react";
-import { ingredientPropType } from "../../utils/prop-types.js";
 import Ingredient from "../ingredient/ingredient.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-import styles from "./group-ingredients.module.css";
+import styles from "./ingredients-group.module.css";
+import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
-function GroupIngredients({ groupData}) {
-  console.log(groupData);
+function IngredientsGroup({groupData}) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => {
     setIsOpenModal(true);
   }
-
   const closeModal = () => {
     setIsOpenModal(false);
   }
@@ -23,10 +21,10 @@ function GroupIngredients({ groupData}) {
       { groupData.map((element) => {
           return ( 
             <>
-              <Ingredient openModal = {openModal} ingredientData = {element} key = {element._id} />
+              <Ingredient openModal = {openModal} ingredientData={element} key={element._id} />
               { isOpenModal && (
                 <ModalBase closeModal={closeModal}>
-                  <IngredientDetails ingredient = {element}  key = {element._id}/>
+                  <IngredientDetails ingredient={element}  key={element._id} />
                 </ModalBase>) 
               }
             </>);
@@ -37,8 +35,8 @@ function GroupIngredients({ groupData}) {
 
 }
 
-GroupIngredients.propTypes = { 
+IngredientsGroup.propTypes = { 
   groupData: PropTypes.arrayOf(ingredientPropType).isRequired
 }
 
-export default GroupIngredients;
+export default IngredientsGroup;

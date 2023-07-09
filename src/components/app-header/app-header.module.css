@@ -17,7 +17,7 @@
   padding: 0;
   column-gap: 8px;
   list-style-type: none;
-
+ 
 }
 
 .button {
@@ -27,7 +27,7 @@
   color: #F2F2F3;
   column-gap: 8px;
   border-radius: 35px;
-  border: transparent;
+  text-decoration: none;
   cursor: pointer;
 
 }

@@ -1,10 +1,10 @@
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useState, useMemo } from "react";
-import { ingredientPropType } from "../../utils/prop-types.js";
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css"
+import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
 function BurgerConstructor({ingredientsData}) {
@@ -16,9 +16,11 @@ function BurgerConstructor({ingredientsData}) {
   const closeModal = () => {
     setIsOpenModal(false);
   }
-  const {bunsData} = ingredientsData.filter((item) => item.name === 'Краторная булка N-200i');
-  const fillingData = useMemo(() => ingredientsData.filter((item) => item.type !== 'bun'));
-  
+  const bunsData = useMemo(
+    () => { return ingredientsData.find((item) => item.type === 'bun'); }, [ingredientsData]
+  );
+  const fillingData = useMemo(() => ingredientsData.filter((item) => item.type !== 'bun'), [ingredientsData]);
+
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box}`}>
       <div className={`pb-10 ${styles.list}`}>
@@ -27,9 +29,10 @@ function BurgerConstructor({ingredientsData}) {
           <ConstructorElement 
             type="top"
             isLocked={true}
-            text= {`${bunsData[0].name} (верх)`}
-            price={bunsData[0].price}
-            thumbnail={bunsData[0].image}
+            key={bunsData._id}
+            text= {`${bunsData.name} (верх)`}
+            price={bunsData.price}
+            thumbnail={bunsData.image}
           />
           ) : null} 
         
@@ -41,9 +44,10 @@ function BurgerConstructor({ingredientsData}) {
           <ConstructorElement 
             type="bottom"
             isLocked={true}
-            text= {`${bunsData[0].name} (низ)`}
-            price={bunsData[0].price}
-            thumbnail={bunsData[0].image}
+            key={bunsData._id}
+            text= {`${bunsData.name} (низ)`}
+            price={bunsData.price}
+            thumbnail={bunsData.image}
           />
           ) : null} 
         </div> 

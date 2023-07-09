@@ -1,14 +1,15 @@
+import { useMemo } from "react";
 import Tabs from "../tabs/tabs.jsx";
-import GroupIngredients from "../group-ingredients/group-ingredients.jsx";
+import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
 import styles from "./burger-ingredients.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
 function BurgerIngredients({ingredientsData}) {
 
-  const bunsData = ingredientsData.filter((item) => item.type === 'bun');
-  const saucesData = ingredientsData.filter((item) => item.type === 'sauce');
-  const mainsData = ingredientsData.filter((item) => item.type === 'main');
+  const bunsData = useMemo(() => ingredientsData.filter((item) => item.type === 'bun'), [ingredientsData]);
+  const saucesData = useMemo(() => ingredientsData.filter((item) => item.type === 'sauce'), [ingredientsData]);
+  const mainsData = useMemo(() => ingredientsData.filter((item) => item.type === 'main'), [ingredientsData]);
  
   return (
     <section className={`pt-10 ${styles.box}`}>
@@ -19,15 +20,15 @@ function BurgerIngredients({ingredientsData}) {
       <ul className={`pt-10 ${styles.ingredients}`}> 
         <li>
           <h2 className="text text_type_main-default pb-6"> Булки </h2>
-          <GroupIngredients groupData = {bunsData} />
+          <IngredientsGroup groupData = {bunsData} />
         </li>
         <li>
           <h2 className="text text_type_main-default pb-6"> Соусы </h2>
-          <GroupIngredients groupData = {saucesData} />
+          <IngredientsGroup groupData = {saucesData} />
         </li>  
         <li>
           <h2 className="text text_type_main-default pb-6"> Начинки </h2>
-          <GroupIngredients groupData = {mainsData} />
+          <IngredientsGroup groupData = {mainsData} />
         </li>
       </ul> 
     </section>
