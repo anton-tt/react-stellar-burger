@@ -1,0 +1,40 @@
+.content {
+  max-width: 1280px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1C1C21;
+  position: relative;
+
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  column-gap: 8px;
+  list-style-type: none;
+ 
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  color: #F2F2F3;
+  column-gap: 8px;
+  border-radius: 35px;
+  text-decoration: none;
+  cursor: pointer;
+
+}
+
+.logo {
+  position: absolute;
+  left: 495px;
+  top: 24px;
+
+}

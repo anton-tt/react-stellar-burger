@@ -1,0 +1,10 @@
+.group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 24px;
+  list-style-type: none;
+  row-gap: 32px;
+  
+}

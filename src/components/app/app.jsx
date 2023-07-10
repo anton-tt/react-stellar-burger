@@ -1,17 +1,30 @@
+import { useState, useEffect } from 'react';
+import { getIngredientsInfo } from "../../utils/api";
+import { urlBase } from "../../utils/data";
+import AppHeader from "../app-header/app-header.jsx"
+import BurgerConstructorContainer from "../burger-constructor-container/burger-constructor-container.jsx"
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
 
 function App() {
+ 
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    getIngredientsInfo(urlBase)
+    .then((res) => { 
+      setData(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    }); 
+}, []);
+
   return (
     <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
+      <AppHeader />
+      <BurgerConstructorContainer data={data}/>
     </div>
   );
+  
 }
 
 export default App;

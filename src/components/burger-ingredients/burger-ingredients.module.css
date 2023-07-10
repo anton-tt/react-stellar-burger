@@ -1,0 +1,29 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+ 
+}
+
+.ingredients {
+  width: 600px;
+  height: 756px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  overflow-y: scroll;
+
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+
+}
