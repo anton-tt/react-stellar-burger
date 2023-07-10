@@ -1,8 +1,8 @@
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx"
 import BurgerConstructor from "../burger-constructor/burger-constructor.jsx"
-import styles from "./app-body.module.css";
+import styles from "./burger-constructor-container.module.css";
 
-function AppBody({data}) {
+function BurgerConstructorContainer({data}) {
 
   return (
     <main className={styles.page}>
@@ -13,4 +13,4 @@ function AppBody({data}) {
 
 }
 
-export default AppBody;
+export default BurgerConstructorContainer;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getIngredientsInfo } from "../../utils/api";
 import { urlBase } from "../../utils/data";
 import AppHeader from "../app-header/app-header.jsx"
-import AppBody from "../app-body/app-body.jsx"
+import BurgerConstructorContainer from "../burger-constructor-container/burger-constructor-container.jsx"
 import styles from "./app.module.css";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <AppBody data={data}/>
+      <BurgerConstructorContainer data={data}/>
     </div>
   );
   

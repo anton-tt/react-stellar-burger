@@ -1,4 +1,4 @@
-const chekResponse = (res) => {
+const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   }
@@ -7,5 +7,5 @@ const chekResponse = (res) => {
 
 export function getIngredientsInfo(urlBase) {
   return fetch(urlBase)
-  .then(res => chekResponse(res))
+  .then(res => checkResponse(res))
 }
