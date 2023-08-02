@@ -1,11 +1,14 @@
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import Tabs from "../tabs/tabs.jsx";
 import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
 import styles from "./burger-ingredients.module.css";
+import { AppContext } from "../../services/app-context.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
-function BurgerIngredients({ingredientsData}) {
+function BurgerIngredients() {
+
+  const ingredientsData = useContext(AppContext);
 
   const bunsData = useMemo(() => ingredientsData.filter((item) => item.type === 'bun'), [ingredientsData]);
   const saucesData = useMemo(() => ingredientsData.filter((item) => item.type === 'sauce'), [ingredientsData]);

@@ -4,6 +4,7 @@ import { urlBase } from "../../utils/data";
 import AppHeader from "../app-header/app-header.jsx"
 import BurgerConstructorContainer from "../burger-constructor-container/burger-constructor-container.jsx"
 import styles from "./app.module.css";
+import { AppContext } from "../../services/app-context.js";
 
 function App() {
  
@@ -18,12 +19,15 @@ function App() {
     }); 
 }, []);
 
-  return (
-    <div className={styles.app}>
-      <AppHeader />
-      <BurgerConstructorContainer data={data}/>
-    </div>
-  );
+return (
+  <div className={styles.app}>
+    <AppHeader />
+    <AppContext.Provider value={data}>
+      <BurgerConstructorContainer/>
+    </AppContext.Provider>
+  </div>
+);
+  
   
 }
 
