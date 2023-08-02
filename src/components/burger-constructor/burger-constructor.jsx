@@ -5,24 +5,43 @@ import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css"
 import { AppContext } from "../../services/app-context.js";
+import { addOrder } from "../../utils/api.jsx";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
+
 
 function BurgerConstructor() {
  
   const ingredientsData = useContext(AppContext);
 
+  const [orderNumber, setOrderNumber] = useState();
+  const ingredientsId = ingredientsData.map((item) => item._id);
+  const createOrder = () => {
+    addOrder(ingredientsId)
+    .then((res) => {  
+      setOrderNumber(res.order.number);
+    })
+    .catch((err) => {
+      console.log(err);
+    }) 
+  }
+
   const [isOpenModal, setIsOpenModal] = useState(false);
   const openModal = () => {
     setIsOpenModal(true);
+    createOrder();
   }
   const closeModal = () => {
     setIsOpenModal(false);
+    setOrderNumber(null);
   }
   const bunsData = useMemo(
     () => { return ingredientsData.find((item) => item.type === 'bun'); }, [ingredientsData]
   );
   const fillingData = useMemo(() => ingredientsData.filter((item) => item.type !== 'bun'), [ingredientsData]);
+ 
+let isOrderNotNull = orderNumber !== null;
+
 
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box}`}>
@@ -65,14 +84,19 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
+      
       { isOpenModal && (
-        <ModalBase closeModal={closeModal}>
-          <OrderDetails/>
-        </ModalBase>)
-      }
+      <>
+        {isOrderNotNull ? (
+          <ModalBase closeModal={closeModal}>
+            <OrderDetails orderNumber={orderNumber}/>
+          </ModalBase>
+        ) : (<h2>Загрузка...</h2>) }
+      </> )
+}
     </section>   
   );
- 
+
 }
       
 BurgerConstructor.propTypes = { 
