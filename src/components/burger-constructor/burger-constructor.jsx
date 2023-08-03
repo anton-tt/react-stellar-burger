@@ -1,5 +1,5 @@
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useState, useMemo, useContext } from "react";
+import { useState, useMemo, useContext, useReducer, useEffect } from "react";
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
@@ -33,15 +33,34 @@ function BurgerConstructor() {
   }
   const closeModal = () => {
     setIsOpenModal(false);
-    setOrderNumber(null);
+    setOrderNumber();
   }
   const bunsData = useMemo(
     () => { return ingredientsData.find((item) => item.type === 'bun'); }, [ingredientsData]
   );
   const fillingData = useMemo(() => ingredientsData.filter((item) => item.type !== 'bun'), [ingredientsData]);
  
-let isOrderNotNull = orderNumber !== null;
-
+  
+  const priceInitialState = { totalPrice: 0 };
+  function reducerPrice(state, action) {
+    switch (action.type) {
+      case "addIngredient":
+        return { totalPrice: state.totalPrice + action.priceIngredient };
+      case "removeIngredient":
+        return { totalPrice: state.totalPrice - action.priceIngredient };
+      default:
+        throw new Error(`Wrong type of action: ${action.type}`);
+    }
+  }
+  const [priceState, dispatchPrice] = useReducer(reducerPrice, priceInitialState);
+  useEffect( () => {
+    bunsData && (dispatchPrice({ type: "addIngredient", priceIngredient: bunsData.price * 2 }));
+    fillingData.forEach((item) => {
+      dispatchPrice({ type: "addIngredient", priceIngredient: item.price });   
+    });
+  }, [ingredientsData])
+ 
+  let isOrderNotUndefined = orderNumber !== undefined;
 
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box}`}>
@@ -77,7 +96,7 @@ let isOrderNotNull = orderNumber !== null;
 
       <div className={styles.result}>
         <div className={`pr-10 ${styles.calculation}`}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium"> {priceState.totalPrice} </p>
           <CurrencyIcon type="primary" />
         </div>
         <Button htmlType="button" type="primary" size="large" onClick={openModal}>
@@ -86,14 +105,14 @@ let isOrderNotNull = orderNumber !== null;
       </div>
       
       { isOpenModal && (
-      <>
-        {isOrderNotNull ? (
-          <ModalBase closeModal={closeModal}>
-            <OrderDetails orderNumber={orderNumber}/>
-          </ModalBase>
-        ) : (<h2>Загрузка...</h2>) }
-      </> )
-}
+        <>
+          {isOrderNotUndefined ? (
+            <ModalBase closeModal={closeModal}>
+              <OrderDetails orderNumber={orderNumber}/>
+            </ModalBase>
+          ) : (<h2>Загрузка...</h2>) }
+        </> )
+      }
     </section>   
   );
 
