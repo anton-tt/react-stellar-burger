@@ -1,41 +1,32 @@
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useState, useMemo, useContext, useReducer, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css";
 import { AppContext } from "../../services/app-context.js";
-import { OrderContext } from "../../services/app-context.js";
-import { addOrder } from "../../utils/api.jsx";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
+import { createOrder } from "../../services/actions/order-details.js";
 
 function BurgerConstructor() {
  
   const ingredientsData = useContext(AppContext);
-
-  const [orderNumber, setOrderNumber] = useState();
-  const ingredientsId = ingredientsData.map((item) => item._id);
-  const createOrder = () => {
-    addOrder(ingredientsId)
-    .then((res) => {  
-      setOrderNumber(res.order.number);
-    })
-    .catch((err) => {
-      console.log(err);
-    }) 
-  }
+  const ingredientsId = ingredientsData.map((item) => item._id); // поправить выборку
+  
+  const dispatch = useDispatch();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const openModal = () => {
     setIsOpenModal(true);
-    createOrder();
+    dispatch(createOrder(ingredientsId));
   }
   const closeModal = () => {
     setIsOpenModal(false);
-    setOrderNumber();
   }
+
   const bunsData = useMemo(
     () => { return ingredientsData.find((item) => item.type === 'bun'); }, [ingredientsData]
   );
@@ -60,8 +51,6 @@ function BurgerConstructor() {
       dispatchPrice({ type: "addIngredient", priceIngredient: item.price });   
     });
   }, [ingredientsData])
- 
-  let isOrderNotUndefined = orderNumber !== undefined;
 
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box}`}>
@@ -107,13 +96,9 @@ function BurgerConstructor() {
       
       { isOpenModal && (
         <>
-          {isOrderNotUndefined ? (
-            <ModalBase closeModal={closeModal}>
-              <OrderContext.Provider value={orderNumber}>
-                <OrderDetails/>
-              </OrderContext.Provider>
-            </ModalBase>
-          ) : (<h2>Загрузка...</h2>) }
+          <ModalBase closeModal={closeModal}>
+            <OrderDetails/>
+          </ModalBase>
         </> )
       }
     </section>   
@@ -126,3 +111,43 @@ BurgerConstructor.propTypes = {
 }      
       
 export default BurgerConstructor;
+
+/*
+import { OrderContext } from "../../services/app-context.js";
+import { addOrder } from "../../utils/api.jsx";
+
+const [orderNumber, setOrderNumber] = useState();
+  const ingredientsId = ingredientsData.map((item) => item._id); 
+  const createOrder = () => {
+    addOrder(ingredientsId)
+    .then((res) => {  
+      setOrderNumber(res.order.number);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    
+  const openModal = () => {
+    setIsOpenModal(true);
+    createOrder(ingredientsId);
+  }
+  const closeModal = () => {
+    setIsOpenModal(false);
+    //setOrderNumber();
+  }  
+
+ let isOrderNotUndefined = orderNumber !== undefined;
+
+ { isOpenModal && (
+        <>
+          {isOrderNotUndefined ? (
+          <ModalBase closeModal={closeModal}>
+          <OrderContext.Provider value={orderNumber}>
+            <OrderDetails/>
+          </OrderContext.Provider>
+        </ModalBase>
+     ) : (<h2>Загрузка...</h2>) }
+    </> )
+  }
+
+*/

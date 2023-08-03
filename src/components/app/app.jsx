@@ -5,6 +5,8 @@ import BurgerConstructorContainer from "../burger-constructor-container/burger-c
 import styles from "./app.module.css";
 import { AppContext } from "../../services/app-context.js";
 
+
+
 function App() {
  
   const [data, setData] = useState([]);
@@ -22,7 +24,9 @@ return (
   <div className={styles.app}>
     <AppHeader />
     <AppContext.Provider value={data}>
+    
       <BurgerConstructorContainer/>
+
     </AppContext.Provider>
   </div>
 );
