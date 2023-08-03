@@ -5,6 +5,7 @@ import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css"
 import { AppContext } from "../../services/app-context.js";
+import { OrderContext } from "../../services/app-context.js";
 import { addOrder } from "../../utils/api.jsx";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
@@ -108,7 +109,9 @@ function BurgerConstructor() {
         <>
           {isOrderNotUndefined ? (
             <ModalBase closeModal={closeModal}>
-              <OrderDetails orderNumber={orderNumber}/>
+              <OrderContext.Provider value={orderNumber}>
+                <OrderDetails/>
+              </OrderContext.Provider>
             </ModalBase>
           ) : (<h2>Загрузка...</h2>) }
         </> )

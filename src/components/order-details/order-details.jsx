@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import checkmark from "../../images/checkmark.png";
 import styles from "./order-details.module.css";
+import { OrderContext } from "../../services/app-context.js";
 import PropTypes from "prop-types";
 
-function OrderDetails({orderNumber}) {
-    
+function OrderDetails() {
+  
+  const orderNumber = useContext(OrderContext);
+
   return (
     <section className={styles.box}>
       <h2  className={`text text_type_digits-large pb-8 ${styles.number}`}> {orderNumber} </h2>
