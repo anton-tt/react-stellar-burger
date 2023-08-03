@@ -3,7 +3,7 @@ import { useState, useMemo, useContext, useReducer, useEffect } from "react";
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
-import styles from "./burger-constructor.module.css"
+import styles from "./burger-constructor.module.css";
 import { AppContext } from "../../services/app-context.js";
 import { OrderContext } from "../../services/app-context.js";
 import { addOrder } from "../../utils/api.jsx";
