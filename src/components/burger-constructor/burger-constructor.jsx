@@ -6,16 +6,15 @@ import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css";
 import { AppContext } from "../../services/app-context.js";
+import { createOrder } from "../../services/actions/order-details.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
-
-import { createOrder } from "../../services/actions/order-details.js";
 
 function BurgerConstructor() {
  
   const ingredientsData = useContext(AppContext);
-  const ingredientsId = ingredientsData.map((item) => item._id); // поправить выборку
   
+  const ingredientsId = useMemo(() => ingredientsData.filter((item) => item._id), [ingredientsData]);
   const dispatch = useDispatch();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
