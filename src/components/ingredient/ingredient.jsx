@@ -1,13 +1,41 @@
+import { useDrag } from "react-dnd";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
+import {  useMemo } from "react";
+import { useSelector } from 'react-redux';
+
 
 function Ingredient({openModal, ingredientData}) {
 
+  const [, dragRef] = useDrag({
+    type: "ingredient",
+    item: ingredientData/*,    {isDrag}
+      collect: monitor => ({
+          isDrag: monitor.isDragging()
+      })*/
+  });
+
+  const { bunsData, fillingData } = useSelector((store) => store.constructorData);
+
+  const ingredientCount = useMemo(() => {
+    let count = 0;
+    if (ingredientData.type !== "bun") {
+      count = fillingData.filter((item) => ingredientData._id === item._id).length;
+    } else {
+      if (bunsData !== undefined && ingredientData._id === bunsData._id) {
+        count = 2;
+      }
+    }
+    return count;
+  }, [bunsData, fillingData, ingredientData]);
+
   return (
-    <li className={styles.ingredient} onClick={openModal} >
-      <Counter count={1} size="default" extraClass="m-1" />
+    <li className={styles.ingredient} onClick={openModal} ref={dragRef} >
+      {(ingredientCount > 0) ? (  
+        <Counter count={ingredientCount} size="default" extraClass="m-1" />
+      ) : null} 
       <img src= {ingredientData.image} alt={ingredientData.name}/>
       <div className={`pt-2 pb-2 ${styles.price}`}>
         <p className="text text_type_digits-default">{ingredientData.price}</p>
@@ -20,7 +48,9 @@ function Ingredient({openModal, ingredientData}) {
 }
 
 Ingredient.propTypes = { 
-  ingredientData: ingredientPropType.isRequired, 
+  ingredientData: ingredientPropType.isRequired,
+  bunsData: ingredientPropType.isRequired,
+  fillingData: PropTypes.arrayOf(ingredientPropType).isRequired,
   openModal: PropTypes.func.isRequired
 }
 

@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useContext } from "react";
+import { useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Tabs from "../tabs/tabs.jsx";
 import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";

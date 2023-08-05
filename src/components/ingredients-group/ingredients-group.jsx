@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Ingredient from "../ingredient/ingredient.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
