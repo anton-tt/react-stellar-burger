@@ -1,19 +1,17 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from 'react';
 import styles from "./tabs.module.css";
 
-function Tabs() {
-  const [state, setState] = useState('one');
+function Tabs(props) {
 
   return (
     <nav className={styles.tabs}>
-      <Tab value="one" active={state === 'one'} onClick={setState}>
+      <Tab value="buns" active={props.state === 'buns'} onClick={undefined}>
         Булки
       </Tab>
-      <Tab value="two" active={state === 'two'} onClick={setState}>
+      <Tab value="sauces" active={props.state === 'sauces'} onClick={undefined}>
         Соусы
       </Tab>
-      <Tab value="three" active={state === 'three'} onClick={setState}>
+      <Tab value="mains" active={props.state === 'mains'} onClick={undefined}>
         Начинки
       </Tab>
     </nav>
