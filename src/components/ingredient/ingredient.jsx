@@ -1,20 +1,16 @@
-import { useDrag } from "react-dnd";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {  useMemo } from "react";
+import { useSelector } from 'react-redux';
+import { useDrag } from "react-dnd";
 import styles from "./ingredient.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
-import {  useMemo } from "react";
-import { useSelector } from 'react-redux';
-
 
 function Ingredient({openModal, ingredientData}) {
 
   const [, dragRef] = useDrag({
     type: "ingredient",
-    item: ingredientData/*,    {isDrag}
-      collect: monitor => ({
-          isDrag: monitor.isDragging()
-      })*/
+    item: ingredientData
   });
 
   const { bunsData, fillingData } = useSelector((store) => store.constructorData);
@@ -49,9 +45,9 @@ function Ingredient({openModal, ingredientData}) {
 
 Ingredient.propTypes = { 
   ingredientData: ingredientPropType.isRequired,
-  bunsData: ingredientPropType.isRequired,
-  fillingData: PropTypes.arrayOf(ingredientPropType).isRequired,
-  openModal: PropTypes.func.isRequired
+  bunsData: ingredientPropType,
+  fillingData: PropTypes.arrayOf(ingredientPropType),
+  openModal: PropTypes.func
 }
 
 export default Ingredient;

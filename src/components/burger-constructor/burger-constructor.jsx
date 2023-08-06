@@ -9,8 +9,6 @@ import styles from "./burger-constructor.module.css";
 import { createOrder } from "../../services/actions/order-details.js";
 import { addIngredient } from "../../services/actions/burger-constructor.js";
 import { addPrice } from "../../services/actions/order-price.js";
-import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
 
 function BurgerConstructor() {
 
@@ -46,13 +44,10 @@ function BurgerConstructor() {
     accept: "ingredient",
     drop(ingredientData) {
       onDropHandler(ingredientData);
-    }/*,
-    collect: monitor => ({         {isHover}
-        isHover: monitor.isOver(),
-    })*/
+    }
   });
 
-  const isNotAcceptableOrder = useMemo(() => { //!!!!!!!!!!!!!!!!!
+  const isNotAcceptableOrder = useMemo(() => {
     let isNotAcceptableOrder = true;
     if (bunsData !== undefined) {
       isNotAcceptableOrder = false;
@@ -76,21 +71,27 @@ function BurgerConstructor() {
             thumbnail={bunsData.image}
           />
           ) : null} 
+        </div>
+
+        <ul className={`pr-2 ${styles.fillings}`} >
+        { fillingData.map((element) => {
+          return  ( 
+            <Filling ingredientData={element} />
+          )})
+        }  
+        </ul>  
         
-        </div>  
-        <Filling fillingData ={fillingData} />
         <div className="pl-8">
-        
-        {bunsData ? (
-          <ConstructorElement 
-            type="bottom"
-            isLocked={true}
-            key={bunsData._id}
-            text= {`${bunsData.name} (низ)`}
-            price={bunsData.price}
-            thumbnail={bunsData.image}
-          />
-          ) : null} 
+          {bunsData ? (
+            <ConstructorElement 
+              type="bottom"
+              isLocked={true}
+              key={bunsData._id}
+              text= {`${bunsData.name} (низ)`}
+              price={bunsData.price}
+              thumbnail={bunsData.image}
+            />
+            ) : null} 
         </div> 
       </div>
 
@@ -114,100 +115,6 @@ function BurgerConstructor() {
     </section>   
   );
 
-}
-      
-BurgerConstructor.propTypes = { 
-  ingredientsData: PropTypes.arrayOf(ingredientPropType).isRequired 
-}      
-      
+}     
+     
 export default BurgerConstructor;
-
-/*
-//const ingredientsData = [...fillingData, bunsData];
-
-import { OrderContext } from "../../services/app-context.js";
-import { AppContext } from "../../services/app-context.js";
-import { addOrder } from "../../utils/api.jsx";
-
-const [orderNumber, setOrderNumber] = useState();
-  const ingredientsId = ingredientsData.map((item) => item._id); 
-  const createOrder = () => {
-    addOrder(ingredientsId)
-    .then((res) => {  
-      setOrderNumber(res.order.number);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    
-  const openModal = () => {
-    setIsOpenModal(true);
-    createOrder(ingredientsId);
-  }
-  const closeModal = () => {
-    setIsOpenModal(false);
-    //setOrderNumber();
-  }  
-
- let isOrderNotUndefined = orderNumber !== undefined;
-
- { isOpenModal && (
-        <>
-          {isOrderNotUndefined ? (
-          <ModalBase closeModal={closeModal}>
-          <OrderContext.Provider value={orderNumber}>
-            <OrderDetails/>
-          </OrderContext.Provider>
-        </ModalBase>
-     ) : (<h2>Загрузка...</h2>) }
-    </> )
-  }
-
-useEffect(()=> {
-    dispatch(getIngredientsList())
-  }, []);
-const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector((store) => store.ingredientsData);
-
-const ingredientsData = useContext(AppContext);
-const ingredientsId = useMemo(() => {
-    if(fillingData.length > 0) {
-    ingredientsData.filter((item) => item._id)}}, [ingredientsData]);
-const dispatch = useDispatch();
-
-  const bunsData = useMemo(
-    () => { return ingredientsData.find((item) => item.type === 'bun'); }, [ingredientsData]
-  );
-  const fillingData = useMemo(() => ingredientsData.filter((item) => item.type !== 'bun'), [ingredientsData]);
- 
-const priceInitialState = { totalPrice: 0 };
-function reducerPrice(state, action) {
-  switch (action.type) {
-    case "addIngredient":
-      return { totalPrice: state.totalPrice + action.priceIngredient };
-    case "removeIngredient":
-      return { totalPrice: state.totalPrice - action.priceIngredient };
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
-  const [priceState, dispatchPrice] = useReducer(reducerPrice, priceInitialState);
-
-
-  const handleIncrementClick = () => {
-    // при вызове dispatch достаточно указать тип действия
-dispatch({ type: "addIngredient" });
-};
-
-const handleDecrementClick = () => {
-dispatch({ type: "removeIngredient" });
-};
-
-
-  useEffect( () => {
-    bunsData && (dispatchPrice({ type: "addIngredient", priceIngredient: bunsData.price * 2 }));
-    fillingData.forEach((item) => {
-      dispatchPrice({ type: "addIngredient", priceIngredient: item.price });   
-    });
-  }, [fillingData, bunsData])
-
-*/

@@ -1,19 +1,8 @@
-import { ADD_PRICE, DELETE_PRICE } from "../constants.js";
+import { ADD_PRICE, DELETE_PRICE } from "../../utils/constants.js";
+import { getBunsPrice } from "../../utils/utils.js";
 
 const initialState = {
   totalPrice: 0
-}
-
-const getBunsPrice = (newBun, oldBun) => {
-  let price = 0;
-  if (oldBun === undefined) {
-    price = newBun.price * 2;
-  } else if (oldBun._id !== newBun._id) {
-    price = price + (newBun.price - oldBun.price) * 2; 
-  } else {
-    price = 0;
-  }
-  return price
 }
  
 export const priceReducer = (state = initialState, action) => {

@@ -1,4 +1,4 @@
-import { OPEN_INGREDIENT, CLOSE_INGREDIENT } from "../constants.js";
+import { OPEN_INGREDIENT, CLOSE_INGREDIENT } from "../../utils/constants.js";
 
 const initialState = {
   ingredient: undefined

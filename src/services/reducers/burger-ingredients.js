@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../constants.js";
+import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../../utils/constants.js";
 
 const initialState = {
   ingredientsRequest: false,

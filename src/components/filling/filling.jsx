@@ -1,48 +1,52 @@
 import { DragIcon, ConstructorElement  } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from 'react-redux';
+import { useDrag, useDrop } from "react-dnd";
 import styles from "./filling.module.css";
+import { deleteIngredient, updateIngredient } from "../../services/actions/burger-constructor.js";
+import { deletePrice } from "../../services/actions/order-price.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
 
-import { addIngredient, deleteIngredient } from "../../services/actions/burger-constructor.js";
-import { useSelector, useDispatch } from 'react-redux';
-
-import { addPrice, deletePrice } from "../../services/actions/order-price.js";
-function Filling({fillingData}) {
+function Filling({ingredientData}) {
   
-
   const dispatch = useDispatch();
-
+  
   const removeIngredient = (ingredientData) => {
     dispatch(deleteIngredient(ingredientData));
     dispatch(deletePrice(ingredientData));
-  } 
+  }
 
-
-
-
+  const dragData = {dragIngredientId: ingredientData._localId};
+  const [, dragRef] = useDrag({
+    type: "filling",
+    item: dragData
+  });
+  
+  const dropIngredientId = ingredientData._localId;
+  const [, dropTarget] = useDrop({
+    accept: "filling",
+    drop( {dragIngredientId} ) {
+      dispatch(updateIngredient(dragIngredientId, dropIngredientId))
+    }
+  });
 
   return (
-    <ul className={`pr-2 ${styles.filling} `}>
-      { fillingData.map((element) => {
-        return  (
-          <li className={`pb-4 ${styles.string}`} key = {element._localId}>     
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text= {element.name}
-              price={element.price}
-              thumbnail={element.image}
-              handleClose={() => {removeIngredient(element)}}
-            />
-          </li>
-        )})
-      }  
-    </ul>
+    <li ref={dropTarget}> 
+      <div className={`pb-4 ${styles.string}`} key={ingredientData._localId} ref={dragRef}>  
+        <DragIcon type="primary" />
+        <ConstructorElement
+          text= {ingredientData.name}
+          price={ingredientData.price}
+          thumbnail={ingredientData.image}
+          handleClose={() => {removeIngredient(ingredientData)}}
+        />
+      </div>
+    </li>         
   )
   
 }
 
 Filling.propTypes = { 
-  fillingData: PropTypes.arrayOf(ingredientPropType).isRequired 
-}   
+  ingredientData: ingredientPropType.isRequired
+}  
 
 export default Filling;

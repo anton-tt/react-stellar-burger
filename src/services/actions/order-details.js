@@ -1,5 +1,5 @@
 import { addOrder } from "../../utils/api.jsx";
-import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED } from "../constants.js";
+import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED } from "../../utils/constants.js";
 
 export function createOrder(ingredientsId) {
     // Воспользуемся первым аргументом из усилителя redux-thunk — dispatch

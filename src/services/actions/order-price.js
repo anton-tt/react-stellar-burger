@@ -1,4 +1,4 @@
-import { ADD_PRICE, DELETE_PRICE } from "../constants.js";
+import { ADD_PRICE, DELETE_PRICE } from "../../utils/constants.js";
 
 export function addPrice(ingredientData, oldIngredientData) { 
   return function (dispatch) {

@@ -1,5 +1,5 @@
 import { getIngredientsInfo } from "../../utils/api";
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../constants.js";
+import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../../utils/constants.js";
 
 export function getIngredientsList() {
   return function (dispatch) {

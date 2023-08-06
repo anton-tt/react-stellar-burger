@@ -1,4 +1,4 @@
-import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED } from "../constants.js";
+import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED } from "../../utils/constants.js";
 
 const initialState = {
   numberRequest: false,
