@@ -3,16 +3,14 @@ import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./filling.module.css";
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor.js";
-import { deletePrice } from "../../services/actions/order-price.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
 
-function Filling({ingredientData}) {
+function Filling({ingredientData, subtractIngredientPrice}) {
   
   const dispatch = useDispatch();
   
   const removeIngredient = (ingredientData) => {
     dispatch(deleteIngredient(ingredientData));
-    dispatch(deletePrice(ingredientData));
   }
 
   const dragData = {dragIngredientId: ingredientData._localId};

@@ -8,7 +8,7 @@ export const moveArrayElements = (fillingData, dragIngredientId, dropIngredientI
   return newFillingData
 } 
 
-export const getBunsPrice = (newBun, oldBun) => {
+const calculateBunsPrice = (newBun, oldBun) => {
   let price = 0;
   if (oldBun === undefined) {
     price = newBun.price * 2;
@@ -19,3 +19,16 @@ export const getBunsPrice = (newBun, oldBun) => {
   }
   return price
 }
+
+export const addIngredientPrice = (ingredient, oldBun) => {
+  if (ingredient !== undefined) {
+    let ingredientPrice = 0;
+    if (ingredient.type !== "bun" ) {
+      ingredientPrice = ingredient.price;      
+    } else {
+      ingredientPrice = calculateBunsPrice(ingredient, oldBun);  
+    }
+    return ingredientPrice;
+  }
+} 
+

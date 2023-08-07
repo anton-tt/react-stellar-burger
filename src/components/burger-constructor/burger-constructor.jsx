@@ -8,13 +8,12 @@ import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css";
 import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
 import { addIngredient } from "../../services/actions/burger-constructor.js";
-import { addPrice } from "../../services/actions/order-price.js";
 
 function BurgerConstructor() {
 
   const { bunsData, fillingData } = useSelector((store) => store.constructorData);
   const dispatch = useDispatch();
-  
+
   const ingredientsId = useMemo(() => {
     let allId = [];
     if (fillingData.length > 0)  {
@@ -23,8 +22,24 @@ function BurgerConstructor() {
     if (bunsData !== undefined)  {
       allId = [...allId, bunsData._id]
     }
-  return allId;
+    return allId;
   }, [fillingData, bunsData]);
+
+  const totalPrice = useMemo(() => {
+    let price = 0;
+    if (bunsData !== undefined) {
+      price += bunsData.price * 2;
+    }
+    if (fillingData !== undefined) {
+      let fillingPrice = 0;
+      fillingData.forEach((element) => {
+        fillingPrice += element.price
+      });
+      price += fillingPrice;
+    } 
+    return price;
+  }, [bunsData, fillingData]);
+
   
   const [isOpenModal, setIsOpenModal] = useState(false);
   const openModal = () => {
@@ -38,7 +53,6 @@ function BurgerConstructor() {
 
   const onDropHandler = (ingredientData) => {
     dispatch(addIngredient(ingredientData));
-    dispatch(addPrice(ingredientData, bunsData));
   }
   
   const [, dropTarget] = useDrop({
@@ -55,8 +69,6 @@ function BurgerConstructor() {
     }
     return isNotAcceptableOrder;
   }, [bunsData]); 
-
-  const { totalPrice } = useSelector((store) => store.orderPrice);
 
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box}`} ref={dropTarget}>
