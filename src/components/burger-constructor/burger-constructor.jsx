@@ -6,7 +6,7 @@ import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import styles from "./burger-constructor.module.css";
-import { createOrder } from "../../services/actions/order-details.js";
+import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
 import { addIngredient } from "../../services/actions/burger-constructor.js";
 import { addPrice } from "../../services/actions/order-price.js";
 
@@ -33,6 +33,7 @@ function BurgerConstructor() {
   }
   const closeModal = () => {
     setIsOpenModal(false);
+    dispatch(removeOrderNumber());
   }
 
   const onDropHandler = (ingredientData) => {

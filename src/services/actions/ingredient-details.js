@@ -1,14 +1,11 @@
-import { OPEN_INGREDIENT, CLOSE_INGREDIENT } from "../../utils/constants.js";
+import { ADD_INGREDIENT_DETAILS, REMOVE_INGREDIENT_DETAILS } from "../../utils/constants.js";
 
-export function openIngredientData(ingredientData) { 
-  return function (dispatch) {
-    dispatch({ type: OPEN_INGREDIENT,
-    ingredient: ingredientData });
-  }
+export function addIngredientData(ingredientData) { 
+  return ({ type: ADD_INGREDIENT_DETAILS,
+    ingredient: ingredientData }
+  );
 }
 
-export function closeIngredientData() { 
-    return function (dispatch) {
-      dispatch({ type: CLOSE_INGREDIENT });
-    }
+export function removeIngredientData() { 
+  return ({ type: REMOVE_INGREDIENT_DETAILS });
 }

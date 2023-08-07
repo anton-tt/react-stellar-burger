@@ -1,4 +1,4 @@
-import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED } from "../../utils/constants.js";
+import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED, REMOVE_ORDER_NUMBER } from "../../utils/constants.js";
 
 const initialState = {
   numberRequest: false,
@@ -35,6 +35,15 @@ export const orderReducer = (state = initialState, action) => {
         numberRequest: false 
       };
     }
+    case REMOVE_ORDER_NUMBER: {
+      return { 
+        ...state, 
+          // Запрос выполнился, приводим значения в хранилище к изначальным
+        numberRequest: false,
+        numberFailed: false,
+        orderNumber: undefined 
+      };
+    }  
     default: {
       return state
     }

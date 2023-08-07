@@ -2,7 +2,7 @@ import { DragIcon, ConstructorElement  } from "@ya.praktikum/react-developer-bur
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./filling.module.css";
-import { deleteIngredient, updateIngredient } from "../../services/actions/burger-constructor.js";
+import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor.js";
 import { deletePrice } from "../../services/actions/order-price.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
 
@@ -25,7 +25,7 @@ function Filling({ingredientData}) {
   const [, dropTarget] = useDrop({
     accept: "filling",
     drop( {dragIngredientId} ) {
-      dispatch(updateIngredient(dragIngredientId, dropIngredientId))
+      dispatch(moveIngredient(dragIngredientId, dropIngredientId))
     }
   });
 

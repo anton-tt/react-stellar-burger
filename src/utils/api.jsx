@@ -1,4 +1,4 @@
-const urlBase = "https://norma.nomoreparties.space/api/";
+import { urlBase } from "./constants.js";
 
 const checkResponse = (res) => {
   if (res.ok) {

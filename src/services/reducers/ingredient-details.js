@@ -1,4 +1,4 @@
-import { OPEN_INGREDIENT, CLOSE_INGREDIENT } from "../../utils/constants.js";
+import { ADD_INGREDIENT_DETAILS, REMOVE_INGREDIENT_DETAILS } from "../../utils/constants.js";
 
 const initialState = {
   ingredient: undefined
@@ -6,13 +6,13 @@ const initialState = {
 
 export const ingredientReducer = (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_INGREDIENT: {
+    case ADD_INGREDIENT_DETAILS: {
       return {
         ...state,
         ingredient: action.ingredient,
       };
     }
-    case CLOSE_INGREDIENT: {
+    case REMOVE_INGREDIENT_DETAILS: {
       return state
     }
     default: {

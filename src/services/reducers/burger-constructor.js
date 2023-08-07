@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, DELETE_INGREDIENT, UPDATE_INGREDIENT } from "../../utils/constants.js";
+import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "../../utils/constants.js";
 import { moveArrayElements } from "../../utils/utils.js";
 
 const initialState = {
@@ -28,16 +28,20 @@ export const constructorReducer = (state = initialState, action) => {
         fillingData: state.fillingData.filter((item) => item._localId !== action.ingredient._localId)
       }
     }
-    case UPDATE_INGREDIENT: {
-      const dragIngredientId = action.dragIngredientId;
-      const dropIngredientId = action.dropIngredientId;
+    case MOVE_INGREDIENT: {
       return {
         ...state,
-        fillingData: moveArrayElements(state.fillingData, dragIngredientId, dropIngredientId)
+        fillingData: moveArrayElements(state.fillingData, action.dragIngredientId, action.dropIngredientId)
+      }
+    }
+    case CLEAR_CONSTRUCTOR: {
+      return {
+        bunsData: undefined,
+        fillingData: []
       }
     }
     default: {
-      return state
+      return state;
     }
   }
   

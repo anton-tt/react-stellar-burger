@@ -4,7 +4,7 @@ import Ingredient from "../ingredient/ingredient.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 import styles from "./ingredients-group.module.css";
-import { openIngredientData, closeIngredientData } from "../../services/actions/ingredient-details.js";
+import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
@@ -15,11 +15,11 @@ function IngredientsGroup({groupData}) {
   
   const openModal = (ingredient) => {
     setIsOpenModal(true);
-    dispatch(openIngredientData(ingredient));
+    dispatch(addIngredientData(ingredient));
   }
   const closeModal = () => {
     setIsOpenModal(false);
-    dispatch(closeIngredientData());  
+    dispatch(removeIngredientData());  
   }
   
   return (
