@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import checkmark from "../../images/checkmark.png";
 import styles from "./order-details.module.css";
-import PropTypes from "prop-types";
 
 function OrderDetails() {
     // Вытаскиваем селектором нужные данные из хранилища
-  const { orderNumber, numberRequest, numberFailed } = useSelector((store) => store.orderNumber);
+  const getOrderNumber = (store) => store.orderNumber;  
+  const { orderNumber, numberRequest, numberFailed } = useSelector(getOrderNumber);
     
     // Используем условный рендеринг для разных состояний хранилища
   if (numberFailed) {
@@ -26,15 +26,4 @@ function OrderDetails() {
 
 } 
 
-OrderDetails.propTypes = { 
-  orderNumber: PropTypes.number.isRequired 
-}  
-
 export default OrderDetails;
-
-/*
-import { useContext } from 'react';
-import { OrderContext } from "../../services/app-context.js";
-
-const orderNumber = useContext(OrderContext);
-*/

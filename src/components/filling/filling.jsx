@@ -5,7 +5,7 @@ import styles from "./filling.module.css";
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
 
-function Filling({ingredientData, subtractIngredientPrice}) {
+function Filling({ingredientData}) {
   
   const dispatch = useDispatch();
   

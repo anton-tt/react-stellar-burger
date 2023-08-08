@@ -46,7 +46,3 @@ IngredientsGroup.propTypes = {
 }
 
 export default IngredientsGroup;
-
-/*
-<IngredientDetails ingredient={element}  key={element._id} />
-*/

@@ -11,7 +11,8 @@ import { addIngredient } from "../../services/actions/burger-constructor.js";
 
 function BurgerConstructor() {
 
-  const { bunsData, fillingData } = useSelector((store) => store.constructorData);
+  const getConstructorData = (store) => store.constructorData;
+  const { bunsData, fillingData } = useSelector(getConstructorData);
   const dispatch = useDispatch();
 
   const ingredientsId = useMemo(() => {

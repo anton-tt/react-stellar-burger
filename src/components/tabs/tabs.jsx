@@ -1,5 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tabs.module.css";
+import PropTypes from "prop-types";
 
 function Tabs({state}) {
 
@@ -17,6 +18,10 @@ function Tabs({state}) {
     </nav>
   )
 
+}
+
+Tabs.propTypes = { 
+  state: PropTypes.string.isRequired   
 }
 
 export default Tabs;

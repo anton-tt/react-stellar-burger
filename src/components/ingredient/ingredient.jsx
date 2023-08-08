@@ -13,7 +13,8 @@ function Ingredient({openModal, ingredientData}) {
     item: ingredientData
   });
 
-  const { bunsData, fillingData } = useSelector((store) => store.constructorData);
+  const getConstructorData = (store) => store.constructorData;
+  const { bunsData, fillingData } = useSelector(getConstructorData);
 
   const ingredientCount = useMemo(() => {
     let count = 0;
@@ -45,9 +46,7 @@ function Ingredient({openModal, ingredientData}) {
 
 Ingredient.propTypes = { 
   ingredientData: ingredientPropType.isRequired,
-  bunsData: ingredientPropType,
-  fillingData: PropTypes.arrayOf(ingredientPropType),
-  openModal: PropTypes.func
+  openModal: PropTypes.func.isRequired 
 }
 
 export default Ingredient;

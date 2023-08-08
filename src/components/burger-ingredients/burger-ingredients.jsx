@@ -12,7 +12,8 @@ function BurgerIngredients() {
   useEffect(()=> {
     dispatch(getIngredientsList())
   }, []);
-  const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector((store) => store.ingredientsData);
+  const getIngredientsData = (store) => store.ingredientsData;
+  const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const bunsData = useMemo(() => ingredientsData.filter((item) => item.type === 'bun'), [ingredientsData]);
   const saucesData = useMemo(() => ingredientsData.filter((item) => item.type === 'sauce'), [ingredientsData]);
@@ -65,14 +66,3 @@ function BurgerIngredients() {
 }
 
 export default BurgerIngredients;
-
-/*
-import { useContext } from "react";
-import { AppContext } from "../../services/app-context.js";
-import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
-
-const ingredientsData = useContext(AppContext);
-BurgerIngredients.propTypes = { 
-  ingredientsData: PropTypes.arrayOf(ingredientPropType).isRequired 
-*/
