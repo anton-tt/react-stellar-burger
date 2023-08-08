@@ -1,9 +1,9 @@
 import { DragIcon, ConstructorElement  } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
-import styles from "./filling.module.css";
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
+import styles from "./filling.module.css";
 
 function Filling({ingredientData}) {
   

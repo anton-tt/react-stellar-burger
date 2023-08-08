@@ -5,9 +5,9 @@ import { useDrop } from "react-dnd";
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
-import styles from "./burger-constructor.module.css";
 import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
 import { addIngredient } from "../../services/actions/burger-constructor.js";
+import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor() {
 
@@ -41,7 +41,6 @@ function BurgerConstructor() {
     return price;
   }, [bunsData, fillingData]);
 
-  
   const [isOpenModal, setIsOpenModal] = useState(false);
   const openModal = () => {
     setIsOpenModal(true);
@@ -77,7 +76,7 @@ function BurgerConstructor() {
   const highlightBox = isHover ? (styles.box_highlight) : null; 
 
   return (
-    <section className={`pt-25 pr-4 pl-4 ${styles.box} ${highlightBox}`}  ref={dropTarget}> 
+    <section className={`pt-25 pr-4 pl-4 ${styles.box} ${highlightBox}`} ref={dropTarget}> 
       <div className={`pb-10 ${styles.list}`}>
         <div className="pl-8 pb-4">
           {bunsData ? (

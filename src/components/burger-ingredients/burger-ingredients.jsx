@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from "react-intersection-observer";
 import Tabs from "../tabs/tabs.jsx";
 import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
-import styles from "./burger-ingredients.module.css";
 import { getIngredientsList } from "../../services/actions/burger-ingredients.js";
+import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {
   
