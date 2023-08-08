@@ -14,21 +14,30 @@ function Filling({ingredientData}) {
   }
 
   const dragData = {dragIngredientId: ingredientData._localId};
-  const [, dragRef] = useDrag({
+  const [{isDrag}, dragRef] = useDrag({
     type: "filling",
-    item: dragData
+    item: dragData,
+    collect: monitor => ({
+        isDrag: monitor.isDragging()
+    })
   });
   
   const dropIngredientId = ingredientData._localId;
-  const [, dropTarget] = useDrop({
+  const [{isHover}, dropTarget] = useDrop({
     accept: "filling",
     drop( {dragIngredientId} ) {
       dispatch(moveIngredient(dragIngredientId, dropIngredientId))
-    }
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
   });
 
+  const highlightBox = isHover ? (styles.box_highlight) : null;
+
   return (
-    <li ref={dropTarget}> 
+    !isDrag &&
+    <li className={highlightBox} ref={dropTarget}> 
       <div className={`pb-4 ${styles.string}`} key={ingredientData._localId} ref={dragRef}>  
         <DragIcon type="primary" />
         <ConstructorElement

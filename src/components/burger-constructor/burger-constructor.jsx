@@ -56,11 +56,14 @@ function BurgerConstructor() {
     dispatch(addIngredient(ingredientData));
   }
   
-  const [, dropTarget] = useDrop({
+  const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
     drop(ingredientData) {
       onDropHandler(ingredientData);
-    }
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
   });
 
   const isNotAcceptableOrder = useMemo(() => {
@@ -71,8 +74,10 @@ function BurgerConstructor() {
     return isNotAcceptableOrder;
   }, [bunsData]); 
 
+  const highlightBox = isHover ? (styles.box_highlight) : null; 
+
   return (
-    <section className={`pt-25 pr-4 pl-4 ${styles.box}`} ref={dropTarget}>
+    <section className={`pt-25 pr-4 pl-4 ${styles.box} ${highlightBox}`}  ref={dropTarget}> 
       <div className={`pb-10 ${styles.list}`}>
         <div className="pl-8 pb-4">
           {bunsData ? (
@@ -90,7 +95,7 @@ function BurgerConstructor() {
         <ul className={`pr-2 ${styles.fillings}`} >
         { fillingData.map((element) => {
           return  ( 
-            <Filling ingredientData={element} />
+            <Filling ingredientData={element} key={element._localId}/>
           )})
         }  
         </ul>  

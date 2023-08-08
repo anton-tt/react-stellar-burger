@@ -6,6 +6,11 @@
 
 }
 
+.box_highlight {
+  border: 3px solid #2b3042;
+
+}
+
 .list {
   display: flex;
   flex-direction: column;

@@ -48,15 +48,15 @@ function BurgerIngredients() {
         <ul className={`pt-10 ${styles.ingredients}`}> 
           <li>
             <h2 className="text text_type_main-default pb-6" ref={bunsRef}> Булки </h2>
-            <IngredientsGroup groupData = {bunsData} />
+            <IngredientsGroup groupData={bunsData} />
           </li>
           <li>
             <h2 className="text text_type_main-default pb-6" ref={saucesRef}> Соусы </h2>
-            <IngredientsGroup groupData = {saucesData} />
+            <IngredientsGroup groupData={saucesData} />
           </li>  
           <li>
             <h2 className="text text_type_main-default pb-6" ref={mainsRef}> Начинки </h2>
-            <IngredientsGroup groupData = {mainsData} />
+            <IngredientsGroup groupData={mainsData} />
           </li>
         </ul> 
       </section>

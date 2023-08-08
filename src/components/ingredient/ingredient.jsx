@@ -8,9 +8,12 @@ import PropTypes from "prop-types";
 
 function Ingredient({openModal, ingredientData}) {
 
-  const [, dragRef] = useDrag({
+  const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
-    item: ingredientData
+    item: ingredientData,
+    collect: monitor => ({
+        isDrag: monitor.isDragging()
+    })
   });
 
   const getConstructorData = (store) => store.constructorData;
@@ -28,9 +31,11 @@ function Ingredient({openModal, ingredientData}) {
     return count;
   }, [bunsData, fillingData, ingredientData]);
 
-  return (
-    <li className={styles.ingredient} onClick={openModal} ref={dragRef} >
-      {(ingredientCount > 0) ? (  
+  const highlightBox = isDrag ? (styles.box_highlight) : null; 
+
+  return (  
+    <div className={`${styles.ingredient} ${highlightBox}`} onClick={openModal} ref={dragRef} >
+      {((ingredientCount > 0) || isDrag) ?  (  
         <Counter count={ingredientCount} size="default" extraClass="m-1" />
       ) : null} 
       <img src= {ingredientData.image} alt={ingredientData.name}/>
@@ -39,7 +44,7 @@ function Ingredient({openModal, ingredientData}) {
         <CurrencyIcon type="primary" />
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{ingredientData.name}</p>
-    </li>
+    </div>
   );
   
 }

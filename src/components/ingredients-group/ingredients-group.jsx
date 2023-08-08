@@ -21,19 +21,19 @@ function IngredientsGroup({groupData}) {
     setIsOpenModal(false);
     dispatch(removeIngredientData());  
   }
-  
+
   return (
-    <ul className={`pr-2 pb-10 pl-4 ${styles.group}`}>
+    <ul className={`pr-2 pb-10 pl-4 ${styles.group}`} >
       { groupData.map((element) => {
           return ( 
-            <>
-              <Ingredient openModal = {() => {openModal(element)}} ingredientData={element} key={element._id} />
+            <li key={element._id}>
+              <Ingredient openModal = {() => {openModal(element)}} ingredientData={element} />
               { isOpenModal && (
                 <ModalBase closeModal={closeModal}>
                   <IngredientDetails />
                 </ModalBase>) 
               }
-            </>);
+            </li>);
         })
       }  
     </ul>
