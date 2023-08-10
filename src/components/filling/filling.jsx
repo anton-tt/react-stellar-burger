@@ -1,31 +1,59 @@
 import { DragIcon, ConstructorElement  } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./filling.module.css";
+import { useDispatch } from 'react-redux';
+import { useDrag, useDrop } from "react-dnd";
+import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor.js";
 import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
+import styles from "./filling.module.css";
 
-function Filling({fillingData}) {
+function Filling({ingredientData}) {
   
+  const dispatch = useDispatch();
+  
+  const removeIngredient = (ingredientData) => {
+    dispatch(deleteIngredient(ingredientData));
+  }
+
+  const dragData = {dragIngredientId: ingredientData._localId};
+  const [{isDrag}, dragRef] = useDrag({
+    type: "filling",
+    item: dragData,
+    collect: monitor => ({
+        isDrag: monitor.isDragging()
+    })
+  });
+  
+  const dropIngredientId = ingredientData._localId;
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "filling",
+    drop( {dragIngredientId} ) {
+      dispatch(moveIngredient(dragIngredientId, dropIngredientId))
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
+  });
+
+  const highlightBox = isHover ? (styles.box_highlight) : null;
+
   return (
-    <ul className={`pr-2 ${styles.filling} `}>
-      { fillingData.map((element) => {
-        return  (
-          <li className={`pb-4 ${styles.string}`} key = {element._id}>     
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text= {element.name}
-              price={element.price}
-              thumbnail={element.image}
-            />
-          </li>
-        )})
-      }  
-    </ul>
+    !isDrag &&
+    <li className={highlightBox} ref={dropTarget}> 
+      <div className={`pb-4 ${styles.string}`} key={ingredientData._localId} ref={dragRef}>  
+        <DragIcon type="primary" />
+        <ConstructorElement
+          text= {ingredientData.name}
+          price={ingredientData.price}
+          thumbnail={ingredientData.image}
+          handleClose={() => {removeIngredient(ingredientData)}}
+        />
+      </div>
+    </li>         
   )
   
 }
 
 Filling.propTypes = { 
-  fillingData: PropTypes.arrayOf(ingredientPropType).isRequired 
-}   
+  ingredientData: ingredientPropType.isRequired
+}  
 
 export default Filling;

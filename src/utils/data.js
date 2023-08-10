@@ -1,1 +1,0 @@
-export const urlBase = "https://norma.nomoreparties.space/api/ingredients";

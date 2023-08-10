@@ -6,6 +6,11 @@
 
 }
 
+.box_highlight {
+  border: 3px solid #2b3042;
+
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -29,5 +34,28 @@
   margin: 0;
   align-items: center;
   column-gap: 8px;
+
+}
+
+.fillings {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  width: 568px;
+  height: 656px;
+  list-style-type: none;
+  padding-left: 0;
+  overflow-y: scroll;
+
+}
+      
+.fillings::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+
+}
+      
+.fillings::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
 
 }

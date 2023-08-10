@@ -1,28 +1,82 @@
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useState, useMemo } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
-import styles from "./burger-constructor.module.css"
-import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
+import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
+import { addIngredient } from "../../services/actions/burger-constructor.js";
+import styles from "./burger-constructor.module.css";
 
-function BurgerConstructor({ingredientsData}) {
- 
+function BurgerConstructor() {
+
+  const getConstructorData = (store) => store.constructorData;
+  const { bunsData, fillingData } = useSelector(getConstructorData);
+  const dispatch = useDispatch();
+
+  const ingredientsId = useMemo(() => {
+    let allId = [];
+    if (fillingData.length > 0)  {
+      allId = fillingData.filter((item) => item._id)
+    }
+    if (bunsData !== undefined)  {
+      allId = [...allId, bunsData._id]
+    }
+    return allId;
+  }, [fillingData, bunsData]);
+
+  const totalPrice = useMemo(() => {
+    let price = 0;
+    if (bunsData !== undefined) {
+      price += bunsData.price * 2;
+    }
+    if (fillingData !== undefined) {
+      let fillingPrice = 0;
+      fillingData.forEach((element) => {
+        fillingPrice += element.price
+      });
+      price += fillingPrice;
+    } 
+    return price;
+  }, [bunsData, fillingData]);
+
   const [isOpenModal, setIsOpenModal] = useState(false);
   const openModal = () => {
     setIsOpenModal(true);
+    dispatch(createOrder(ingredientsId));
   }
   const closeModal = () => {
     setIsOpenModal(false);
+    dispatch(removeOrderNumber());
   }
-  const bunsData = useMemo(
-    () => { return ingredientsData.find((item) => item.type === 'bun'); }, [ingredientsData]
-  );
-  const fillingData = useMemo(() => ingredientsData.filter((item) => item.type !== 'bun'), [ingredientsData]);
+
+  const onDropHandler = (ingredientData) => {
+    dispatch(addIngredient(ingredientData));
+  }
+  
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(ingredientData) {
+      onDropHandler(ingredientData);
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
+  });
+
+  const isNotAcceptableOrder = useMemo(() => {
+    let isNotAcceptableOrder = true;
+    if (bunsData !== undefined) {
+      isNotAcceptableOrder = false;
+    }
+    return isNotAcceptableOrder;
+  }, [bunsData]); 
+
+  const highlightBox = isHover ? (styles.box_highlight) : null; 
 
   return (
-    <section className={`pt-25 pr-4 pl-4 ${styles.box}`}>
+    <section className={`pt-25 pr-4 pl-4 ${styles.box} ${highlightBox}`} ref={dropTarget}> 
       <div className={`pb-10 ${styles.list}`}>
         <div className="pl-8 pb-4">
           {bunsData ? (
@@ -35,45 +89,50 @@ function BurgerConstructor({ingredientsData}) {
             thumbnail={bunsData.image}
           />
           ) : null} 
+        </div>
+
+        <ul className={`pr-2 ${styles.fillings}`} >
+        { fillingData.map((element) => {
+          return  ( 
+            <Filling ingredientData={element} key={element._localId}/>
+          )})
+        }  
+        </ul>  
         
-        </div>  
-        <Filling fillingData ={fillingData} />
         <div className="pl-8">
-        
-        {bunsData ? (
-          <ConstructorElement 
-            type="bottom"
-            isLocked={true}
-            key={bunsData._id}
-            text= {`${bunsData.name} (низ)`}
-            price={bunsData.price}
-            thumbnail={bunsData.image}
-          />
-          ) : null} 
+          {bunsData ? (
+            <ConstructorElement 
+              type="bottom"
+              isLocked={true}
+              key={bunsData._id}
+              text= {`${bunsData.name} (низ)`}
+              price={bunsData.price}
+              thumbnail={bunsData.image}
+            />
+            ) : null} 
         </div> 
       </div>
 
       <div className={styles.result}>
         <div className={`pr-10 ${styles.calculation}`}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium"> {totalPrice} </p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={openModal}>
+        <Button htmlType="button" type="primary" size="large" onClick={openModal} disabled ={isNotAcceptableOrder}>
           Оформить заказ
         </Button>
       </div>
+      
       { isOpenModal && (
-        <ModalBase closeModal={closeModal}>
-          <OrderDetails/>
-        </ModalBase>)
+        <>
+          <ModalBase closeModal={closeModal}>
+            <OrderDetails/>
+          </ModalBase>
+        </> )
       }
     </section>   
   );
- 
-}
-      
-BurgerConstructor.propTypes = { 
-  ingredientsData: PropTypes.arrayOf(ingredientPropType).isRequired 
-}      
-      
+
+}     
+     
 export default BurgerConstructor;
