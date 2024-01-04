@@ -1,4 +1,6 @@
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from 'react-router-dom';
+import { HOME_PAGE, PROFILE_PAGE } from "../../utils/constants.js";
 import styles from "./app-header.module.css"
 
 function AppHeader() {
@@ -9,10 +11,10 @@ function AppHeader() {
         
         <ul className={styles.list}>
           <li>
-            <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
+            <NavLink to={HOME_PAGE} className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
               <BurgerIcon type="primary" />
               <p className="text text_type_main-default"> Конструктор </p>
-            </a>
+            </NavLink>
           </li>
           <li>
             <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
@@ -28,10 +30,10 @@ function AppHeader() {
         
         <ul className={styles.list}>
           <li>
-            <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
+            <NavLink to={PROFILE_PAGE} className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
               <ProfileIcon type="secondary" />
               <p className="text text_type_main-default text_color_inactive"> Личный кабинет </p>
-            </a>  
+            </NavLink>  
           </li>
         </ul>
       </nav>

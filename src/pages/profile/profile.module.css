@@ -1,0 +1,39 @@
+.box {
+    display: flex;
+    flex-direction: row;
+    max-width: 1280px;
+    margin: 0;
+    padding: 120px 0 0 340px;
+    align-items: flex-start;
+ 
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    margin: 0;
+    padding: 0 60px 0 0;
+  
+
+
+  }
+
+
+  
+  /*.form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 180px;
+    width: 480px;
+    align-items: center;
+  
+  }  */
+  
+  .link {
+    text-decoration: none;
+    color: #8585AD;
+    cursor: pointer;
+    padding: 17px 0;
+    
+  }
