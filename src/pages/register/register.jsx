@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 import { registerUser } from "../../services/actions/user-register.js";
+import { getUser } from "../../services/actions/user-get.js";
 import styles from "./register.module.css";
 
 function RegisterPage() {
@@ -25,6 +26,10 @@ function RegisterPage() {
     event.preventDefault();
     dispatch(registerUser(formValues));
   };
+
+  /*useEffect(() => { 
+    return successRegister ? dispatch(getUser()) : null
+  }, [successRegister, dispatch]);*/
 
   useEffect(() => {
     return successRegister ? navigate(HOME_PAGE, { replace: true }) : null

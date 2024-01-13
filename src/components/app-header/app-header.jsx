@@ -1,10 +1,18 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink } from 'react-router-dom';
-import { HOME_PAGE, PROFILE_PAGE } from "../../utils/constants.js";
+import { useLocation, NavLink } from 'react-router-dom';
+import { HOME_PAGE, ORDER_FEED_PAGE, PROFILE_PAGE } from "../../utils/constants.js";
 import styles from "./app-header.module.css"
 
 function AppHeader() {
 
+  const location = useLocation();
+
+  const pathBeginning = "/" + location.pathname.split('/')[1];
+  //const pathBeginning = location.pathname;
+  const baseClassLink = "text text_type_main-default"; 
+  const getBurgerIconType = (path) => (path === pathBeginning) ? "primary" : "secondary";
+  const getLinkTextClass = (path) => (path === pathBeginning) ? baseClassLink : `${baseClassLink} text_color_inactive`;
+  
   return (  
     <header>
       <nav className={`pt-4 pb-4 ${styles.content}`}>
@@ -12,15 +20,15 @@ function AppHeader() {
         <ul className={styles.list}>
           <li>
             <NavLink to={HOME_PAGE} className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
-              <BurgerIcon type="primary" />
-              <p className="text text_type_main-default"> Конструктор </p>
+              <BurgerIcon type={getBurgerIconType(HOME_PAGE)} />
+              <p className={getLinkTextClass(HOME_PAGE)}> Конструктор </p>
             </NavLink>
           </li>
           <li>
-            <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
-              <ListIcon type="secondary" />
-              <p className="text text_type_main-default text_color_inactive"> Лента заказов </p>
-            </a>   
+            <NavLink to={ORDER_FEED_PAGE} className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
+              <ListIcon type={getBurgerIconType(ORDER_FEED_PAGE)} />
+              <p className={getLinkTextClass(ORDER_FEED_PAGE)}> Лента заказов </p>
+            </NavLink>   
           </li>
         </ul>
         
@@ -31,8 +39,8 @@ function AppHeader() {
         <ul className={styles.list}>
           <li>
             <NavLink to={PROFILE_PAGE} className={`pt-4 pr-5 pb-4 pl-5 ${styles.button}`}>
-              <ProfileIcon type="secondary" />
-              <p className="text text_type_main-default text_color_inactive"> Личный кабинет </p>
+              <ProfileIcon type={getBurgerIconType(PROFILE_PAGE)} />
+              <p className={getLinkTextClass(PROFILE_PAGE)}> Личный кабинет </p>
             </NavLink>  
           </li>
         </ul>

@@ -1,30 +1,80 @@
-//import { useState } from "react";
-import { NavLink } from "react-router-dom";
-//import { /*EmailInput,*/ PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { PROFILE_PAGE } from "../../utils/constants.js";
+import { useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/constants.js";
 import ProfileForm from "../../components/profile-form/profile-form.jsx";
+import OrderHistoryPage from "../../pages/order-history/order-history.jsx";
+import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout.js";
+import { getUser, resetGetUserData } from "../../services/actions/user-get.js";
 import styles from "./profile.module.css";
-
+import { resetUpdateUserData } from "../../services/actions/user-update.js";
 function ProfilePage() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const getLogoutUserData = (store) => store.logoutUserData;
+  const { logoutRequest, logoutFailed, successLogout } = useSelector(getLogoutUserData);
+
+  const logout = (event) => {
+    event.preventDefault();
+    dispatch(logoutUser());
+  };
   
- /* const [formValues, setFormValues] = useState({ email:"", password:"" });
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetGetUserData());
+      dispatch(resetUpdateUserData());
+      dispatch(resetLogoutUserData());
+    }
+  }, []);
+
   
-  const onChange = (event) => (
-    setFormValues({...formValues, [event.target.name]: event.target.value})
-  )*/
+
+  
+
+  
+
+  useEffect(() => {
+    console.log("!!!" + successLogout);
+    return successLogout ? navigate(LOGIN_PAGE, { replace: true }) : null
+  }, [successLogout, navigate]);
+  
+  const currentPath = location.pathname;  
+  const baseClassLink = `text text_type_main-medium ${styles.link}`; 
+//const classLink = ({isActive}) => isActive ? `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
+
+const getLinkTextClass = (path) => (path === currentPath) ? `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
+
+/*useEffect(() => {    // !!!!!!!!!!!!!!!!!!!!!
+  console.log("7777777");
+  return successLogout ? dispatch(getUser()) : null
+}, [successLogout, dispatch]);*/
+
+
+  if (logoutFailed) {
+    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
+  } else if (logoutRequest) {
+    return <p className="text text_type_main-medium"> Загрузка... </p>
+  } else {
 
   return (
     <div className={styles.box}>
       <nav className={styles.menu}>
-        <NavLink to={PROFILE_PAGE} className={`text text_type_main-medium ${styles.link}`}>
+        <NavLink to={PROFILE_PAGE} className={getLinkTextClass(PROFILE_PAGE)} >
           Профиль
         </NavLink>
 
-        <NavLink className={`text text_type_main-medium ${styles.link}`}>
+        <NavLink to={ORDER_HISTORY_PAGE} className={getLinkTextClass(ORDER_HISTORY_PAGE)} >
           История заказов
         </NavLink>
 
-        <NavLink className={`text text_type_main-medium ${styles.link}`}>
+        <NavLink to={LOGIN_PAGE} className={`${baseClassLink} ${styles.inactiveLink}`} onClick={logout}>
           Выход
         </NavLink>
 
@@ -34,12 +84,12 @@ function ProfilePage() {
 
       </nav>
 
-      <ProfileForm />
+      { (currentPath === ORDER_HISTORY_PAGE) ? <OrderHistoryPage /> : <ProfileForm /> }
 
     </div>  
   )
 
-}
+}}
 
 export default ProfilePage;
 

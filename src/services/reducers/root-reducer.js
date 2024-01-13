@@ -5,6 +5,11 @@ import { constructorReducer } from './burger-constructor.js';
 import { orderReducer } from './order-details.js';
 import { registerUserReducer } from './user-register.js';
 import { loginUserReducer } from './user-login.js';
+import { logoutUserReducer } from './user-logout.js';
+import { forgotPasswordReducer } from './password-forgot.js';
+import { resetPasswordReducer } from './password-reset.js';
+import { getUserReducer } from './user-get.js';
+import { updateUserReducer } from './user-update.js';
 
 const rootReducer = combineReducers({
   ingredientsData: ingredientsReducer,
@@ -12,7 +17,12 @@ const rootReducer = combineReducers({
   constructorData: constructorReducer,
   orderNumber: orderReducer,
   registerUserData: registerUserReducer,
-  loginUserData: loginUserReducer
+  loginUserData: loginUserReducer,
+  logoutUserData: logoutUserReducer,
+  forgotPasswordData: forgotPasswordReducer,
+  resetPasswordData: resetPasswordReducer,
+  getUserData: getUserReducer,
+  updateUserData: updateUserReducer
 }); 
 
 export default rootReducer;

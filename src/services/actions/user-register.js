@@ -1,4 +1,4 @@
-import { REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED } from "../../utils/constants.js";
+import { ACCESS_TOKEN, REFRESH_TOKEN, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED } from "../../utils/constants.js";
 import { registerApi } from "../../utils/api.jsx";
 import { setCookie } from "../../utils/cookie.js";
 
@@ -9,8 +9,8 @@ export function registerUser(userData) {
     registerApi(userData)
     .then((res) => {  
       if (res && res.success) {
-        setCookie("accessToken", res.accessToken.split('Bearer ')[1]);
-        localStorage.setItem("refreshToken", res.refreshToken);
+        setCookie(ACCESS_TOKEN, res.accessToken.split('Bearer ')[1]);
+        localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
         dispatch({ type: REGISTER_USER_SUCCESS,
           success: res.success, 
           user: res.user});

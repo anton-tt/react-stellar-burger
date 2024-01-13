@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED } from "../../utils/constants.js";
+import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_RESET_DATA } from "../../utils/constants.js";
 
 const initialState = {
   loginRequest: false,
@@ -29,6 +29,14 @@ export const loginUserReducer = (state = initialState, action) => {
       return { 
         ...state, 
         loginFailed: true, 
+        loginRequest: false,
+        successLogin: false 
+      };
+    }
+    case LOGIN_USER_RESET_DATA: {
+      return { 
+        ...state, 
+        loginFailed: false, 
         loginRequest: false,
         successLogin: false 
       };

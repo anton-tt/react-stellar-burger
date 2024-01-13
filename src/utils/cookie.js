@@ -1,4 +1,7 @@
 export function setCookie(name, value, props) {
+
+console.log("vvv" + value);
+
   props = props || {};
   let exp = props.expires;
   

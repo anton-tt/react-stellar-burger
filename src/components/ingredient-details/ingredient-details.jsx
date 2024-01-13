@@ -1,10 +1,47 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styles from "./ingredient-details.module.css";
 
-function IngredientDetails() {
-  const getIngredientData = (store) => store.ingredient;
-  const { ingredient } = useSelector(getIngredientData);
+import { useMemo, useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
 
+import { getIngredientsList } from "../../services/actions/burger-ingredients.js";
+
+
+function IngredientDetails() {
+  
+  console.log("!!!");
+  const dispatch = useDispatch();
+  useEffect(()=> {
+    dispatch(getIngredientsList());
+    
+  }, []);
+  const getIngredientsData = (store) => store.ingredientsData;
+  const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
+  const getIngredientData = (store) => store.ingredient;
+ //const { ingredient } = useSelector(getIngredientData);
+  const ingredientIdData = useParams();
+  console.log(ingredientIdData);
+
+ 
+  console.log(ingredientsData);
+
+
+  //const ingredient = useMemo(() => ingredientsData.find((item) => item._id === ingredientId), [ingredientsData]);
+
+  const ingredient = ingredientsData.find((item) => {
+    console.log(item._id);
+    console.log(ingredientIdData.id);
+    if (item._id === ingredientIdData.id) {
+      return item;
+    }});
+  console.log(ingredient);
+
+  if (!ingredientIdData || !ingredient) return null; 
+  console.log(ingredient);
+  if (ingredientsRequest) {
+    return <p className="text text_type_main-medium">Загрузка...</p>
+  } else {
   return (
     <section  className={styles.box}>
       <h2 className={`text text_type_main-large ${styles.header}`}>Детали ингредиента</h2>
@@ -31,6 +68,6 @@ function IngredientDetails() {
     </section>
   );
 
-}
+}}
       
 export default IngredientDetails;

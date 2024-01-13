@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { HOME_PAGE, REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants.js";
-import { loginUser } from "../../services/actions/user-login.js";
+import { loginUser, resetLoginUserData } from "../../services/actions/user-login.js";
+import { getUser } from "../../services/actions/user-get.js";
 import styles from "./login.module.css";
 
 function LoginPage() {
@@ -24,11 +25,48 @@ function LoginPage() {
   const submitForm = (event) => {
     event.preventDefault();
     dispatch(loginUser(formValues));
+    //dispatch(getUser());
   };
+
+ useEffect(() => {    // !!!!!!!!!!!!!!!!!!!!!
+  //console.log("!!" + successLogin);
+  //console.log();
+    return successLogin && dispatch(getUser())
+  }, [successLogin, dispatch]);
 
   useEffect(() => {
     return successLogin ? navigate(HOME_PAGE, { replace: true }) : null
   }, [successLogin, navigate]);
+  
+
+
+  /*useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);*/
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetLoginUserData());
+    }
+  }, []);
+
+  
+  
+  
+  /*const location = useLocation();
+  useEffect(() => {
+    return successLogin ? <Navigate to={location?.state?.from || '/'} /> : null
+  }, [successLogin, location.state]);
+  const [fromPath, setFromPath] = useState('/');
+  useEffect(() => {
+    if (location.state && location.state.from) {
+      setFromPath(location.state.from);
+    }
+  }, [location.state]);*/
+
+
+
+
 
   if (loginFailed) {
     return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>

@@ -5,9 +5,10 @@ import { useDrag } from "react-dnd";
 import styles from "./ingredient.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Ingredient({openModal, ingredientData}) {
-
+  const location = useLocation();
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
     item: ingredientData,
@@ -33,7 +34,13 @@ function Ingredient({openModal, ingredientData}) {
 
   const highlightBox = isDrag ? (styles.box_highlight) : null; 
 
-  return (  
+  return ( 
+    <Link
+      
+      to={`/ingredients/${ingredientData._id}`}
+      state={{ background: location }}
+      
+    > 
     <div className={`${styles.ingredient} ${highlightBox}`} onClick={openModal} ref={dragRef} >
       {((ingredientCount > 0) || isDrag) ?  (  
         <Counter count={ingredientCount} size="default" extraClass="m-1" />
@@ -45,6 +52,7 @@ function Ingredient({openModal, ingredientData}) {
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>{ingredientData.name}</p>
     </div>
+    </Link>
   );
   
 }
