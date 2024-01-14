@@ -1,4 +1,5 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED } from "../../utils/constants.js";
+import { ACCESS_TOKEN, REFRESH_TOKEN, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED, 
+  REGISTER_USER_RESET_DATA } from "../../utils/constants.js";
 import { registerApi } from "../../utils/api.jsx";
 import { setCookie } from "../../utils/cookie.js";
 
@@ -23,4 +24,8 @@ export function registerUser(userData) {
     }) 
   }
 
+}
+
+export function registerLoginUserData() { 
+  return ({ type: REGISTER_USER_RESET_DATA });
 }

@@ -21,17 +21,17 @@ export const forgotPasswordReducer = (state = initialState, action) => {
     case FORGOT_PASSWORD_SUCCESS: {
       return { 
         ...state,
-        successForgot: action.success,
-        messageForgot: action.message, 
         forgotRequest: false, 
-        forgotFailed: false 
+        forgotFailed: false, 
+        successForgot: action.success,
+        messageForgot: action.message
       };
     }
     case FORGOT_PASSWORD_FAILED: {
       return { 
         ...state, 
-        forgotFailed: true, 
         forgotRequest: false,
+        forgotFailed: true, 
         successForgot: false,
         messageForgot: "" 
       };

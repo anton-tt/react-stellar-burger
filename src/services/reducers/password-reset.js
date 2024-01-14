@@ -21,17 +21,17 @@ export const resetPasswordReducer = (state = initialState, action) => {
     case RESET_PASSWORD_SUCCESS: {
       return { 
         ...state,
-        successReset: action.success,
-        messageReset: action.message, 
         resetRequest: false, 
-        resetFailed: false 
+        resetFailed: false, 
+        successReset: action.success,
+        messageReset: action.message  
       };
     }
     case RESET_PASSWORD_FAILED: {
       return { 
         ...state, 
-        resetFailed: true, 
         resetRequest: false,
+        resetFailed: true, 
         successReset: false,
         messageReset: "" 
       };

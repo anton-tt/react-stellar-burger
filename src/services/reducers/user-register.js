@@ -1,4 +1,4 @@
-import { REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED } from "../../utils/constants.js";
+import { REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED, REGISTER_USER_RESET_DATA } from "../../utils/constants.js";
 
 const initialState = {
   registerRequest: false,
@@ -13,23 +13,35 @@ export const registerUserReducer = (state = initialState, action) => {
       return {
         ...state,
         registerRequest: true,
-        registerFailed: false
+        registerFailed: false,
+        userData: undefined,
+        successRegister: false
       };
     }
     case REGISTER_USER_SUCCESS: {
       return { 
         ...state,
-        successRegister: action.success, 
-        userData: action.user,
         registerRequest: false, 
-        registerFailed: false 
+        registerFailed: false,
+        userData: action.user,
+        successRegister: action.success 
       };
     }
     case REGISTER_USER_FAILED: {
       return { 
         ...state, 
-        registerFailed: true, 
         registerRequest: false,
+        registerFailed: true, 
+        userData: undefined,
+        successRegister: false 
+      };
+    }
+    case REGISTER_USER_RESET_DATA: {
+      return { 
+        ...state, 
+        registerFailed: false, 
+        registerRequest: false,
+        userData: undefined,
         successRegister: false 
       };
     }

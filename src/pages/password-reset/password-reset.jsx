@@ -7,12 +7,12 @@ import { resetPassword, resetPasswordResetData } from "../../services/actions/pa
 import styles from "./password-reset.module.css";
 
 function PasswordResetPage() {
-  
-  const [formValues, setFormValues] = useState({ password:"", token:"" });
-  
+    
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const [formValues, setFormValues] = useState({ password:"", token:"" });
 
   const getResetPasswordData = (store) => store.resetPasswordData;
   const { resetRequest, resetFailed, successReset } = useSelector(getResetPasswordData);
@@ -29,12 +29,11 @@ function PasswordResetPage() {
   };
 
   useEffect(() => {
-    return successReset ? navigate(LOGIN_PAGE, { replace: false }) : null
+    return (messageForgot !== FORGOT_MESSAGE_SUCCESS) && navigate(LOGIN_PAGE, { replace: true })
   }, [successReset, navigate]);
 
   useEffect(() => {
-    console.log(messageForgot);
-    return (messageForgot !== FORGOT_MESSAGE_SUCCESS) ? navigate(LOGIN_PAGE, { replace: false }) : null
+    return successReset && navigate(LOGIN_PAGE, { replace: false })
   }, [successReset, navigate]);
 
   useEffect(() => {
@@ -43,9 +42,7 @@ function PasswordResetPage() {
     }
   }, []);
 
-  if /*(messageForgot !== FORGOT_MESSAGE_SUCCESS) {
-    navigate(LOGIN_PAGE, { replace: false })
-  } else if*/ (resetRequest) {
+  if (resetRequest) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
   } else if (resetFailed) {
     return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>

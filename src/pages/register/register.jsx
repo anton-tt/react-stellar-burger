@@ -3,21 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
-import { registerUser } from "../../services/actions/user-register.js";
-import { getUser } from "../../services/actions/user-get.js";
+import { registerUser, registerLoginUserData } from "../../services/actions/user-register.js";
 import styles from "./register.module.css";
 
 function RegisterPage() {
 
-  const [formValues, setFormValues] = useState({ name: "", email: "", password: "" });
-  
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
+  const [formValues, setFormValues] = useState({ name: "", email: "", password: "" });
+
   const getRegisterUserData = (store) => store.registerUserData;
   const { registerRequest, registerFailed, successRegister } = useSelector(getRegisterUserData);
-  
+
   const onChange = (event) => {
     setFormValues({...formValues, [event.target.name]: event.target.value})
   };
@@ -27,18 +26,20 @@ function RegisterPage() {
     dispatch(registerUser(formValues));
   };
 
-  /*useEffect(() => { 
-    return successRegister ? dispatch(getUser()) : null
-  }, [successRegister, dispatch]);*/
-
   useEffect(() => {
-    return successRegister ? navigate(HOME_PAGE, { replace: true }) : null
+    return successRegister && navigate(HOME_PAGE, { replace: true })
   }, [successRegister, navigate]);
 
-  if (registerFailed) {
-    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
-  } else if (registerRequest) {
+  useEffect(() => {
+    return () => {
+      dispatch(registerLoginUserData());
+    }
+  }, []);
+
+  if (registerRequest) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
+  } else if (registerFailed) {
+    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p> 
   } else {
       return (
       <div className={styles.box}>

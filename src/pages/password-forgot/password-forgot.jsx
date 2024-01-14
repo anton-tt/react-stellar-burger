@@ -8,11 +8,11 @@ import styles from "./password-forgot.module.css";
 
 function PasswordForgotPage() {
   
-  const [formValues, setFormValues] = useState({ email: "" });
-  
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const [formValues, setFormValues] = useState({ email: "" });
 
   const getForgotPasswordData = (store) => store.forgotPasswordData;
   const { forgotRequest, forgotFailed, successForgot } = useSelector(getForgotPasswordData);
@@ -27,7 +27,7 @@ function PasswordForgotPage() {
   };
 
   useEffect(() => {
-    return successForgot ? navigate(PASSWORD_RESET_PAGE, { replace: false }) : null
+    return successForgot && navigate(PASSWORD_RESET_PAGE, { replace: false })
   }, [successForgot, navigate]);
 
   useEffect(() => {
