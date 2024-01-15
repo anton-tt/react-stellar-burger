@@ -13,33 +13,36 @@ export const updateUserReducer = (state = initialState, action) => {
       return {
         ...state,
         updateUserRequest: true,
-        updateUserFailed: false
+        updateUserFailed: false,
+        updateUserData: undefined,
+        successUpdateUser: false
       };
     }
     case UPDATE_USER_SUCCESS: {
       return { 
         ...state,
-        successUpdateUser: action.success, 
-        updateUserData: action.user,
         updateUserRequest: false, 
-        updateUserFailed: false 
+        updateUserFailed: false, 
+        updateUserData: action.user,
+        successUpdateUser: action.success 
       };
     }
     case UPDATE_USER_FAILED: {
       return { 
         ...state, 
-        updateUserFailed: true, 
         updateUserRequest: false,
-        successUpdateUser: false 
+        updateUserFailed: true, 
+        updateUserData: undefined,
+        successUpdateUser: false
       };
     }
     case UPDATE_USER_RESET_DATA: {
       return { 
         ...state, 
-        updateUserFailed: false, 
         updateUserRequest: false,
-        successUpdateUser: false,
-        updateUserData: undefined 
+        updateUserFailed: false, 
+        updateUserData: undefined, 
+        successUpdateUser: false
       };
     }
     default: {

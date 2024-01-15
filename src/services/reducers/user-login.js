@@ -13,31 +13,35 @@ export const loginUserReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: true,
-        loginFailed: false
+        loginFailed: false,
+        userData: undefined,
+        successLogin: false
       };
     }
     case LOGIN_USER_SUCCESS: {
       return { 
         ...state,
-        successLogin: action.success, 
-        userData: action.user,
         loginRequest: false, 
-        loginFailed: false 
+        loginFailed: false, 
+        userData: action.user,
+        successLogin: action.success 
       };
     }
     case LOGIN_USER_FAILED: {
       return { 
         ...state, 
-        loginFailed: true, 
         loginRequest: false,
+        loginFailed: true, 
+        userData: undefined,
         successLogin: false 
       };
     }
     case LOGIN_USER_RESET_DATA: {
       return { 
         ...state, 
-        loginFailed: false, 
         loginRequest: false,
+        loginFailed: false, 
+        userData: undefined,
         successLogin: false 
       };
     }

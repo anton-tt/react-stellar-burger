@@ -6,12 +6,15 @@ import ProfileForm from "../../components/profile-form/profile-form.jsx";
 import OrderHistoryPage from "../../pages/order-history/order-history.jsx";
 import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout.js";
 import { getUser, resetGetUserData } from "../../services/actions/user-get.js";
-import styles from "./profile.module.css";
 import { resetUpdateUserData } from "../../services/actions/user-update.js";
+import styles from "./profile.module.css";
+
 function ProfilePage() {
 
   const dispatch = useDispatch();
+  
   const navigate = useNavigate();
+  
   const location = useLocation();
 
   const getLogoutUserData = (store) => store.logoutUserData;
@@ -27,40 +30,26 @@ function ProfilePage() {
   }, [dispatch]);
 
   useEffect(() => {
+    return successLogout && navigate(LOGIN_PAGE, { replace: true })
+  }, [successLogout, navigate]);
+
+  useEffect(() => {
     return () => {
       dispatch(resetGetUserData());
       dispatch(resetUpdateUserData());
       dispatch(resetLogoutUserData());
     }
-  }, []);
-
-  
-
-  
-
-  
-
-  useEffect(() => {
-    console.log("!!!" + successLogout);
-    return successLogout ? navigate(LOGIN_PAGE, { replace: true }) : null
-  }, [successLogout, navigate]);
+  }, []); 
   
   const currentPath = location.pathname;  
   const baseClassLink = `text text_type_main-medium ${styles.link}`; 
-//const classLink = ({isActive}) => isActive ? `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
 
-const getLinkTextClass = (path) => (path === currentPath) ? `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
+  const getLinkTextClass = (path) => (path === currentPath) ? `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
 
-/*useEffect(() => {    // !!!!!!!!!!!!!!!!!!!!!
-  console.log("7777777");
-  return successLogout ? dispatch(getUser()) : null
-}, [successLogout, dispatch]);*/
-
-
-  if (logoutFailed) {
-    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
-  } else if (logoutRequest) {
+  if (logoutRequest) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
+  } else if (logoutFailed) {
+    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
   } else {
 
   return (
@@ -92,44 +81,3 @@ const getLinkTextClass = (path) => (path === currentPath) ? `${baseClassLink} ${
 }}
 
 export default ProfilePage;
-
-/*
-  
-  <EmailInput
-          type={'email'}
-          placeholder={'E-mail'}
-          name={'email'}
-          value={formValues.email}
-          onChange={onChange}
-          required
-          extraClass="mb-6"
-        />
-<form className={styles.form}>
-        <h1 className="text text_type_main-medium mb-6"> Вход </h1>
-
-        
-
-        <PasswordInput
-          type={'password'}
-          placeholder={'Пароль'}
-          name={'password'}
-          value={formValues.password}
-          onChange={onChange}
-          required
-          icon="ShowIcon"
-          extraClass="mb-6"
-        />
-
-        <Button htmlType="button" type="primary" size="medium" extraClass="mb-20"> Войти </Button>
-
-        <div className="text text_type_main-default pb-4">
-          <span className="text_color_inactive"> Вы - новый пользователь? </span>
-          <Link className={styles.link} to={REGISTER_PAGE} > Зарегистрироваться </Link>
-        </div>
-        <div className="text text_type_main-default">  
-          <span className="text_color_inactive"> Забыли пароль? </span>
-          <Link className={styles.link} to={PASSWORD_FORGOT_PAGE} > Восстановить пароль </Link>
-        </div>
-
-      </form>  
-  */

@@ -1,4 +1,5 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN, LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, LOGOUT_USER_RESET_DATA } from "../../utils/constants.js";
+import { ACCESS_TOKEN, REFRESH_TOKEN, LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, 
+  LOGOUT_USER_RESET_DATA } from "../../utils/constants.js";
 import { logoutApi } from "../../utils/api.jsx";
 import { deleteCookie } from "../../utils/cookie.js";
 
@@ -12,7 +13,8 @@ export function logoutUser() {
         deleteCookie(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
         dispatch({ type: LOGOUT_USER_SUCCESS,
-          success: res.success });
+          success: res.success,
+          message: res.message });
       } else {
         dispatch({type: LOGOUT_USER_FAILED});
       }

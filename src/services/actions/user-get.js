@@ -5,24 +5,15 @@ export function getUser() {
   
   return function (dispatch) {
     dispatch({ type: GET_USER });
-
-
-   // console.log("88888888");
-
-
     getUserData()
     .then((res) => {  
       if (res && res.success) {
         dispatch({ type: GET_USER_SUCCESS,
           success: res.success, 
           user: res.user});
-
-        console.log(res);
-
       } else {
         dispatch({type: GET_USER_FAILED  
         });
-        //console.log("res.user");
       }
     }).catch((err) => {
       dispatch({ type: GET_USER_FAILED });

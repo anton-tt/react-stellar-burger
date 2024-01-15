@@ -3,7 +3,8 @@ import { LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, LOGOUT_USER_RESET
 const initialState = {
   logoutRequest: false,
   logoutFailed: false,
-  successLogout: false
+  successLogout: false,
+  successMessage: ""
 }
 
 export const logoutUserReducer = (state = initialState, action) => {
@@ -12,26 +13,27 @@ export const logoutUserReducer = (state = initialState, action) => {
       return {
         ...state,
         logoutRequest: true,
-        logoutFailed: false
+        logoutFailed: false,
+        successLogout: false,
+        successMessage: ""
       };
     }
     case LOGOUT_USER_SUCCESS: {
-
-console.log(action.user);
-
       return { 
-        ...state,
-        successLogout: action.success, 
+        ...state, 
         logoutRequest: false, 
-        logoutFailed: false 
+        logoutFailed: false,
+        successLogout: action.success,
+        successMessage: action.message 
       };
     }
     case LOGOUT_USER_FAILED: {
       return { 
-        ...state, 
-        logoutFailed: true, 
+        ...state,  
         logoutRequest: false,
-        successLogout: false 
+        logoutFailed: true,
+        successLogout: false,
+        successMessage: "" 
       };
     }
     case LOGOUT_USER_RESET_DATA: {
@@ -39,7 +41,8 @@ console.log(action.user);
         ...state, 
         logoutFailed: false, 
         logoutRequest: false,
-        successLogout: false 
+        successLogout: false,
+        successMessage: "" 
       };
     }
     default: {

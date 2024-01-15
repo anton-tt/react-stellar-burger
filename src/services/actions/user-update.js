@@ -11,10 +11,6 @@ export function updateUser(userData) {
         dispatch({ type: UPDATE_USER_SUCCESS,
           success: res.success, 
           user: res.user});
-
-          console.log(res);
-
-
       } else {
         dispatch({type: UPDATE_USER_FAILED});
       }

@@ -1,15 +1,6 @@
-/*.box {
-  display: flex;
-  flex-direction: row;
-  max-width: 1280px;
-  margin: 0 auto;
-
-}*/
-
 .form {
   display: flex;
   flex-direction: column;
-  
   width: 480px;
   align-items: center;
 

@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { HOME_PAGE, REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants.js";
+import { REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants.js";
 import { loginUser, resetLoginUserData } from "../../services/actions/user-login.js";
 import { getUser } from "../../services/actions/user-get.js";
 import styles from "./login.module.css";
-//import {useNavigate} from 'react-router-dom'
+
 function LoginPage() {
   
-  const [formValues, setFormValues] = useState({ email:"", password:"" });
-
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-
+  
+  const [formValues, setFormValues] = useState({ email:"", password:"" });
+  
   const getLoginUserData = (store) => store.loginUserData;
   const { loginRequest, loginFailed, successLogin } = useSelector(getLoginUserData);
   
@@ -25,25 +23,11 @@ function LoginPage() {
   const submitForm = (event) => {
     event.preventDefault();
     dispatch(loginUser(formValues));
-    //dispatch(getUser());
   };
 
- useEffect(() => {    // !!!!!!!!!!!!!!!!!!!!!
-  //console.log("!!" + successLogin);
-  //console.log();
+  useEffect(() => {
     return successLogin && dispatch(getUser())
   }, [successLogin, dispatch]);
-
- /* useEffect(() => {
-    return successLogin ? navigate(HOME_PAGE, { replace: true }) : null
-  }, [successLogin, navigate]);*/
-  console.log("ggggggggggggggggg");
-  console.log(location);
-
-
-  /*useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);*/
 
   useEffect(() => {
     return () => {
@@ -51,42 +35,10 @@ function LoginPage() {
     }
   }, []);
 
-  
-  
-  
-  
-
-  /*const [fromPath, setFromPath] = useState('/');
-
-  useEffect(() => {
-    if (location.state && location.state.from) {
-console.log(location.state);
-
-      setFromPath(location.state.from);
-    }
-  }, [location.state]);
-  useEffect(() => {
-  if (successLogin) {
-
-    console.log(location);
-    return <Navigate to={location?.state?.from || '/'} />;
-  }
-}, [successLogin, location.state]);
-
- /* useEffect(() => {
-    return successLogin ? <Navigate to={location?.state?.from || '/'} /> : null
-  }, [successLogin, location.state]);
-
-  */
-
-
-
-
-
-  if (loginFailed) {
-    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
-  } else if (loginRequest) {
+  if (loginRequest) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
+  } else if (loginFailed) {
+    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
   } else {
     return (
       <div className={styles.box}>
