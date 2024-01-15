@@ -33,7 +33,7 @@ export const fetchWithToken = async (urlBase, requestData) => {
       const accessToken = tokenData.accessToken.split('Bearer ')[1];
       setCookie(ACCESS_TOKEN, accessToken);
       localStorage.setItem(REFRESH_TOKEN, tokenData.refreshToken);
-      requestData.headers.authorization = 'Bearer ' + getCookie(ACCESS_TOKEN)//accessToken;
+      requestData.headers.authorization = 'Bearer ' + getCookie(ACCESS_TOKEN)
       const res = await fetch(urlBase, requestData);
       return await checkResponse(res);
     } else {

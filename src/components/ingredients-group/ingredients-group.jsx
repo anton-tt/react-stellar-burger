@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import Ingredient from "../ingredient/ingredient.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-import styles from "./ingredients-group.module.css";
 import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details.js";
+import styles from "./ingredients-group.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
