@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INGREDIENTS_ROUT } from "../../utils/constants.js";
+import { INGREDIENTS_PATH } from "../../utils/constants.js";
 import styles from "./ingredient.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
@@ -38,7 +38,7 @@ function Ingredient({openModal, ingredientData}) {
   const highlightBox = isDrag ? (styles.box_highlight) : null; 
 
   return ( 
-    <Link to={`${INGREDIENTS_ROUT}${ingredientData._id}`} state={{ background: location }} className={styles.link}>
+    <Link to={`${INGREDIENTS_PATH}/${ingredientData._id}`} state={{ background: location }} className={styles.link}>
 
       <div className={`${styles.ingredient} ${highlightBox}`} onClick={openModal} ref={dragRef} >
         {((ingredientCount > 0) || isDrag) ?  (  
