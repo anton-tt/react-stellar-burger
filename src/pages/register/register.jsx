@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useForm } from "../../hooks/useForm.js";
 import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 import { registerUser, registerLoginUserData } from "../../services/actions/user-register.js";
 import styles from "./register.module.css";
@@ -12,14 +13,14 @@ function RegisterPage() {
 
   const navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState({ name: "", email: "", password: "" });
+  const { formValues, handleChange, setFormValues } = useForm({ 
+    name: "", 
+    email: "", 
+    password: "" 
+  });
 
   const getRegisterUserData = (store) => store.registerUserData;
   const { registerRequest, registerFailed, successRegister } = useSelector(getRegisterUserData);
-
-  const onChange = (event) => {
-    setFormValues({...formValues, [event.target.name]: event.target.value})
-  };
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -51,7 +52,7 @@ function RegisterPage() {
             placeholder={'Имя'} 
             name={'name'} 
             value={formValues.name} 
-            onChange={onChange}
+            onChange={handleChange}
             required
             extraClass="mb-6"
           />
@@ -61,7 +62,7 @@ function RegisterPage() {
             placeholder={'E-mail'}
             name={'email'}
             value={formValues.email}
-            onChange={onChange}
+            onChange={handleChange}
             required
             extraClass="mb-6"
           />
@@ -71,7 +72,7 @@ function RegisterPage() {
             placeholder={'Пароль'}
             name={'password'}
             value={formValues.password}
-            onChange={onChange}
+            onChange={handleChange}
             required
             icon="ShowIcon"
             extraClass="mb-6"

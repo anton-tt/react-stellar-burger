@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useForm } from "../../hooks/useForm.js";
 import { LOGIN_PAGE, FORGOT_MESSAGE_SUCCESS } from "../../utils/constants.js";
 import { resetPassword, resetPasswordResetData } from "../../services/actions/password-reset.js";
 import styles from "./password-reset.module.css";
@@ -12,16 +13,15 @@ function PasswordResetPage() {
 
   const navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState({ password:"", token:"" });
+  const { formValues, handleChange, setFormValues } = useForm({ 
+    password:"", 
+    token:"" 
+  });
 
   const getResetPasswordData = (store) => store.resetPasswordData;
   const { resetRequest, resetFailed, successReset } = useSelector(getResetPasswordData);
   const getForgotPasswordData = (store) => store.forgotPasswordData;
   const { messageForgot } = useSelector(getForgotPasswordData);
-  
-  const onChange = (event) => {
-    setFormValues({...formValues, [event.target.name]: event.target.value})
-  };
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -59,7 +59,7 @@ function PasswordResetPage() {
             placeholder={'Введите новый пароль'}
             name={'password'}
             value={formValues.password}
-            onChange={onChange}
+            onChange={handleChange}
             required
             icon="ShowIcon"
             extraClass="mb-6"
@@ -70,7 +70,7 @@ function PasswordResetPage() {
             placeholder={'Введите код из письма'}
             name={'token'}
             value={formValues.token}
-            onChange={onChange}
+            onChange={handleChange}
             required
             extraClass="mb-6"
           />

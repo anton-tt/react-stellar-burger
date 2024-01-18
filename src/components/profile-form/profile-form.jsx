@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useForm } from "../../hooks/useForm.js";
 import { updateUser } from "../../services/actions/user-update.js";
 import { getUser } from "../../services/actions/user-get.js";
 import styles from "./profile-form.module.css";
@@ -8,8 +9,8 @@ import styles from "./profile-form.module.css";
 function ProfileForm() {
 
   const dispatch = useDispatch();
-  
-  const [formValues, setFormValues] = useState({
+
+  const { formValues, handleChange, setFormValues } = useForm({
     name: "", 
     email: "", 
     password: "" 
@@ -20,10 +21,6 @@ function ProfileForm() {
 
   const getUpdateUserData = (store) => store.updateUserData;
   const { updateUserRequest, updateUserFailed, successUpdateUser, updateUserData } = useSelector(getUpdateUserData);
-
-  const onChange = (event) => {
-    setFormValues({...formValues, [event.target.name]: event.target.value})
-  };
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -80,7 +77,7 @@ function ProfileForm() {
             value={formValues.name} 
             extraClass="mb-6"
             icon="EditIcon"
-            onChange={onChange}
+            onChange={handleChange}
           />
 
           <EmailInput
@@ -90,7 +87,7 @@ function ProfileForm() {
             value={formValues.email}
             icon="EditIcon"
             extraClass="mb-6"
-            onChange={onChange}
+            onChange={handleChange}
           />
 
           <PasswordInput
@@ -100,7 +97,7 @@ function ProfileForm() {
             value={formValues.password}
             icon="EditIcon"
             extraClass="mb-6"
-            onChange={onChange}
+            onChange={handleChange}
           />
 
           <div>

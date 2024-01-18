@@ -37,7 +37,8 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+
+      <Routes location={background || location}>
         <Route path={HOME_PAGE} element={ <BurgerConstructorContainer /> } />
         
         <Route path={REGISTER_PAGE} element={ <PublicRoute element={ <RegisterPage /> } />} />

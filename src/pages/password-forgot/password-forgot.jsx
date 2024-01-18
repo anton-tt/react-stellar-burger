@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useForm } from "../../hooks/useForm.js";
 import { PASSWORD_RESET_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 import { forgotPassword, forgotPasswordResetData } from "../../services/actions/password-forgot.js";
 import styles from "./password-forgot.module.css";
@@ -12,15 +13,13 @@ function PasswordForgotPage() {
 
   const navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState({ email: "" });
+  const { formValues, handleChange, setFormValues } = useForm({
+    email: ""
+  });
 
   const getForgotPasswordData = (store) => store.forgotPasswordData;
   const { forgotRequest, forgotFailed, successForgot } = useSelector(getForgotPasswordData);
   
-  const onChange = (event) => {
-    setFormValues({...formValues, [event.target.name]: event.target.value})
-  };
-
   const submitForm = (event) => {
     event.preventDefault();
     dispatch(forgotPassword(formValues));
@@ -51,7 +50,7 @@ function PasswordForgotPage() {
             placeholder={'E-mail'}
             name={'email'}
             value={formValues.email}
-            onChange={onChange}
+            onChange={handleChange}
             required
             extraClass="mb-6"
           />
