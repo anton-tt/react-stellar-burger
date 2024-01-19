@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import Ingredient from "../ingredient/ingredient.jsx";
-import ModalBase from "../modal-base/modal-base.jsx";
-import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details.js";
 import styles from "./ingredients-group.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
@@ -28,11 +26,7 @@ function IngredientsGroup({groupData}) {
           return ( 
             <li key={element._id}>
               <Ingredient openModal = {() => {openModal(element)}} ingredientData={element} />
-              { isOpenModal && (
-                <ModalBase closeModal={closeModal}>
-                  <IngredientDetails />
-                </ModalBase>) 
-              }
+              
             </li>);
         })
       }  
