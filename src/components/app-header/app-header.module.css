@@ -20,21 +20,31 @@
  
 }
 
-.button {
-  display: flex;
-  flex-direction: row;
-  background-color: transparent;
-  color: #F2F2F3;
-  column-gap: 8px;
-  border-radius: 35px;
-  text-decoration: none;
-  cursor: pointer;
-
-}
-
 .logo {
   position: absolute;
   left: 495px;
   top: 24px;
 
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  column-gap: 8px;
+  border-radius: 35px;
+  text-decoration: none;
+  color: #F2F2F3;
+  cursor: pointer;
+
+}
+
+.inactiveLink {
+  color: #8585AD;
+  
+}
+
+.activeLink {
+  color: #F2F2F3;
+  
 }

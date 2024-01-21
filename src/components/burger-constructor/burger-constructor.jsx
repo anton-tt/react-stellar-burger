@@ -1,20 +1,29 @@
-import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useState, useMemo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
+import { useNavigate, useLocation} from "react-router-dom";
+import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Filling from "../filling/filling.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
+import { REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants.js";
 import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
 import { addIngredient } from "../../services/actions/burger-constructor.js";
 import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor() {
 
-  const getConstructorData = (store) => store.constructorData;
-  const { bunsData, fillingData } = useSelector(getConstructorData);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
+  const getConstructorData = (store) => store.constructorData;
+  const { bunsData, fillingData } = useSelector(getConstructorData);
+  
   const ingredientsId = useMemo(() => {
     let allId = [];
     if (fillingData.length > 0)  {
@@ -75,6 +84,8 @@ function BurgerConstructor() {
 
   const highlightBox = isHover ? (styles.box_highlight) : null; 
 
+  const onClick = refreshToken ? openModal : () => navigate(LOGIN_PAGE, { from: location });
+
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box} ${highlightBox}`} ref={dropTarget}> 
       <div className={`pb-10 ${styles.list}`}>
@@ -118,7 +129,7 @@ function BurgerConstructor() {
           <p className="text text_type_digits-medium"> {totalPrice} </p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={openModal} disabled ={isNotAcceptableOrder}>
+        <Button htmlType="button" type="primary" size="large" onClick={onClick} disabled ={isNotAcceptableOrder}>
           Оформить заказ
         </Button>
       </div>

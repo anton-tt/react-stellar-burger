@@ -1,13 +1,17 @@
-import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {  useMemo } from "react";
 import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
+import { Link, useLocation } from "react-router-dom";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { INGREDIENTS_PATH } from "../../utils/constants.js";
 import styles from "./ingredient.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
 function Ingredient({openModal, ingredientData}) {
-
+  
+  const location = useLocation();
+  
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
     item: ingredientData,
@@ -33,18 +37,22 @@ function Ingredient({openModal, ingredientData}) {
 
   const highlightBox = isDrag ? (styles.box_highlight) : null; 
 
-  return (  
-    <div className={`${styles.ingredient} ${highlightBox}`} onClick={openModal} ref={dragRef} >
-      {((ingredientCount > 0) || isDrag) ?  (  
-        <Counter count={ingredientCount} size="default" extraClass="m-1" />
-      ) : null} 
-      <img src= {ingredientData.image} alt={ingredientData.name}/>
-      <div className={`pt-2 pb-2 ${styles.price}`}>
-        <p className="text text_type_digits-default">{ingredientData.price}</p>
-        <CurrencyIcon type="primary" />
+  return ( 
+    <Link to={`${INGREDIENTS_PATH}/${ingredientData._id}`} state={{ background: location }} className={styles.link}>
+
+      <div className={`${styles.ingredient} ${highlightBox}`} onClick={openModal} ref={dragRef} >
+        {((ingredientCount > 0) || isDrag) ?  (  
+          <Counter count={ingredientCount} size="default" extraClass="m-1" />
+        ) : null} 
+        <img src= {ingredientData.image} alt={ingredientData.name}/>
+        <div className={`pt-2 pb-2 ${styles.price}`}>
+          <p className="text text_type_digits-default">{ingredientData.price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={`${styles.name} text text_type_main-default`}>{ingredientData.name}</p>
       </div>
-      <p className={`text text_type_main-default ${styles.name}`}>{ingredientData.name}</p>
-    </div>
+
+    </Link>
   );
   
 }

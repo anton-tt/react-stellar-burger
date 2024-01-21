@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  align-items: center;
+
+}  
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+
+}

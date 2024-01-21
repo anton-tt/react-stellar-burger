@@ -23,7 +23,7 @@ function ModalBase({ closeModal, children }) {
 
   return createPortal(
     <>  
-      <div className={`pt-30 pr-25 pb-30 pl-25 ${styles.modal}`}>
+      <div className={`pr-25 pb-30 pl-25 ${styles.modal}`}>
         <button className={styles.button} onClick={closeModal}>
           <CloseIcon type="primary" />
         </button>  

@@ -1,17 +1,12 @@
 import { useMemo, useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useInView } from "react-intersection-observer";
 import Tabs from "../tabs/tabs.jsx";
 import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
-import { getIngredientsList } from "../../services/actions/burger-ingredients.js";
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {
   
-  const dispatch = useDispatch();
-  useEffect(()=> {
-    dispatch(getIngredientsList())
-  }, []);
   const getIngredientsData = (store) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 

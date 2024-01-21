@@ -6,12 +6,6 @@
   
 }
 
-.header {
-  position: absolute;
-  top: 40px;
-  left: 40px;
-}
-
 .picture {
   height: 240px;
 
@@ -40,3 +34,10 @@
   column-gap: 8px;
 
 }
+
+/*${styles.header}
+.header {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}*/
