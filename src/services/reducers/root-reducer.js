@@ -10,6 +10,7 @@ import { forgotPasswordReducer } from './password-forgot.js';
 import { resetPasswordReducer } from './password-reset.js';
 import { getUserReducer } from './user-get.js';
 import { updateUserReducer } from './user-update.js';
+import { updateTokenReducer } from './token-update.js';
 
 const rootReducer = combineReducers({
   ingredientsData: ingredientsReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   forgotPasswordData: forgotPasswordReducer,
   resetPasswordData: resetPasswordReducer,
   getUserData: getUserReducer,
-  updateUserData: updateUserReducer
+  updateUserData: updateUserReducer,
+  updateTokenData: updateTokenReducer
 }); 
 
 export default rootReducer;
