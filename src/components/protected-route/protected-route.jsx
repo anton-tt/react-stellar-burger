@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, useLocation} from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ACCESS_TOKEN, REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants.js";
 import { getCookie } from "../../utils/cookie.js";
 import { tokenUpdate } from "../../services/actions/token-update.js";
