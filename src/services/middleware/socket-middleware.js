@@ -5,14 +5,19 @@ const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch } = store;
       const { type, accessToken } = action;
+     // console.log(action);
       const { wsInit, wsSendMessage, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
 
-      if (type === wsInit && accessToken) {
-        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
-      }
+      
 
       if (type === wsInit) {
         socket = new WebSocket(wsUrl);
+      }
+
+      if (type === wsInit && accessToken) {
+        //console.log("!!!");
+       // console.log(`${wsUrl}?token=${accessToken}`);
+        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
       }
 
       if (socket) {

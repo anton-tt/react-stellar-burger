@@ -17,8 +17,9 @@ import OrderFeedPage from "../../pages/order-feed/order-feed.jsx";
 import NotFoundPage from "../../pages/not-found/not-found.jsx";
 
 import { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, PASSWORD_FORGOT_PAGE, PASSWORD_RESET_PAGE, PROFILE_PAGE, ORDER_FEED_PAGE, 
-  ORDER_HISTORY_PAGE, INGREDIENT_PAGE, NOT_FOUND_PAGE } from "../../utils/constants.js";
+  ORDER_HISTORY_PAGE, ORDER_PAGE, INGREDIENT_PAGE, NOT_FOUND_PAGE } from "../../utils/constants.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
+import OrderStructure from "../order-structure/order-structure.jsx";
 import { getIngredientsList } from "../../services/actions/burger-ingredients.js";
 import styles from "./app.module.css";
 
@@ -30,13 +31,15 @@ function App() {
 
   const location = useLocation();
 
- const background = location.state && location.state.background;
+  const background = location.state && location.state.background;
 
   const getCurrentUserData = (store) => store.getUserData;
   const { successGetUser, getUserData } = useSelector(getCurrentUserData);
 
   const getIngredientsData = (store) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
+ /* const getOrderStructureData = (store) => store.orderStructureData;
+  const { getOrderRequest, getOrderFailed, getOrderStructure, successGetOrder } = useSelector(getOrderStructureData);*/
 
   useEffect(()=> {
     dispatch(getIngredientsList()); 
@@ -75,6 +78,8 @@ function App() {
           <Route path={ORDER_FEED_PAGE} element={ <OrderFeedPage /> } />
 
           <Route path={INGREDIENT_PAGE} element={ <IngredientDetails /> } />
+
+          <Route path={ORDER_PAGE} element={ <OrderStructure newPage={true} /> } />
         
           <Route path={NOT_FOUND_PAGE} element={<NotFoundPage />} />  
         </Routes> )}
@@ -83,10 +88,21 @@ function App() {
         (<Routes>
           <Route path={INGREDIENT_PAGE} element={ 
             <ModalBase closeModal={closeModal} >
-              <IngredientDetails /> 
+              <IngredientDetails newPage={false} /> 
             </ModalBase>}
           />
         </Routes> )}
+
+        { background &&
+        (<Routes>
+          <Route path={ORDER_PAGE} element={ 
+            <ModalBase closeModal={closeModal} >
+              <OrderStructure /> 
+            </ModalBase>}
+          />
+        </Routes> )}
+
+        
    
     </div>
   );

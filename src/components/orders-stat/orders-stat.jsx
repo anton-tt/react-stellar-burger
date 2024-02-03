@@ -6,8 +6,8 @@ function OrdersStat({stats}) {
   // console.log(stats[totalOrders]);
   //console.log(totalTodayOrders);
   const {totalOrders, totalTodayOrders, readyOrdersData, unreadyOrdersData} = stats;
-  console.log(readyOrdersData);
-  console.log(unreadyOrdersData);
+  /*console.log(readyOrdersData);
+  console.log(unreadyOrdersData);*/
   const readyNumbers = useMemo(() => {
     return readyOrdersData.map((orderNumber, index) => {
       return <li className={`text text_type_digits-default ${styles.done}`} key={index}>{orderNumber}</li>

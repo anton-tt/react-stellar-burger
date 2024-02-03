@@ -12,6 +12,8 @@ import { getUserReducer } from './user-get.js';
 import { updateUserReducer } from './user-update.js';
 import { updateTokenReducer } from './token-update.js';
 import { wsFeedReducer } from './socket-feed.js';
+import { wsHistoryReducer } from './socket-history.js';
+import { getOrderStructureReducer } from './order-get.js';
 
 const rootReducer = combineReducers({
   ingredientsData: ingredientsReducer,
@@ -26,7 +28,9 @@ const rootReducer = combineReducers({
   getUserData: getUserReducer,
   updateUserData: updateUserReducer,
   updateTokenData: updateTokenReducer,
-  orderFeedData: wsFeedReducer
+  orderFeedData: wsFeedReducer,
+  orderHistoryData: wsHistoryReducer,
+  orderStructureData: getOrderStructureReducer
 }); 
 
 export default rootReducer;
