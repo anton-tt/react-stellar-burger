@@ -1,9 +1,8 @@
-import { ACCESS_TOKEN, WS_HISTORY_CONNECTION_START, WS_HISTORY_CONNECTION_SUCCESS, WS_HISTORY_CONNECTION_ERROR, WS_HISTORY_CONNECTION_CLOSED, 
-    WS_HISTORY_CONNECTION_FINISH, WS_HISTORY_GET_MESSAGE, WS_HISTORY_SEND_MESSAGE } from "../../utils/constants.js";
-    import { getCookie } from "../../utils/cookie.js";
+import { ACCESS_TOKEN, WS_HISTORY_CONNECTION_START, WS_HISTORY_CONNECTION_SUCCESS, WS_HISTORY_CONNECTION_ERROR, 
+  WS_HISTORY_CONNECTION_CLOSED, WS_HISTORY_CONNECTION_FINISH, WS_HISTORY_GET_MESSAGE, WS_HISTORY_SEND_MESSAGE } from "../../utils/constants.js";
+import { getCookie } from "../../utils/cookie.js";
+
 export function startHistoryConnection() { 
-  console.log(getCookie(ACCESS_TOKEN));
-  console.log(localStorage.getItem(ACCESS_TOKEN));
   return ({ type: WS_HISTORY_CONNECTION_START,
             accessToken: getCookie(ACCESS_TOKEN) });
 } 
@@ -21,8 +20,8 @@ export function closedHistoryConnection() {
 }
 
 export function finishHistoryConnection() { 
-    return ({ type: WS_HISTORY_CONNECTION_FINISH });
-  }
+  return ({ type: WS_HISTORY_CONNECTION_FINISH });
+}
 
 export function getMessageHistoryConnection(message) { 
   return ({ type: WS_HISTORY_GET_MESSAGE,

@@ -39,8 +39,8 @@ const composeEnhancers =
       socketMiddleware(WS_HISTORY_URL, wsHistoryActions)
     )
   );
-
 //const enhancer = composeEnhancers(applyMiddleware(thunk));
+
 const store = createStore(rootReducer, enhancer);
 
 export default store;

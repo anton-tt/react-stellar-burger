@@ -5,18 +5,13 @@ const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch } = store;
       const { type, accessToken } = action;
-     // console.log(action);
       const { wsInit, wsSendMessage, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
-
-      
 
       if (type === wsInit) {
         socket = new WebSocket(wsUrl);
       }
 
       if (type === wsInit && accessToken) {
-        //console.log("!!!");
-       // console.log(`${wsUrl}?token=${accessToken}`);
         socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
       }
 
@@ -47,7 +42,7 @@ const socketMiddleware = (wsUrl, wsActions) => {
           socket.send(JSON.stringify(message));
         }
         if (type === wsClose) {
-          socket.close(1000, "стоп, машина!");
+          socket.close(1000, "Работа завершена в плановом порядке.");
           socket = null;
         }
 

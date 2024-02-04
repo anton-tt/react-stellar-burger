@@ -1,47 +1,53 @@
 .box {
   display: flex;
   flex-direction: column;
-  width: 640px;
+  max-width: 640px;
   margin: 0 auto;
   padding: 120px 0 0 0;
-  border: 1px solid red; 
+ 
 }
 
 .text {
   display: flex;
   flex-direction: column;
-  border: 1px solid green;
+
 }
 
 .number {
   align-self: center;
-  border: 1px solid yellow;
+
 }
 
 .done {
   color: #00CCCC;
+
 }
 
 .ingredients {
   max-height: 320px;
   overflow-y: scroll;
+
 }
 .ingredients::-webkit-scrollbar {
-  width: 8px;
+  width: 15px;
+}
+
+.ingredients::-webkit-scrollbar-track {
   background: #2F2F37;
 
 }
 
 .ingredients::-webkit-scrollbar-thumb {
   background-color: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 5px;
 
 }
-.components {}
 
 .footer {
   display: flex;
   flex-direction: row;
-padding-top: 32px;
+  padding-top: 32px;
   justify-content: space-between;
   
 }
@@ -49,42 +55,5 @@ padding-top: 32px;
 .price {
   display: flex;
   flex-direction: row;
+  
 }
-
-
-
-.picture {
-  height: 240px;
-
-}
-
-.name {
-  text-align: center;
-
-}
-
-.list {
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  padding-left: 0;
-  column-gap: 20px;
-  list-style-type: none;
-
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  align-items: center;
-  column-gap: 8px;
-
-}
-
-/*${styles.header}
-.header {
-  position: absolute;
-  top: 40px;
-  left: 40px;
-}*/

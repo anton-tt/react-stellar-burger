@@ -1,4 +1,4 @@
-import { GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED, GET_ORDER_RESET_DATA } from "../../utils/constants.js";
+import { GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED } from "../../utils/constants.js";
 
 const initialState = {
   getOrderRequest: false,
@@ -19,8 +19,6 @@ export const getOrderStructureReducer = (state = initialState, action) => {
       };
     }
     case GET_ORDER_SUCCESS: {
-      console.log("!!!444");
-      console.log(action.orders);
       return { 
         ...state,
         getOrderRequest: false, 
@@ -35,15 +33,6 @@ export const getOrderStructureReducer = (state = initialState, action) => {
         getOrderRequest: false,
         getOrderFailed: true, 
         getOrderStructure: undefined, 
-        successGetOrder: false
-      };
-    }
-    case GET_ORDER_RESET_DATA: {
-      return { 
-        ...state, 
-        getOrderRequest: false,
-        getOrderFailed: false, 
-        getOrderStructure: undefined,
         successGetOrder: false
       };
     }

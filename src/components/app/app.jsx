@@ -38,8 +38,6 @@ function App() {
 
   const getIngredientsData = (store) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
- /* const getOrderStructureData = (store) => store.orderStructureData;
-  const { getOrderRequest, getOrderFailed, getOrderStructure, successGetOrder } = useSelector(getOrderStructureData);*/
 
   useEffect(()=> {
     dispatch(getIngredientsList()); 
@@ -102,8 +100,6 @@ function App() {
           />
         </Routes> )}
 
-        
-   
     </div>
   );
     
