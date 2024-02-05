@@ -1,31 +1,53 @@
-import { Link, useNavigate } from "react-router-dom";
-import { HOME_PAGE } from "../../utils/constants.js";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import OrdersList from "../../components/orders-list/orders-list.jsx";
+import OrdersStat from "../../components/orders-stat/orders-stat.jsx";
+import { startFeedConnection, finishFeedConnection } from "../../services/actions/socket-feed.js";
 import styles from "./order-feed.module.css";
 
 function OrderFeedPage() {
-  
-  const navigate = useNavigate();
+ 
+  const dispatch = useDispatch();
 
-  function goBack() {
-    navigate(-1);
-  }
+  const getOrderFeedData = (store) => store.orderFeedData;
+  const { wsFeedConnected, wsFeedMessages, wsFeedError } = useSelector(getOrderFeedData);
+
+  const isEmptyWsFeedMessages = Object.keys(wsFeedMessages).length === 0;
+
+  useEffect(() => {
+    dispatch(startFeedConnection());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(finishFeedConnection());
+    }
+  }, []);
    
-  return (
-    <div className={styles.box}>
-      <div className="pt-20 pb-10">
+  if (isEmptyWsFeedMessages) {
+    return <p className="text text_type_main-medium"> Загрузка... </p>
+  } else if (wsFeedError) {
+    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
+  } else {
+
+    const ordersListData = wsFeedMessages.orders;
+    const totalOrders = wsFeedMessages.total;
+    const totalTodayOrders = wsFeedMessages.totalToday;
+
+    const readyOrdersData = 
+      ordersListData.filter(order => order.status === "done").map((order) => order.number);
+    const unreadyOrdersData = ordersListData.filter(order => order.status !== "done").map((order) => order.number);
+
+    return (
+      <main className={`${styles.box} pt-10`}>
         <h2 className="text text_type_main-large"> Лента заказов </h2>
-        <h3 className="text text_type_main-medium">На странице проводятся плановые технические работы</h3>
-      </div>
-      <div> 
-        <p className="text text_type_main-default text_color_inactive"> 
-          Вы можете 
-          <Link className={styles.link} onClick={goBack}> вернуться назад</Link>
-          , воспользоваться меню сайта или перейти 
-          <Link className={styles.link} to={HOME_PAGE}> на домашнюю страницу </Link>
-        </p>
-      </div> 
-    </div>   
-  )
+        <div className={`${styles.container} pt-5`}>
+          <OrdersList ordersListData={ordersListData} />
+          <OrdersStat stats={{totalOrders, totalTodayOrders, readyOrdersData, unreadyOrdersData}} />
+        </div>
+      </main>   
+    )
+  }
 
 }
 

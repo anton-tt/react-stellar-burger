@@ -23,14 +23,6 @@ export const request = (endpoint, options) => {
 
 export const getIngredientsInfo = () => request(INGREDIENTS_PATH);
 
-export const addOrder = (ingredientsId) => request(ORDERS_PATH, {
-  method: 'POST',
-  headers: {'Content-Type': 'application/json'},
-  body: JSON.stringify({
-    "ingredients": ingredientsId
-    })    
-});
-
 export const registerApi = (userData) => request(`${AUTHORIZATION_PATH}${REGISTER_PAGE}`, {
   method: 'POST',
   headers: {'Content-Type': 'application/json'},
@@ -74,3 +66,5 @@ export const resetApi = (userData) => request(`${PASSWORD_RESET_BASE_PATH}${PASS
     "token": userData.token
     })    
 });
+
+export const getOrderStructure = (orderNumber) => request(`${ORDERS_PATH}/${orderNumber}`);

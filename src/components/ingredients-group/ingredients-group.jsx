@@ -6,7 +6,7 @@ import styles from "./ingredients-group.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
-function IngredientsGroup({groupData}) {
+function IngredientsGroup({ groupData }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();

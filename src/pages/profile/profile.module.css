@@ -3,7 +3,7 @@
   flex-direction: row;
   max-width: 1280px;
   margin: 0;
-  padding: 120px 0 0 340px;
+  padding: 0 0 0 340px;
   align-items: flex-start;
  
 }
@@ -13,7 +13,7 @@
   flex-direction: column;
   width: 320px;
   margin: 0;
-  padding: 0 60px 0 0;
+  padding: 120px 60px 0 0;
 
 }
 

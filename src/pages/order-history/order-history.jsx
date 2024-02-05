@@ -1,32 +1,46 @@
-import { Link, useNavigate } from "react-router-dom";
-import { HOME_PAGE } from "../../utils/constants.js";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants.js";
+import OrdersList from "../../components/orders-list/orders-list.jsx";
+import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history.js";
+import { tokenUpdate } from "../../services/actions/token-update.js";
 import styles from "./order-history.module.css";
 
 function OrderHistoryPage() {
   
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  function goBack() {
-    navigate(-1);
+  const getOrderHistoryData = (store) => store.orderHistoryData;
+  const { wsHistoryConnected, wsHistoryMessages, wsHistoryError } = useSelector(getOrderHistoryData);
+
+  useEffect(() => {
+    dispatch(startHistoryConnection());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(finishHistoryConnection());
+    }
+  }, []);
+
+  if (wsHistoryMessages?.message === INVALID_OR_MISSING_TOKEN) {
+    dispatch(tokenUpdate());
+    dispatch(startHistoryConnection());
   }
-   
-  return (
-    <div className={styles.box}>
-      <div className="pb-10">
-        <h2 className="text text_type_main-large"> История заказов </h2>
-        <h3 className="text text_type_main-medium">На странице проводятся плановые технические работы</h3>
-      </div>
-      <div> 
-        <p className="text text_type_main-default text_color_inactive"> 
-          Вы можете 
-          <Link className={styles.link} onClick={goBack}> вернуться назад</Link>
-          , воспользоваться меню сайта или перейти 
-          <Link className={styles.link} to={HOME_PAGE}> на домашнюю страницу </Link>
-        </p>
-      </div> 
-    </div>   
-  )
 
+  const historyListData = wsHistoryMessages?.orders;
+   
+  if (wsHistoryConnected && !wsHistoryMessages && !wsHistoryError) {
+    return <p className="text text_type_main-medium"> Загрузка... </p>
+  } else if (wsHistoryError) {
+    return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
+  } else {
+    return (
+      <main className={`pt-10 ${styles.box}`}>
+        <OrdersList ordersListData={historyListData} />
+      </main>   
+    )
+  }
 }
 
 export default OrderHistoryPage;

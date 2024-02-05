@@ -1,0 +1,57 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 580px;
+  height: 852px;
+
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 272px; 
+  
+}
+
+.done {
+  color: #00CCCC;
+}
+
+.numbers {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 305px;
+  column-gap: 20px;
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0;
+  overflow-x: scroll;
+  
+}
+
+.numbers::-webkit-scrollbar {
+  /*width: 15px;*/
+  height: 15px;
+
+}
+
+.numbers::-webkit-scrollbar-track {
+  background: #2F2F37;
+
+}
+
+.numbers::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 5px;
+
+}

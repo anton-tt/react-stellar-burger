@@ -1,0 +1,53 @@
+.link {
+  text-decoration: none;
+  color: #fff;
+  
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 40px;
+  background-color: #1C1C21;
+
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.done {
+  color: #00CCCC;
+
+}
+
+.components {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
+.images {
+  position: relative;
+  
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
+}
