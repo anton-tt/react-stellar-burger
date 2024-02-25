@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react";
+import { useEffect, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import useForm from "../../hooks/useForm";
 import { REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants.js";
+//import { TStore } from "../../services/store.js";
 import { loginUser, resetLoginUserData } from "../../services/actions/user-login.js";
 import { getUser } from "../../services/actions/user-get.js";
 import styles from "./login.module.css";
-
+import rootReducer from "../../services/reducers/root-reducer.js";
 function LoginPage() {
-  
+  type TStore = ReturnType<typeof rootReducer>;
   const dispatch = useDispatch();
   
-  const [formValues, setFormValues] = useState({ email:"", password:"" });
-  
-  const getLoginUserData = (store) => store.loginUserData;
+  const getLoginUserData = (store: TStore) => store.loginUserData;
   const { loginRequest, loginFailed, successLogin } = useSelector(getLoginUserData);
-  
-  const onChange = (event) => {
-    setFormValues({...formValues, [event.target.name]: event.target.value})
-  };
 
-  const submitForm = (event) => {
+  const { formValues, handleChange, setFormValues } = useForm({ 
+    email: "", 
+    password: "" 
+  });
+
+  const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loginUser(formValues));
   };
@@ -46,21 +47,19 @@ function LoginPage() {
           <h1 className="text text_type_main-medium mb-6"> Вход </h1>
 
           <EmailInput
-            type={'email'}
             placeholder={'E-mail'}
             name={'email'}
             value={formValues.email}
-            onChange={onChange}
+            onChange={handleChange}
             required
             extraClass="mb-6"
           />
 
           <PasswordInput
-            type={'password'}
             placeholder={'Пароль'}
             name={'password'}
             value={formValues.password}
-            onChange={onChange}
+            onChange={handleChange}
             required
             icon="ShowIcon"
             extraClass="mb-6"
@@ -81,6 +80,7 @@ function LoginPage() {
       </div>  
     )
   }
+  
 }
 
 export default LoginPage;

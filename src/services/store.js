@@ -1,6 +1,6 @@
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers/root-reducer.js';
+import rootReducer from './reducers/root-reducer.ts';
 import socketMiddleware from './middleware/socket-middleware.js';
 import { WS_FEED_CONNECTION_START, WS_FEED_CONNECTION_SUCCESS, WS_FEED_CONNECTION_ERROR, WS_FEED_CONNECTION_CLOSED, 
   WS_FEED_CONNECTION_FINISH, WS_FEED_GET_MESSAGE, WS_FEED_SEND_MESSAGE, WS_HISTORY_CONNECTION_START, WS_HISTORY_CONNECTION_SUCCESS, 
@@ -44,3 +44,5 @@ const composeEnhancers =
 const store = createStore(rootReducer, enhancer);
 
 export default store;
+
+//export type TStore = ReturnType<typeof rootReducer>;

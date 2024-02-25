@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useForm } from "../../hooks/useForm.js";
+import useForm from "../../hooks/useForm";
 import { updateUser } from "../../services/actions/user-update.js";
 import { getUser } from "../../services/actions/user-get.js";
 import styles from "./profile-form.module.css";

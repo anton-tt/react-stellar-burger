@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useForm } from "../../hooks/useForm.js";
+import useForm from "../../hooks/useForm";
 import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
+//import { TStore } from "../../services/store.js";
 import { registerUser, registerLoginUserData } from "../../services/actions/user-register.js";
 import styles from "./register.module.css";
-
+import rootReducer from "../../services/reducers/root-reducer.js";
 function RegisterPage() {
+
+  type TStore = ReturnType<typeof rootReducer>;
 
   const dispatch = useDispatch();
 
@@ -19,10 +22,10 @@ function RegisterPage() {
     password: "" 
   });
 
-  const getRegisterUserData = (store) => store.registerUserData;
+  const getRegisterUserData = (store: TStore) => store.registerUserData;
   const { registerRequest, registerFailed, successRegister } = useSelector(getRegisterUserData);
 
-  const submitForm = (event) => {
+  const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(registerUser(formValues));
   };
@@ -47,8 +50,7 @@ function RegisterPage() {
         <form className={styles.form} onSubmit={submitForm}>
           <h1 className="text text_type_main-medium mb-6"> Регистрация </h1>
         
-          <Input 
-            type={'text'} 
+          <Input  
             placeholder={'Имя'} 
             name={'name'} 
             value={formValues.name} 
@@ -58,7 +60,6 @@ function RegisterPage() {
           />
 
           <EmailInput
-            type={'email'}
             placeholder={'E-mail'}
             name={'email'}
             value={formValues.email}
@@ -68,7 +69,6 @@ function RegisterPage() {
           />
 
           <PasswordInput
-            type={'password'}
             placeholder={'Пароль'}
             name={'password'}
             value={formValues.password}

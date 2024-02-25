@@ -31,6 +31,6 @@ const rootReducer = combineReducers({
   orderFeedData: wsFeedReducer,
   orderHistoryData: wsHistoryReducer,
   orderStructureData: getOrderStructureReducer
-}); 
+});  
 
 export default rootReducer;

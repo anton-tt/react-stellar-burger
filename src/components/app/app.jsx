@@ -8,10 +8,10 @@ import ProtectedRoute from "../../components/protected-route/protected-route.jsx
 import AppHeader from "../app-header/app-header.jsx";
 import BurgerConstructorContainer from "../burger-constructor-container/burger-constructor-container.jsx";
 import ModalBase from "../modal-base/modal-base.jsx";
-import RegisterPage from "../../pages/register/register.jsx";
-import LoginPage from "../../pages/login/login.jsx";
-import PasswordForgotPage from "../../pages/password-forgot/password-forgot.jsx";
-import PasswordResetPage from "../../pages/password-reset/password-reset.jsx";
+import RegisterPage from "../../pages/register/register.tsx";
+import LoginPage from "../../pages/login/login.tsx";
+import PasswordForgotPage from "../../pages/password-forgot/password-forgot.tsx";
+import PasswordResetPage from "../../pages/password-reset/password-reset.tsx";
 import ProfilePage from "../../pages/profile/profile.jsx";
 import OrderFeedPage from "../../pages/order-feed/order-feed.jsx";
 import NotFoundPage from "../../pages/not-found/not-found.jsx";

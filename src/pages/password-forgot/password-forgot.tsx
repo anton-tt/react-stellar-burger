@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useForm } from "../../hooks/useForm.js";
+import useForm from "../../hooks/useForm";
 import { PASSWORD_RESET_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 import { forgotPassword, forgotPasswordResetData } from "../../services/actions/password-forgot.js";
 import styles from "./password-forgot.module.css";
-
+import rootReducer from "../../services/reducers/root-reducer.js";
 function PasswordForgotPage() {
+
+  type TStore = ReturnType<typeof rootReducer>;
   
   const dispatch = useDispatch();
 
@@ -17,15 +19,16 @@ function PasswordForgotPage() {
     email: ""
   });
 
-  const getForgotPasswordData = (store) => store.forgotPasswordData;
+  const getForgotPasswordData = (store: TStore) => store.forgotPasswordData;
   const { forgotRequest, forgotFailed, successForgot } = useSelector(getForgotPasswordData);
   
-  const submitForm = (event) => {
+  const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(forgotPassword(formValues));
   };
 
   useEffect(() => {
+    console.log(successForgot);
     return successForgot && navigate(PASSWORD_RESET_PAGE, { replace: false })
   }, [successForgot, navigate]);
 
@@ -46,7 +49,6 @@ function PasswordForgotPage() {
           <h1 className="text text_type_main-medium mb-6"> Вход </h1>
 
           <EmailInput
-            type={'email'}
             placeholder={'E-mail'}
             name={'email'}
             value={formValues.email}
