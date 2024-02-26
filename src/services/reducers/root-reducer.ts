@@ -4,7 +4,7 @@ import { ingredientReducer } from './ingredient-details.js';
 import { constructorReducer } from './burger-constructor.js';
 import { orderReducer } from './order-details.js';
 import { registerUserReducer } from './user-register.js';
-import { loginUserReducer } from './user-login.js';
+import { loginUserReducer } from './user-login';
 import { logoutUserReducer } from './user-logout.js';
 import { forgotPasswordReducer } from './password-forgot.js';
 import { resetPasswordReducer } from './password-reset.js';

@@ -1,13 +1,21 @@
-import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_RESET_DATA } from "../../utils/constants.js";
+import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_RESET_DATA } from "../const";
+import { TResponseUserData, TLoginUserActions } from "../types/user-login";
 
-const initialState = {
+type TInitialState = {
+  loginRequest: boolean;
+  loginFailed: boolean;
+  userData: TResponseUserData | undefined;
+  loginSuccess: boolean;
+}
+
+const initialState: TInitialState = {
   loginRequest: false,
   loginFailed: false,
   userData: undefined,
-  successLogin: false
+  loginSuccess: false
 }
 
-export const loginUserReducer = (state = initialState, action) => {
+export const loginUserReducer = (state = initialState, action: TLoginUserActions): TInitialState => {
   switch (action.type) {
     case LOGIN_USER: {
       return {
@@ -15,7 +23,7 @@ export const loginUserReducer = (state = initialState, action) => {
         loginRequest: true,
         loginFailed: false,
         userData: undefined,
-        successLogin: false
+        loginSuccess: false
       };
     }
     case LOGIN_USER_SUCCESS: {
@@ -24,7 +32,7 @@ export const loginUserReducer = (state = initialState, action) => {
         loginRequest: false, 
         loginFailed: false, 
         userData: action.user,
-        successLogin: action.success 
+        loginSuccess: action.success 
       };
     }
     case LOGIN_USER_FAILED: {
@@ -33,7 +41,7 @@ export const loginUserReducer = (state = initialState, action) => {
         loginRequest: false,
         loginFailed: true, 
         userData: undefined,
-        successLogin: false 
+        loginSuccess: false 
       };
     }
     case LOGIN_USER_RESET_DATA: {
@@ -42,7 +50,7 @@ export const loginUserReducer = (state = initialState, action) => {
         loginRequest: false,
         loginFailed: false, 
         userData: undefined,
-        successLogin: false 
+        loginSuccess: false 
       };
     }
     default: {

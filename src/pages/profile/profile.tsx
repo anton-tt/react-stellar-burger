@@ -1,26 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, SyntheticEvent } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/constants.js";
-import ProfileForm from "../../components/profile-form/profile-form.jsx";
-import OrderHistoryPage from "../../pages/order-history/order-history.jsx";
+import ProfileForm from "../../components/profile-form/profile-form";
+import OrderHistoryPage from "../order-history/order-history.jsx";
+//import { TStore } from "../../services/store.js";
 import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout.js";
 import { getUser, resetGetUserData } from "../../services/actions/user-get.js";
 import { resetUpdateUserData } from "../../services/actions/user-update.js";
 import styles from "./profile.module.css";
 
+import rootReducer from "../../services/reducers/root-reducer.js";
 function ProfilePage() {
-
+  type TStore = ReturnType<typeof rootReducer>;
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
   
   const location = useLocation();
 
-  const getLogoutUserData = (store) => store.logoutUserData;
+  const getLogoutUserData = (store: TStore) => store.logoutUserData;
   const { logoutRequest, logoutFailed, successLogout } = useSelector(getLogoutUserData);
 
-  const logout = (event) => {
+  const logout = (event: SyntheticEvent) => {
     event.preventDefault();
     dispatch(logoutUser());
   };
@@ -44,7 +46,8 @@ function ProfilePage() {
   const currentPath = location.pathname;  
   const baseClassLink = `text text_type_main-medium ${styles.link}`; 
 
-  const getLinkTextClass = (path) => (path === currentPath) ? `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
+  const getLinkTextClass = (path: string) => (path === currentPath) ? 
+    `${baseClassLink} ${styles.activeLink}` : `${baseClassLink} ${styles.inactiveLink}`;
 
   if (logoutRequest) {
     return <p className="text text_type_main-medium"> Загрузка... </p>

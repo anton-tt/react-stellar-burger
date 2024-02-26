@@ -7,9 +7,9 @@ import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
 import { registerUser, registerLoginUserData } from "../../services/actions/user-register.js";
 import styles from "./register.module.css";
+
 import rootReducer from "../../services/reducers/root-reducer.js";
 function RegisterPage() {
-
   type TStore = ReturnType<typeof rootReducer>;
 
   const dispatch = useDispatch();
@@ -51,6 +51,7 @@ function RegisterPage() {
           <h1 className="text text_type_main-medium mb-6"> Регистрация </h1>
         
           <Input  
+            type="text"
             placeholder={'Имя'} 
             name={'name'} 
             value={formValues.name} 

@@ -5,16 +5,17 @@ import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer
 import useForm from "../../hooks/useForm";
 import { REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
-import { loginUser, resetLoginUserData } from "../../services/actions/user-login.js";
+import { loginUser, resetLoginUserData } from "../../services/actions/user-login";
 import { getUser } from "../../services/actions/user-get.js";
 import styles from "./login.module.css";
+
 import rootReducer from "../../services/reducers/root-reducer.js";
 function LoginPage() {
   type TStore = ReturnType<typeof rootReducer>;
   const dispatch = useDispatch();
   
   const getLoginUserData = (store: TStore) => store.loginUserData;
-  const { loginRequest, loginFailed, successLogin } = useSelector(getLoginUserData);
+  const { loginRequest, loginFailed, loginSuccess } = useSelector(getLoginUserData);
 
   const { formValues, handleChange, setFormValues } = useForm({ 
     email: "", 
@@ -27,8 +28,8 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    return successLogin && dispatch(getUser())
-  }, [successLogin, dispatch]);
+    loginSuccess && dispatch(getUser())
+  }, [loginSuccess, dispatch]);
 
   useEffect(() => {
     return () => {

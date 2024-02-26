@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
+//import { TStore } from "../../services/store.js";
 import { updateUser } from "../../services/actions/user-update.js";
 import { getUser } from "../../services/actions/user-get.js";
 import styles from "./profile-form.module.css";
 
+import rootReducer from "../../services/reducers/root-reducer.js";
 function ProfileForm() {
-
+  type TStore = ReturnType<typeof rootReducer>;
   const dispatch = useDispatch();
 
   const { formValues, handleChange, setFormValues } = useForm({
@@ -16,13 +18,13 @@ function ProfileForm() {
     password: "" 
   });
 
-  const getCurrentUserData = (store) => store.getUserData;
+  const getCurrentUserData = (store: TStore) => store.getUserData;
   const { getUserRequest, getUserFailed, successGetUser, getUserData } = useSelector(getCurrentUserData);
 
-  const getUpdateUserData = (store) => store.updateUserData;
+  const getUpdateUserData = (store: TStore) => store.updateUserData;
   const { updateUserRequest, updateUserFailed, successUpdateUser, updateUserData } = useSelector(getUpdateUserData);
 
-  const submitForm = (event) => {
+  const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(updateUser(formValues));
   };
@@ -70,28 +72,26 @@ function ProfileForm() {
       <>
         <form className={styles.form} onSubmit={submitForm} onReset={cancelUpdate}>
         
-          <Input 
-            type={'text'} 
+          <Input  
+            type="text"
             placeholder={'Имя'} 
             name={'name'} 
             value={formValues.name} 
-            extraClass="mb-6"
             icon="EditIcon"
+            extraClass="mb-6"
             onChange={handleChange}
           />
 
           <EmailInput
-            type={'email'}
             placeholder={'Логин'}
             name={'email'}
             value={formValues.email}
-            icon="EditIcon"
+            isIcon={true}
             extraClass="mb-6"
             onChange={handleChange}
           />
 
           <PasswordInput
-            type={'password'}
             placeholder={'Пароль'}
             name={'password'}
             value={formValues.password}

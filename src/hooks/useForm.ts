@@ -1,6 +1,6 @@
 import { useState, ChangeEvent } from "react";
 
-export default function useForm(inputValues: {[key: string]: string}) {
+export default function useForm<T extends {[key: string]: string}>(inputValues:T) {
 
   const [formValues, setFormValues] = useState(inputValues);
   

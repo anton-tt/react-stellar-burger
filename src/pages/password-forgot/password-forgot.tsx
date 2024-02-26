@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
 import { PASSWORD_RESET_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
+//import { TStore } from "../../services/store.js";
 import { forgotPassword, forgotPasswordResetData } from "../../services/actions/password-forgot.js";
 import styles from "./password-forgot.module.css";
+
 import rootReducer from "../../services/reducers/root-reducer.js";
 function PasswordForgotPage() {
-
   type TStore = ReturnType<typeof rootReducer>;
   
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ function PasswordForgotPage() {
   };
 
   useEffect(() => {
-    console.log(successForgot);
     return successForgot && navigate(PASSWORD_RESET_PAGE, { replace: false })
   }, [successForgot, navigate]);
 
