@@ -1,21 +1,22 @@
-import { FORGOT_PASSWORD, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_RESET_DATA } from "../../utils/constants.js";
+import { FORGOT_PASSWORD, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_RESET_DATA } from "../const";
+import { TInitialState, TForgotPasswordActions } from "../types/password-forgot";
 
-const initialState = {
+const initialState: TInitialState = {
   forgotRequest: false,
   forgotFailed: false,
-  successForgot: false,
-  messageForgot: ""
+  forgotSuccess: false,
+  forgotMessage: ""
 }
 
-export const forgotPasswordReducer = (state = initialState, action) => {
+export const forgotPasswordReducer = (state = initialState, action: TForgotPasswordActions): TInitialState => {
   switch (action.type) {
     case FORGOT_PASSWORD: {
       return {
         ...state,
         forgotRequest: true,
         forgotFailed: false,
-        successForgot: false,
-        messageForgot: ""
+        forgotSuccess: false,
+        forgotMessage: ""
       };
     }
     case FORGOT_PASSWORD_SUCCESS: {
@@ -23,8 +24,8 @@ export const forgotPasswordReducer = (state = initialState, action) => {
         ...state,
         forgotRequest: false, 
         forgotFailed: false, 
-        successForgot: action.success,
-        messageForgot: action.message
+        forgotSuccess: action.success,
+        forgotMessage: action.message
       };
     }
     case FORGOT_PASSWORD_FAILED: {
@@ -32,8 +33,8 @@ export const forgotPasswordReducer = (state = initialState, action) => {
         ...state, 
         forgotRequest: false,
         forgotFailed: true, 
-        successForgot: false,
-        messageForgot: "" 
+        forgotSuccess: false,
+        forgotMessage: "" 
       };
     }
     case FORGOT_PASSWORD_RESET_DATA: {
@@ -41,8 +42,8 @@ export const forgotPasswordReducer = (state = initialState, action) => {
         ...state, 
         forgotRequest: false,
         forgotFailed: false, 
-        successForgot: false,
-        messageForgot: "" 
+        forgotSuccess: false,
+        forgotMessage: "" 
       };
     }
     default: {

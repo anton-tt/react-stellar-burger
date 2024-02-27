@@ -17,10 +17,8 @@ export interface ILoginUserAction {
   
 export interface ILoginUserSuccessAction {
   readonly type: typeof LOGIN_USER_SUCCESS;
-  /*readonly */success: boolean;
-  /*readonly *///accessToken: string;
-  /*readonly *///refreshToken: string;
-  /*readonly */user: TResponseUserData;
+  success: boolean;
+  user: TResponseUserData;
 }
   
 export interface ILoginUserFailedAction {
@@ -37,3 +35,11 @@ export type TLoginUserActions =
   | ILoginUserSuccessAction
   | ILoginUserFailedAction
   | ILoginUserResetDataAction;
+
+  // типизация начального состояния
+export type TInitialState = {
+  loginRequest: boolean;
+  loginFailed: boolean;
+  userData: TResponseUserData | undefined;
+  loginSuccess: boolean;
+}

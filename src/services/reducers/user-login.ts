@@ -1,12 +1,5 @@
 import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_RESET_DATA } from "../const";
-import { TResponseUserData, TLoginUserActions } from "../types/user-login";
-
-type TInitialState = {
-  loginRequest: boolean;
-  loginFailed: boolean;
-  userData: TResponseUserData | undefined;
-  loginSuccess: boolean;
-}
+import { TInitialState, TLoginUserActions } from "../types/user-login";
 
 const initialState: TInitialState = {
   loginRequest: false,

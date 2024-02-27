@@ -5,7 +5,7 @@ import { PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burg
 import useForm from "../../hooks/useForm";
 import { LOGIN_PAGE, FORGOT_MESSAGE_SUCCESS } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
-import { resetPassword, resetPasswordResetData } from "../../services/actions/password-reset.js";
+import { resetPassword, resetPasswordResetData } from "../../services/actions/password-reset";
 import styles from "./password-reset.module.css";
 
 import rootReducer from "../../services/reducers/root-reducer.js";
@@ -22,9 +22,9 @@ function PasswordResetPage() {
   });
 
   const getResetPasswordData = (store: TStore) => store.resetPasswordData;
-  const { resetRequest, resetFailed, successReset } = useSelector(getResetPasswordData);
+  const { resetRequest, resetFailed, resetSuccess } = useSelector(getResetPasswordData);
   const getForgotPasswordData = (store: TStore) => store.forgotPasswordData;
-  const { messageForgot } = useSelector(getForgotPasswordData);
+  const { forgotMessage } = useSelector(getForgotPasswordData);
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,12 +32,12 @@ function PasswordResetPage() {
   };
 
   useEffect(() => {
-    (messageForgot !== FORGOT_MESSAGE_SUCCESS) && navigate(LOGIN_PAGE, { replace: true })
+    (forgotMessage !== FORGOT_MESSAGE_SUCCESS) && navigate(LOGIN_PAGE, { replace: true })
   }, [navigate]);
 
   useEffect(() => {
-    return successReset && navigate(LOGIN_PAGE, { replace: false })
-  }, [successReset, navigate]);
+    resetSuccess && navigate(LOGIN_PAGE, { replace: false })
+  }, [resetSuccess, navigate]);
 
   useEffect(() => {
     return () => {

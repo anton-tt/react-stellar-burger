@@ -1,21 +1,22 @@
-import { RESET_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED, RESET_PASSWORD_RESET_DATA } from "../../utils/constants.js";
+import { RESET_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED, RESET_PASSWORD_RESET_DATA } from "../const";
+import { TInitialState, TResetPasswordActions } from "../types/password-reset";
 
-const initialState = {
+const initialState: TInitialState = {
   resetRequest: false,
   resetFailed: false,
-  successReset: false,
-  messageReset: ""
+  resetSuccess: false,
+  resetMessage: ""
 }
 
-export const resetPasswordReducer = (state = initialState, action) => {
+export const resetPasswordReducer = (state = initialState, action: TResetPasswordActions): TInitialState => {
   switch (action.type) {
     case RESET_PASSWORD: {
       return {
         ...state,
         resetRequest: true,
         resetFailed: false,
-        successReset: false,
-        messageReset: ""
+        resetSuccess: false,
+        resetMessage: ""
       };
     }
     case RESET_PASSWORD_SUCCESS: {
@@ -23,8 +24,8 @@ export const resetPasswordReducer = (state = initialState, action) => {
         ...state,
         resetRequest: false, 
         resetFailed: false, 
-        successReset: action.success,
-        messageReset: action.message  
+        resetSuccess: action.success,
+        resetMessage: action.message  
       };
     }
     case RESET_PASSWORD_FAILED: {
@@ -32,8 +33,8 @@ export const resetPasswordReducer = (state = initialState, action) => {
         ...state, 
         resetRequest: false,
         resetFailed: true, 
-        successReset: false,
-        messageReset: "" 
+        resetSuccess: false,
+        resetMessage: "" 
       };
     }
     case RESET_PASSWORD_RESET_DATA: {
@@ -41,8 +42,8 @@ export const resetPasswordReducer = (state = initialState, action) => {
         ...state, 
         resetRequest: false,
         resetFailed: false, 
-        successReset: false,
-        messageReset: "" 
+        resetSuccess: false,
+        resetMessage: "" 
       };
     }
     default: {

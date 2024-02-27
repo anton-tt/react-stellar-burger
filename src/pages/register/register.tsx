@@ -5,7 +5,7 @@ import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-de
 import useForm from "../../hooks/useForm";
 import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
-import { registerUser, registerLoginUserData } from "../../services/actions/user-register.js";
+import { registerUser, resetRegisterUserData } from "../../services/actions/user-register";
 import styles from "./register.module.css";
 
 import rootReducer from "../../services/reducers/root-reducer.js";
@@ -23,7 +23,7 @@ function RegisterPage() {
   });
 
   const getRegisterUserData = (store: TStore) => store.registerUserData;
-  const { registerRequest, registerFailed, successRegister } = useSelector(getRegisterUserData);
+  const { registerRequest, registerFailed, registerSuccess } = useSelector(getRegisterUserData);
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,12 +31,12 @@ function RegisterPage() {
   };
 
   useEffect(() => {
-    return successRegister && navigate(HOME_PAGE, { replace: true })
-  }, [successRegister, navigate]);
+    registerSuccess && navigate(HOME_PAGE, { replace: true })
+  }, [registerSuccess, navigate]);
 
   useEffect(() => {
     return () => {
-      dispatch(registerLoginUserData());
+      dispatch(resetRegisterUserData());
     }
   }, []);
 

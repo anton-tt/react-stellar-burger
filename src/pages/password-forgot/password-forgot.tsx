@@ -5,7 +5,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import useForm from "../../hooks/useForm";
 import { PASSWORD_RESET_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
-import { forgotPassword, forgotPasswordResetData } from "../../services/actions/password-forgot.js";
+import { forgotPassword, resetForgotPasswordData } from "../../services/actions/password-forgot";
 import styles from "./password-forgot.module.css";
 
 import rootReducer from "../../services/reducers/root-reducer.js";
@@ -21,7 +21,7 @@ function PasswordForgotPage() {
   });
 
   const getForgotPasswordData = (store: TStore) => store.forgotPasswordData;
-  const { forgotRequest, forgotFailed, successForgot } = useSelector(getForgotPasswordData);
+  const { forgotRequest, forgotFailed, forgotSuccess } = useSelector(getForgotPasswordData);
   
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -29,12 +29,12 @@ function PasswordForgotPage() {
   };
 
   useEffect(() => {
-    return successForgot && navigate(PASSWORD_RESET_PAGE, { replace: false })
-  }, [successForgot, navigate]);
+    forgotSuccess && navigate(PASSWORD_RESET_PAGE, { replace: false })
+  }, [forgotSuccess, navigate]);
 
   useEffect(() => {
     return () => {
-      dispatch(forgotPasswordResetData());
+      dispatch(resetForgotPasswordData());
     }
   }, []);
 
