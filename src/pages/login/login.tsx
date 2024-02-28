@@ -6,7 +6,7 @@ import useForm from "../../hooks/useForm";
 import { REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
 import { loginUser, resetLoginUserData } from "../../services/actions/user-login";
-import { getUser } from "../../services/actions/user-get.js";
+import { getUser } from "../../services/actions/user-get";
 import styles from "./login.module.css";
 
 import rootReducer from "../../services/reducers/root-reducer.js";

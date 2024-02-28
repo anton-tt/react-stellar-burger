@@ -1,21 +1,22 @@
-import { LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, LOGOUT_USER_RESET_DATA } from "../../utils/constants.js";
+import { LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, LOGOUT_USER_RESET_DATA } from "../const";  
+import { TInitialState, TLogoutUserActions } from "../types/user-logout";
 
-const initialState = {
+const initialState: TInitialState = {
   logoutRequest: false,
   logoutFailed: false,
-  successLogout: false,
-  successMessage: ""
+  logoutSuccess: false,
+  logoutMessage: ""
 }
 
-export const logoutUserReducer = (state = initialState, action) => {
+export const logoutUserReducer = (state = initialState, action: TLogoutUserActions): TInitialState => {
   switch (action.type) {
     case LOGOUT_USER: {
       return {
         ...state,
         logoutRequest: true,
         logoutFailed: false,
-        successLogout: false,
-        successMessage: ""
+        logoutSuccess: false,
+        logoutMessage: ""
       };
     }
     case LOGOUT_USER_SUCCESS: {
@@ -23,8 +24,8 @@ export const logoutUserReducer = (state = initialState, action) => {
         ...state, 
         logoutRequest: false, 
         logoutFailed: false,
-        successLogout: action.success,
-        successMessage: action.message 
+        logoutSuccess: action.success,
+        logoutMessage: action.message 
       };
     }
     case LOGOUT_USER_FAILED: {
@@ -32,8 +33,8 @@ export const logoutUserReducer = (state = initialState, action) => {
         ...state,  
         logoutRequest: false,
         logoutFailed: true,
-        successLogout: false,
-        successMessage: "" 
+        logoutSuccess: false,
+        logoutMessage: "" 
       };
     }
     case LOGOUT_USER_RESET_DATA: {
@@ -41,8 +42,8 @@ export const logoutUserReducer = (state = initialState, action) => {
         ...state, 
         logoutFailed: false, 
         logoutRequest: false,
-        successLogout: false,
-        successMessage: "" 
+        logoutSuccess: false,
+        logoutMessage: "" 
       };
     }
     default: {

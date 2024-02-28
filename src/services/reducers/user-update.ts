@@ -1,13 +1,14 @@
-import { UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAILED, UPDATE_USER_RESET_DATA } from "../../utils/constants.js";
+import { UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAILED, UPDATE_USER_RESET_DATA } from "../const";
+import { TInitialState, TUpdateUserActions } from "../types/user-update";
 
-const initialState = {
+const initialState: TInitialState = {
   updateUserRequest: false,
   updateUserFailed: false,
   updateUserData: undefined,
-  successUpdateUser: false
+  updateUserSuccess: false
 }
 
-export const updateUserReducer = (state = initialState, action) => {
+export const updateUserReducer = (state = initialState, action: TUpdateUserActions): TInitialState => {
   switch (action.type) {
     case UPDATE_USER: {
       return {
@@ -15,7 +16,7 @@ export const updateUserReducer = (state = initialState, action) => {
         updateUserRequest: true,
         updateUserFailed: false,
         updateUserData: undefined,
-        successUpdateUser: false
+        updateUserSuccess: false
       };
     }
     case UPDATE_USER_SUCCESS: {
@@ -24,7 +25,7 @@ export const updateUserReducer = (state = initialState, action) => {
         updateUserRequest: false, 
         updateUserFailed: false, 
         updateUserData: action.user,
-        successUpdateUser: action.success 
+        updateUserSuccess: action.success 
       };
     }
     case UPDATE_USER_FAILED: {
@@ -33,7 +34,7 @@ export const updateUserReducer = (state = initialState, action) => {
         updateUserRequest: false,
         updateUserFailed: true, 
         updateUserData: undefined,
-        successUpdateUser: false
+        updateUserSuccess: false
       };
     }
     case UPDATE_USER_RESET_DATA: {
@@ -42,7 +43,7 @@ export const updateUserReducer = (state = initialState, action) => {
         updateUserRequest: false,
         updateUserFailed: false, 
         updateUserData: undefined, 
-        successUpdateUser: false
+        updateUserSuccess: false
       };
     }
     default: {

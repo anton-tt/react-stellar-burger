@@ -5,9 +5,9 @@ import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/consta
 import ProfileForm from "../../components/profile-form/profile-form";
 import OrderHistoryPage from "../order-history/order-history.jsx";
 //import { TStore } from "../../services/store.js";
-import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout.js";
-import { getUser, resetGetUserData } from "../../services/actions/user-get.js";
-import { resetUpdateUserData } from "../../services/actions/user-update.js";
+import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout";
+import { getUser, resetGetUserData } from "../../services/actions/user-get";
+import { resetUpdateUserData } from "../../services/actions/user-update";
 import styles from "./profile.module.css";
 
 import rootReducer from "../../services/reducers/root-reducer.js";
@@ -20,7 +20,7 @@ function ProfilePage() {
   const location = useLocation();
 
   const getLogoutUserData = (store: TStore) => store.logoutUserData;
-  const { logoutRequest, logoutFailed, successLogout } = useSelector(getLogoutUserData);
+  const { logoutRequest, logoutFailed, logoutSuccess } = useSelector(getLogoutUserData);
 
   const logout = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -32,8 +32,8 @@ function ProfilePage() {
   }, [dispatch]);
 
   useEffect(() => {
-    return successLogout && navigate(LOGIN_PAGE, { replace: true })
-  }, [successLogout, navigate]);
+    logoutSuccess && navigate(LOGIN_PAGE, { replace: true })
+  }, [logoutSuccess, navigate]);
 
   useEffect(() => {
     return () => {

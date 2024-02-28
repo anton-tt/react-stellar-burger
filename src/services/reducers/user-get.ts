@@ -1,13 +1,14 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, GET_USER_RESET_DATA } from "../../utils/constants.js";
+import { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, GET_USER_RESET_DATA } from "../const";
+import { TInitialState, TGetUserActions } from "../types/user-get";
 
-const initialState = {
+const initialState: TInitialState = {
   getUserRequest: false,
   getUserFailed: false,
   getUserData: undefined,
-  successGetUser: false
+  getUserSuccess: false
 }
 
-export const getUserReducer = (state = initialState, action) => {
+export const getUserReducer = (state = initialState, action: TGetUserActions): TInitialState => {
   switch (action.type) {
     case GET_USER: {
       return {
@@ -15,7 +16,7 @@ export const getUserReducer = (state = initialState, action) => {
         getUserRequest: true,
         getUserFailed: false,
         getUserData: undefined,
-        successGetUser: false
+        getUserSuccess: false
       };
     }
     case GET_USER_SUCCESS: {
@@ -24,7 +25,7 @@ export const getUserReducer = (state = initialState, action) => {
         getUserRequest: false, 
         getUserFailed: false,
         getUserData: action.user,
-        successGetUser: action.success
+        getUserSuccess: action.success
       };
     }
     case GET_USER_FAILED: {
@@ -33,7 +34,7 @@ export const getUserReducer = (state = initialState, action) => {
         getUserRequest: false,
         getUserFailed: true, 
         getUserData: undefined, 
-        successGetUser: false
+        getUserSuccess: false
       };
     }
     case GET_USER_RESET_DATA: {
@@ -42,7 +43,7 @@ export const getUserReducer = (state = initialState, action) => {
         getUserRequest: false,
         getUserFailed: false, 
         getUserData: undefined,
-        successGetUser: false
+        getUserSuccess: false
       };
     }
     default: {

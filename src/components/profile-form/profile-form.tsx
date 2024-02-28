@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
 //import { TStore } from "../../services/store.js";
-import { updateUser } from "../../services/actions/user-update.js";
-import { getUser } from "../../services/actions/user-get.js";
+import { updateUser } from "../../services/actions/user-update";
+import { getUser } from "../../services/actions/user-get";
 import styles from "./profile-form.module.css";
 
 import rootReducer from "../../services/reducers/root-reducer.js";
@@ -19,10 +19,13 @@ function ProfileForm() {
   });
 
   const getCurrentUserData = (store: TStore) => store.getUserData;
-  const { getUserRequest, getUserFailed, successGetUser, getUserData } = useSelector(getCurrentUserData);
+  const { getUserRequest, getUserFailed, getUserSuccess, getUserData } = useSelector(getCurrentUserData);
 
   const getUpdateUserData = (store: TStore) => store.updateUserData;
-  const { updateUserRequest, updateUserFailed, successUpdateUser, updateUserData } = useSelector(getUpdateUserData);
+  const { updateUserRequest, updateUserFailed, updateUserSuccess, updateUserData } = useSelector(getUpdateUserData);
+
+  const currentUserName = getUserData? getUserData.name : "";
+  const currentUserEmail = getUserData? getUserData.email : "";
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,8 +35,8 @@ function ProfileForm() {
   const cancelUpdate = () => {
     setFormValues({
       ...formValues, 
-      name: getUserData.name,
-      email: getUserData.email,
+      name: currentUserName,
+      email: currentUserEmail,
       password: ""
     });
   };
@@ -48,10 +51,10 @@ function ProfileForm() {
   }, [getUserData]);
 
   useEffect(() => {
-    successUpdateUser && dispatch(getUser()) && setFormValues({
+    updateUserSuccess && dispatch(getUser()) && setFormValues({
       ...formValues, 
-      name: getUserData.name,
-      email: getUserData.email,
+      name: currentUserName,
+      email: currentUserEmail,
       password: ""
     });
   }, [updateUserData]);
