@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { ingredientsReducer } from './burger-ingredients.js';
-import { ingredientReducer } from './ingredient-details.js';
-import { constructorReducer } from './burger-constructor.js';
+import { ingredientsReducer } from './burger-ingredients';
+import { ingredientReducer } from './ingredient-details';
+import { constructorReducer } from './burger-constructor';
 import { orderReducer } from './order-details.js';
 import { registerUserReducer } from './user-register';
 import { loginUserReducer } from './user-login';

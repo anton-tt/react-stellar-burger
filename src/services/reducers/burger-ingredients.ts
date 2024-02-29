@@ -1,12 +1,13 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../../utils/constants.js";
+import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../const";
+import { TInitialState, TGetIngredientsActions } from "../types/burger-ingredients";
 
-const initialState = {
+const initialState: TInitialState = {
   ingredientsRequest: false,
   ingredientsFailed: false,
   ingredientsData: []
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TGetIngredientsActions): TInitialState => {
   switch (action.type) {
     case GET_INGREDIENTS: {
       return {

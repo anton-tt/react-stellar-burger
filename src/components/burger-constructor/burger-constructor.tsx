@@ -3,15 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { useNavigate, useLocation} from "react-router-dom";
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Filling from "../filling/filling.jsx";
+//import { TStore } from "../../services/store.js";
+import Filling from "../filling/filling";
 import ModalBase from "../modal-base/modal-base.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 import { REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants.js";
+import { TResponseIngredientData } from "../../services/types/burger-ingredients";
 import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
-import { addIngredient } from "../../services/actions/burger-constructor.js";
+import { addIngredient } from "../../services/actions/burger-constructor";
 import styles from "./burger-constructor.module.css";
 
+import rootReducer from "../../services/reducers/root-reducer.js";
 function BurgerConstructor() {
+  type TStore = ReturnType<typeof rootReducer>;
 
   const dispatch = useDispatch();
 
@@ -21,13 +25,15 @@ function BurgerConstructor() {
 
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
-  const getConstructorData = (store) => store.constructorData;
+  const getConstructorData = (store: TStore) => store.constructorData;
   const { bunsData, fillingData } = useSelector(getConstructorData);
   
   const ingredientsId = useMemo(() => {
-    let allId = [];
+    let allId: Array<string> = [];
     if (fillingData.length > 0)  {
-      allId = fillingData.filter((item) => item._id)
+      fillingData.forEach(item => {
+        allId = [...allId, item._id];
+      })
     }
     if (bunsData !== undefined)  {
       allId = [...allId, bunsData._id]
@@ -40,7 +46,7 @@ function BurgerConstructor() {
     if (bunsData !== undefined) {
       price += bunsData.price * 2;
     }
-    if (fillingData !== undefined) {
+    if (fillingData.length > 0) {
       let fillingPrice = 0;
       fillingData.forEach((element) => {
         fillingPrice += element.price
@@ -60,13 +66,13 @@ function BurgerConstructor() {
     dispatch(removeOrderNumber());
   }
 
-  const onDropHandler = (ingredientData) => {
+  const onDropHandler = (ingredientData: TResponseIngredientData) => {
     dispatch(addIngredient(ingredientData));
   }
   
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(ingredientData) {
+    drop(ingredientData: TResponseIngredientData) {
       onDropHandler(ingredientData);
     },
     collect: monitor => ({
@@ -84,7 +90,7 @@ function BurgerConstructor() {
 
   const highlightBox = isHover ? (styles.box_highlight) : null; 
 
-  const onClick = refreshToken ? openModal : () => navigate(LOGIN_PAGE, { from: location });
+  const onClick = refreshToken ? openModal : () => navigate(LOGIN_PAGE, { state: {from: location} });
 
   return (
     <section className={`pt-25 pr-4 pl-4 ${styles.box} ${highlightBox}`} ref={dropTarget}> 
@@ -101,14 +107,14 @@ function BurgerConstructor() {
           />
           ) : null} 
         </div>
-
+        
         <ul className={`pr-2 ${styles.fillings}`} >
-        { fillingData.map((element) => {
+        { (fillingData.length > 0) && (fillingData.map((element) => {
           return  ( 
-            <Filling ingredientData={element} key={element._localId}/>
-          )})
+            <Filling ingredientData={element}/>
+          )})) 
         }  
-        </ul>  
+        </ul> 
         
         <div className="pl-8">
           {bunsData ? (

@@ -1,12 +1,13 @@
-import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "../../utils/constants.js";
+import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "../const";
 import { moveArrayElements } from "../../utils/utils.js";
+import { TInitialState, TBurgerConstructorActions } from "../types/burger-constructor";
 
-const initialState = {
+const initialState: TInitialState = {
   bunsData: undefined,
   fillingData: []
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: TBurgerConstructorActions): TInitialState => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       if (action.ingredient.type === "bun") {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import Ingredient from "../ingredient/ingredient.jsx";
-import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details.js";
+import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details";
 import styles from "./ingredients-group.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import PropTypes from "prop-types";

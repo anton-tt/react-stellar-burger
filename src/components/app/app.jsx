@@ -20,7 +20,7 @@ import { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, PASSWORD_FORGOT_PAGE, PASSWORD_RE
   ORDER_HISTORY_PAGE, ORDER_PAGE, INGREDIENT_PAGE, NOT_FOUND_PAGE } from "../../utils/constants.js";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 import OrderStructure from "../order-structure/order-structure.jsx";
-import { getIngredientsList } from "../../services/actions/burger-ingredients.js";
+import { getIngredientsList } from "../../services/actions/burger-ingredients";
 import styles from "./app.module.css";
 
 function App() {

@@ -1,15 +1,20 @@
+import { FC } from "react";
 import { DragIcon, ConstructorElement  } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from "react-dnd";
-import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor.js";
-import { ingredientPropType } from "../../utils/prop-types.js";
+import { TIngredientDataWithLocalId } from "../../services/types/burger-constructor";
+import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor";
 import styles from "./filling.module.css";
 
-function Filling({ingredientData}) {
-  
+type TFilling = {
+  ingredientData: TIngredientDataWithLocalId;
+};
+
+const Filling: FC<TFilling> = ({ ingredientData}) => {
+
   const dispatch = useDispatch();
   
-  const removeIngredient = (ingredientData) => {
+  const removeIngredient = (ingredientData: TIngredientDataWithLocalId) => {
     dispatch(deleteIngredient(ingredientData));
   }
 
@@ -25,7 +30,7 @@ function Filling({ingredientData}) {
   const dropIngredientId = ingredientData._localId;
   const [{isHover}, dropTarget] = useDrop({
     accept: "filling",
-    drop( {dragIngredientId} ) {
+    drop(dragIngredientId: number) {
       dispatch(moveIngredient(dragIngredientId, dropIngredientId))
     },
     collect: monitor => ({
@@ -33,11 +38,12 @@ function Filling({ingredientData}) {
     })
   });
 
-  const highlightBox = isHover ? (styles.box_highlight) : null;
+  const highlightBox = isHover ? (styles.box_highlight) : "";
 
   return (
-    !isDrag &&
-    <li className={highlightBox} ref={dropTarget}> 
+    <>
+    { !isDrag &&
+    (<li className={highlightBox} ref={dropTarget}> 
       <div className={`pb-4 ${styles.string}`} key={ingredientData._localId} ref={dragRef}>  
         <DragIcon type="primary" />
         <ConstructorElement
@@ -47,13 +53,11 @@ function Filling({ingredientData}) {
           handleClose={() => {removeIngredient(ingredientData)}}
         />
       </div>
-    </li>         
+    </li>) 
+    }
+    </>       
   )
   
 }
-
-Filling.propTypes = { 
-  ingredientData: ingredientPropType.isRequired
-}  
 
 export default Filling;

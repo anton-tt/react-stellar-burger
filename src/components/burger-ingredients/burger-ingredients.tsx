@@ -1,13 +1,16 @@
 import { useMemo, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { useInView } from "react-intersection-observer";
+//import { TStore } from "../../services/store.js";
 import Tabs from "../tabs/tabs.jsx";
 import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
 import styles from "./burger-ingredients.module.css";
 
+import rootReducer from "../../services/reducers/root-reducer.js";
 function BurgerIngredients() {
-  
-  const getIngredientsData = (store) => store.ingredientsData;
+  type TStore = ReturnType<typeof rootReducer>;
+
+  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const bunsData = useMemo(() => ingredientsData.filter((item) => item.type === 'bun'), [ingredientsData]);
