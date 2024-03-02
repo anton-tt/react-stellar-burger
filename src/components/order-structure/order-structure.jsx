@@ -5,7 +5,7 @@ import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burge
 import { STRING_EMPTY, STATUS_CREATED, STATUS_PENDING, STATUS_DONE, ORDER_CREATED, ORDER_PENDING, ORDER_DONE, ORDER_HISTORY_PAGE, 
   ORDER_FEED_PAGE } from "../../utils/constants.js";
 import IngredientLines from "../ingredient-lines/ingredient-lines.jsx";
-import { getOrder } from "../../services/actions/order-get.js";
+import { getOrder } from "../../services/actions/order-get";
 import styles from "./order-structure.module.css";
  
 function OrderStructure({newPage}) {
@@ -25,7 +25,7 @@ function OrderStructure({newPage}) {
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const getOrderStructureData = (store) => store.orderStructureData;
-  const { getOrderRequest, getOrderFailed, getOrderStructure, successGetOrder } = useSelector(getOrderStructureData);
+  const { getOrderRequest, getOrderFailed, getOrderData, getOrderSuccess } = useSelector(getOrderStructureData);
 
   const orderNumberData = useParams();
   const orderNumber  = orderNumberData.number;
@@ -42,7 +42,7 @@ function OrderStructure({newPage}) {
     const ordersData = wsHistoryMessages.orders;
     order = ordersData?.find((item) => item.number == orderNumber);
   } else  {
-    order = getOrderStructure;
+    order = getOrderData;
   }
   
   const ingredients = order?.ingredients;

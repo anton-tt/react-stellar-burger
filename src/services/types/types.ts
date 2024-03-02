@@ -9,6 +9,10 @@ import { TLogoutUserActions } from "./user-logout";
 import { TGetIngredientsActions } from "./burger-ingredients";
 import { TIngredientDetailsActions } from "./ingredient-details";
 import { TBurgerConstructorActions } from "./burger-constructor";
+import { TOrderDetailsActions } from "./order-details";
+import { TGetOrderActions } from "./order-get";
+import { TWsFeedActions } from "./socket-feed";
+import { TWsHistoryActions } from "./socket-history";
 
   // Типизация всех экшенов приложения
 type TApplicationActions = 
@@ -21,7 +25,11 @@ type TApplicationActions =
   | TLogoutUserActions
   | TGetIngredientsActions
   | TIngredientDetailsActions
-  | TBurgerConstructorActions;
+  | TBurgerConstructorActions
+  | TOrderDetailsActions
+  | TGetOrderActions
+  | TWsFeedActions
+  | TWsHistoryActions;
 
   // Типизация метода dispatch для проверки на валидность отправляемого экшена
 export type AppDispatch = Dispatch<TApplicationActions>; 

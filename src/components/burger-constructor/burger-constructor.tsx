@@ -6,10 +6,10 @@ import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-de
 //import { TStore } from "../../services/store.js";
 import Filling from "../filling/filling";
 import ModalBase from "../modal-base/modal-base.jsx";
-import OrderDetails from "../order-details/order-details.jsx";
+import OrderDetails from "../order-details/order-details";
 import { REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants.js";
 import { TResponseIngredientData } from "../../services/types/burger-ingredients";
-import { createOrder, removeOrderNumber } from "../../services/actions/order-details.js";
+import { createOrder, removeOrderNumber } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import styles from "./burger-constructor.module.css";
 
@@ -111,7 +111,7 @@ function BurgerConstructor() {
         <ul className={`pr-2 ${styles.fillings}`} >
         { (fillingData.length > 0) && (fillingData.map((element) => {
           return  ( 
-            <Filling ingredientData={element}/>
+            <Filling ingredientData={element} key={element._localId}/>
           )})) 
         }  
         </ul> 

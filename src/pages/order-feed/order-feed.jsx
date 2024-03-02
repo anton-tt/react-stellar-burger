@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import OrdersList from "../../components/orders-list/orders-list.jsx";
 import OrdersStat from "../../components/orders-stat/orders-stat.jsx";
-import { startFeedConnection, finishFeedConnection } from "../../services/actions/socket-feed.js";
+import { startFeedConnection, finishFeedConnection } from "../../services/actions/socket-feed";
 import styles from "./order-feed.module.css";
 
 function OrderFeedPage() {

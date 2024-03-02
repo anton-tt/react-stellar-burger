@@ -2,10 +2,11 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/root-reducer.ts';
 import socketMiddleware from './middleware/socket-middleware.js';
+import {  WS_FEED_URL, WS_HISTORY_URL } from "../utils/constants.js";
 import { WS_FEED_CONNECTION_START, WS_FEED_CONNECTION_SUCCESS, WS_FEED_CONNECTION_ERROR, WS_FEED_CONNECTION_CLOSED, 
   WS_FEED_CONNECTION_FINISH, WS_FEED_GET_MESSAGE, WS_FEED_SEND_MESSAGE, WS_HISTORY_CONNECTION_START, WS_HISTORY_CONNECTION_SUCCESS, 
   WS_HISTORY_CONNECTION_ERROR, WS_HISTORY_CONNECTION_CLOSED, WS_HISTORY_CONNECTION_FINISH, WS_HISTORY_GET_MESSAGE, 
-  WS_HISTORY_SEND_MESSAGE, WS_FEED_URL, WS_HISTORY_URL } from "../utils/constants.js";
+  WS_HISTORY_SEND_MESSAGE } from "../services/const.ts";
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

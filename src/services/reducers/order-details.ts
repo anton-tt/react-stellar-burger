@@ -1,46 +1,51 @@
-import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED, REMOVE_ORDER_NUMBER } from "../../utils/constants.js";
+import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED, REMOVE_ORDER_NUMBER } from "../const";
+import { TInitialState, TOrderDetailsActions } from "../types/order-details";
 
-const initialState = {
-  numberRequest: false,
-  numberFailed: false,
+const initialState: TInitialState = {
+  orderRequest: false,
+  orderFailed: false,
+  orderName: undefined,
+  orderSuccess: false,
   orderNumber: undefined
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderDetailsActions): TInitialState => {
   switch (action.type) {
     case CREATE_ORDER: {
       return {
         ...state,
           // Запрос начал выполняться
-        numberRequest: true,
+        orderRequest: true,
           // Сбрасываем статус наличия ошибок от предыдущего запроса на случай, если он был и завершился с ошибкой
-        numberFailed: false,
+        orderFailed: false,
       };
     }
     case CREATE_ORDER_SUCCESS: {
       return { 
-        ...state, 
+        ...state,
+        orderSuccess: action.success, 
           // Запрос выполнился успешно, помещаем полученные данные в хранилище
-        orderNumber: action.orderNumber, 
+        orderName: action.name,
+        orderNumber: action.order.number, 
           // Запрос закончил своё выполнение
-        numberRequest: false 
+        orderRequest: false 
       };
     }
     case CREATE_ORDER_FAILED: {
       return { 
         ...state, 
           // Запрос выполнился с ошибкой, выставляем соответствующие значения в хранилище
-        numberFailed: true, 
+        orderFailed: true, 
           // Запрос закончил своё выполнение
-        numberRequest: false 
+        orderRequest: false 
       };
     }
     case REMOVE_ORDER_NUMBER: {
       return { 
         ...state, 
           // Запрос выполнился, приводим значения в хранилище к изначальным
-        numberRequest: false,
-        numberFailed: false,
+        orderRequest: false,
+        orderFailed: false,
         orderNumber: undefined 
       };
     }  

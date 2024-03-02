@@ -1,13 +1,14 @@
 import { WS_FEED_CONNECTION_SUCCESS, WS_FEED_CONNECTION_ERROR, WS_FEED_CONNECTION_CLOSED, 
-    WS_FEED_GET_MESSAGE } from "../../utils/constants.js";
+    WS_FEED_GET_MESSAGE } from "../const";
+import { TInitialState, TWsFeedActions } from "../types/socket-feed";
 
-const initialState = {
+const initialState: TInitialState = {
   wsFeedConnected: false,
   wsFeedMessages: {},
   wsFeedError: undefined
 };
 
-export const wsFeedReducer = (state = initialState, action) => {
+export const wsFeedReducer = (state = initialState, action: TWsFeedActions): TInitialState => {
   switch (action.type) {
       // Опишем обработку экшена с типом WS_FEED_CONNECTION_SUCCESS
       // Установим флаг wsFeedConnected в состояние true

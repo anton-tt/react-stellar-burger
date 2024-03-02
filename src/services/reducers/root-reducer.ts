@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { ingredientsReducer } from './burger-ingredients';
 import { ingredientReducer } from './ingredient-details';
 import { constructorReducer } from './burger-constructor';
-import { orderReducer } from './order-details.js';
+import { orderReducer } from './order-details';
 import { registerUserReducer } from './user-register';
 import { loginUserReducer } from './user-login';
 import { logoutUserReducer } from './user-logout';
@@ -11,9 +11,9 @@ import { resetPasswordReducer } from './password-reset';
 import { getUserReducer } from './user-get';
 import { updateUserReducer } from './user-update';
 import { updateTokenReducer } from './token-update.js';
-import { wsFeedReducer } from './socket-feed.js';
-import { wsHistoryReducer } from './socket-history.js';
-import { getOrderStructureReducer } from './order-get.js';
+import { wsFeedReducer } from './socket-feed';
+import { wsHistoryReducer } from './socket-history';
+import { getOrderStructureReducer } from './order-get';
 
 const rootReducer = combineReducers({
   ingredientsData: ingredientsReducer,

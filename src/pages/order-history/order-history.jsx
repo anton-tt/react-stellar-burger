@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants.js";
 import OrdersList from "../../components/orders-list/orders-list.jsx";
-import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history.js";
+import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history";
 import { tokenUpdate } from "../../services/actions/token-update.js";
 import styles from "./order-history.module.css";
 
