@@ -1,16 +1,19 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants.js";
+//import { TStore } from "../../services/store.js";
 import OrdersList from "../../components/orders-list/orders-list.jsx";
 import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history";
-import { tokenUpdate } from "../../services/actions/token-update.js";
+import { TResponseGetOrderData } from "../../services/types/order-get";
+import { tokenUpdate } from "../../services/actions/token-update";
 import styles from "./order-history.module.css";
 
+import rootReducer from "../../services/reducers/root-reducer.js";
 function OrderHistoryPage() {
-  
+  type TStore = ReturnType<typeof rootReducer>;
   const dispatch = useDispatch();
 
-  const getOrderHistoryData = (store) => store.orderHistoryData;
+  const getOrderHistoryData = (store: TStore) => store.orderHistoryData;
   const { wsHistoryConnected, wsHistoryMessages, wsHistoryError } = useSelector(getOrderHistoryData);
 
   useEffect(() => {
@@ -23,23 +26,25 @@ function OrderHistoryPage() {
     }
   }, []);
 
-  if (wsHistoryMessages?.message === INVALID_OR_MISSING_TOKEN) {
+  if (wsHistoryMessages && wsHistoryMessages.message === INVALID_OR_MISSING_TOKEN) {
     dispatch(tokenUpdate());
     dispatch(startHistoryConnection());
   }
 
-  const historyListData = wsHistoryMessages?.orders;
-   
+   console.log(wsHistoryMessages);
   if (wsHistoryConnected && !wsHistoryMessages && !wsHistoryError) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
   } else if (wsHistoryError) {
     return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
-  } else {
+  } else if (wsHistoryMessages) {
+    const historyListData: Array<TResponseGetOrderData> = wsHistoryMessages?.orders;
     return (
       <main className={`pt-10 ${styles.box}`}>
         <OrdersList ordersListData={historyListData} />
       </main>   
     )
+  } else {
+    return null;
   }
 }
 

@@ -3,7 +3,7 @@ import { Navigate, useLocation} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ACCESS_TOKEN, REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants.js";
 import { getCookie } from "../../utils/cookie.js";
-import { tokenUpdate } from "../../services/actions/token-update.js";
+import { tokenUpdate } from "../../services/actions/token-update";
 import PropTypes from "prop-types";
 
 function ProtectedRoute({ element }) {

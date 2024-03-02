@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/constants.js";
 import ProfileForm from "../../components/profile-form/profile-form";
-import OrderHistoryPage from "../order-history/order-history.jsx";
+import OrderHistoryPage from "../order-history/order-history";
 //import { TStore } from "../../services/store.js";
 import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout";
 import { getUser, resetGetUserData } from "../../services/actions/user-get";

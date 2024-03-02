@@ -1,7 +1,11 @@
 import { WS_HISTORY_CONNECTION_START, WS_HISTORY_CONNECTION_SUCCESS, WS_HISTORY_CONNECTION_ERROR, WS_HISTORY_CONNECTION_CLOSED, 
-  WS_HISTORY_CONNECTION_FINISH, WS_HISTORY_GET_MESSAGE, WS_HISTORY_SEND_MESSAGE } from "../const";
-import { TResponseGetOrderData } from "./order-get";  
+  WS_HISTORY_CONNECTION_FINISH, WS_HISTORY_GET_MESSAGE, WS_HISTORY_SEND_MESSAGE, INVALID_OR_MISSING_TOKEN } from "../const";
+import { TResponseGetOrderData } from "./order-get"; 
 
+export type  TResponseGetMessageData = {
+  message: string;
+  orders: Array<TResponseGetOrderData>;
+}; 
 
 export interface IWsHistoryConnectionStartAction {
   readonly type: typeof WS_HISTORY_CONNECTION_START;
@@ -14,7 +18,7 @@ export interface IWsHistoryConnectionSuccessAction {
   
 export interface IWsHistoryConnectionErrorAction {
   readonly type: typeof WS_HISTORY_CONNECTION_ERROR;
-  payload: string;
+  payload: boolean;
 }
 
 export interface IWsHistoryConnectionClosedAction {
@@ -27,7 +31,7 @@ export interface IWsHistoryConnectionFinishAction {
 
 export interface IWsHistoryGetMessageAction {
   readonly type: typeof WS_HISTORY_GET_MESSAGE;
-  payload: Array<TResponseGetOrderData>;
+  payload: TResponseGetMessageData;
 }
 
 export interface IWsHistorySendMessageAction {
@@ -45,6 +49,6 @@ export type TWsHistoryActions =
 
 export type TInitialState = {
   wsHistoryConnected: boolean;
-  wsHistoryMessages: Array<TResponseGetOrderData> | undefined;
-  wsHistoryError: string | undefined;
+  wsHistoryMessages: TResponseGetMessageData | undefined;
+  wsHistoryError: boolean | undefined;
 }

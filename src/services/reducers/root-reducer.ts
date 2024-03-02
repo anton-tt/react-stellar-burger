@@ -10,7 +10,7 @@ import { forgotPasswordReducer } from './password-forgot';
 import { resetPasswordReducer } from './password-reset';
 import { getUserReducer } from './user-get';
 import { updateUserReducer } from './user-update';
-import { updateTokenReducer } from './token-update.js';
+import { updateTokenReducer } from './token-update';
 import { wsFeedReducer } from './socket-feed';
 import { wsHistoryReducer } from './socket-history';
 import { getOrderStructureReducer } from './order-get';

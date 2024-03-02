@@ -1,12 +1,13 @@
-import { UPDATE_TOKEN, UPDATE_TOKEN_SUCCESS,UPDATE_TOKEN_FAILED } from "../../utils/constants.js";
+import { UPDATE_TOKEN, UPDATE_TOKEN_SUCCESS,UPDATE_TOKEN_FAILED } from "../const";
+import { TInitialState, TUpdateTokenActions } from "../types/update-token";
 
-const initialState = {
+const initialState: TInitialState = {
   tokenRequest: false,
   tokenFailed: false,
   successUpdateToken: false
 }
 
-export const updateTokenReducer = (state = initialState, action) => {
+export const updateTokenReducer = (state = initialState, action: TUpdateTokenActions): TInitialState => {
   switch (action.type) {
     case UPDATE_TOKEN: {
       return {

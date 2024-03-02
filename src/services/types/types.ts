@@ -13,6 +13,7 @@ import { TOrderDetailsActions } from "./order-details";
 import { TGetOrderActions } from "./order-get";
 import { TWsFeedActions } from "./socket-feed";
 import { TWsHistoryActions } from "./socket-history";
+import { TUpdateTokenActions } from "./update-token";
 
   // Типизация всех экшенов приложения
 type TApplicationActions = 
@@ -29,7 +30,8 @@ type TApplicationActions =
   | TOrderDetailsActions
   | TGetOrderActions
   | TWsFeedActions
-  | TWsHistoryActions;
+  | TWsHistoryActions
+  | TUpdateTokenActions;
 
   // Типизация метода dispatch для проверки на валидность отправляемого экшена
 export type AppDispatch = Dispatch<TApplicationActions>; 
