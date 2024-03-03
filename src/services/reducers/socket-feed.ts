@@ -4,7 +4,7 @@ import { TInitialState, TWsFeedActions } from "../types/socket-feed";
 
 const initialState: TInitialState = {
   wsFeedConnected: false,
-  wsFeedMessages: {},
+  wsFeedMessages: undefined,
   wsFeedError: undefined
 };
 
@@ -16,7 +16,7 @@ export const wsFeedReducer = (state = initialState, action: TWsFeedActions): TIn
       return {
         ...state,
         wsFeedConnected: true,
-        wsFeedMessages: {},
+        wsFeedMessages: undefined,
         wsFeedError: undefined    
       };
       // Опишем обработку экшена с типом WS_FEED_CONNECTION_ERROR
@@ -25,7 +25,7 @@ export const wsFeedReducer = (state = initialState, action: TWsFeedActions): TIn
       return {
         ...state,
         wsFeedConnected: false,
-        wsFeedMessages: {},
+        wsFeedMessages: undefined,
         wsFeedError: action.payload
       };
       // Опишем обработку экшена с типом WS_FEED_CONNECTION_CLOSED, когда соединение закрывается
@@ -34,7 +34,7 @@ export const wsFeedReducer = (state = initialState, action: TWsFeedActions): TIn
       return {
         ...state,
         wsFeedConnected: false,
-        wsFeedMessages: {},
+        wsFeedMessages: undefined,
         wsFeedError: undefined
       };
       // Опишем обработку экшена с типом WS_FEED_GET_MESSAGE

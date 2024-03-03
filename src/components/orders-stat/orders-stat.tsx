@@ -1,9 +1,20 @@
-import { useMemo } from "react";
+import { useMemo, FC } from "react";
 import styles from "./orders-stat.module.css";
 
-function OrdersStat({stats}) {
+type TStats = {
+  stats: {
+    totalOrders: number; 
+    totalTodayOrders: number;   
+    readyOrdersData: Array<number>;
+    unreadyOrdersData: Array<number>;
+  };
+}
+
+const OrdersStat: FC<TStats> = ({ stats }) => {
+
+//function OrdersStat({stats}: TStats) {
   
-  const {totalOrders, totalTodayOrders, readyOrdersData, unreadyOrdersData} = stats;
+  const { totalOrders, totalTodayOrders, readyOrdersData, unreadyOrdersData } = stats;
   
   const readyNumbers = useMemo(() => {
     return readyOrdersData.map((orderNumber, index) => {

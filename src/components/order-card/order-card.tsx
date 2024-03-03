@@ -2,18 +2,32 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+//import { TStore } from "../../services/store.js";
 import { STRING_EMPTY, STATUS_CREATED, STATUS_PENDING, STATUS_DONE, ORDER_CREATED, ORDER_PENDING, 
   ORDER_DONE, ORDER_FEED_PAGE } from "../../utils/constants.js";
-import RoundImages from "../round-images/round-images.jsx";
+import RoundImages from "../round-images/round-images";
 import styles from "./order-card.module.css";
+import rootReducer from "../../services/reducers/root-reducer.js";
 
-function OrderCard({orderData}) {
+type TOrderData = {
+  orderData: {
+    ingredients: Array<string>;
+    name: string;
+    status: string;
+    number: number;
+    createdAt: string;
+  }
+};
+
+
+function OrderCard({ orderData }: TOrderData) {
+  type TStore = ReturnType<typeof rootReducer>;  
 
   const location = useLocation();
 
   const { ingredients, name, status, number, createdAt } = orderData;
 
-  const getIngredientsData = (store) => store.ingredientsData;
+  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const ingredientsOneOrder = useMemo(() => {
@@ -21,13 +35,14 @@ function OrderCard({orderData}) {
       return ingredientsData.find(ingredient => (ingredient._id === id));
     });
   }, [ingredients, ingredientsData]);
-  const filling = ingredientsOneOrder?.filter((item) => item.type !== 'bun');
-  const bun = ingredientsOneOrder?.find((item) => item.type === 'bun');
   
-  const fillingPrice = filling?.map((item) => item.price)
+  const filling = ingredientsOneOrder?.filter((item) => item?.type !== 'bun');
+  const bun = ingredientsOneOrder?.find((item) => item?.type === 'bun');
+
+  const fillingPrice = filling?.map((item) => item ? item.price : 0)
     .reduce((currentSum, currentNumber) => currentSum + currentNumber, 0);
-  
-  const orderPrice = fillingPrice + bun.price * 2;
+  const bunPrice = bun? (bun.price * 2) : 0; 
+  const orderPrice = fillingPrice + bunPrice;
 
   let orderStatus = STRING_EMPTY;
   if (status === STATUS_CREATED) {
@@ -39,7 +54,7 @@ function OrderCard({orderData}) {
   } 
   
   const greenString = (status === STATUS_DONE) ? `${styles.done}` : STRING_EMPTY;
-
+if (ingredientsOneOrder) {
   return ( 
     <Link to={`${ORDER_FEED_PAGE}/${number}`} className={styles.link} state={{ background: location, prev: location.pathname }}  replace={false}>
   
@@ -69,7 +84,9 @@ function OrderCard({orderData}) {
      
     </Link>
   );
-
+  } else {
+    return null;
+  }
 }
    
 export default OrderCard;

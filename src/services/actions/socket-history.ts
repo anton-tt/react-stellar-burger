@@ -5,7 +5,6 @@ import { IWsHistoryConnectionStartAction, IWsHistoryConnectionSuccessAction, IWs
   IWsHistorySendMessageAction, TResponseGetMessageData } from "../types/socket-history";  
 import { ACCESS_TOKEN } from "../../utils/constants.js";
 import { getCookie } from "../../utils/cookie.js";
-import { TResponseGetOrderData } from "../types/order-get";
 
 export function startHistoryConnection(): IWsHistoryConnectionStartAction { 
   return ({ type: WS_HISTORY_CONNECTION_START,

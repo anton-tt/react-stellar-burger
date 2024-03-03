@@ -13,7 +13,7 @@ import LoginPage from "../../pages/login/login.tsx";
 import PasswordForgotPage from "../../pages/password-forgot/password-forgot.tsx";
 import PasswordResetPage from "../../pages/password-reset/password-reset.tsx";
 import ProfilePage from "../../pages/profile/profile.tsx";
-import OrderFeedPage from "../../pages/order-feed/order-feed.jsx";
+import OrderFeedPage from "../../pages/order-feed/order-feed.tsx";
 import NotFoundPage from "../../pages/not-found/not-found.jsx";
 
 import { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, PASSWORD_FORGOT_PAGE, PASSWORD_RESET_PAGE, PROFILE_PAGE, ORDER_FEED_PAGE, 

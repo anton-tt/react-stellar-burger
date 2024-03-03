@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants.js";
 //import { TStore } from "../../services/store.js";
-import OrdersList from "../../components/orders-list/orders-list.jsx";
+import OrdersList from "../../components/orders-list/orders-list";
 import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history";
 import { TResponseGetOrderData } from "../../services/types/order-get";
 import { tokenUpdate } from "../../services/actions/token-update";
@@ -31,13 +31,12 @@ function OrderHistoryPage() {
     dispatch(startHistoryConnection());
   }
 
-   console.log(wsHistoryMessages);
   if (wsHistoryConnected && !wsHistoryMessages && !wsHistoryError) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
   } else if (wsHistoryError) {
     return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
   } else if (wsHistoryMessages) {
-    const historyListData: Array<TResponseGetOrderData> = wsHistoryMessages?.orders;
+    const historyListData: Array<TResponseGetOrderData> = wsHistoryMessages.orders;
     return (
       <main className={`pt-10 ${styles.box}`}>
         <OrdersList ordersListData={historyListData} />
@@ -46,6 +45,7 @@ function OrderHistoryPage() {
   } else {
     return null;
   }
+
 }
 
 export default OrderHistoryPage;

@@ -10,7 +10,7 @@ type TFilling = {
   ingredientData: TIngredientDataWithLocalId;
 };
 
-const Filling: FC<TFilling> = ({ ingredientData}) => {
+const Filling: FC<TFilling> = ({ ingredientData }) => {
 
   const dispatch = useDispatch();
   

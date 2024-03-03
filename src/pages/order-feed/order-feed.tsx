@@ -1,18 +1,22 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import OrdersList from "../../components/orders-list/orders-list.jsx";
-import OrdersStat from "../../components/orders-stat/orders-stat.jsx";
+//import { TStore } from "../../services/store.js";
+import OrdersList from "../../components/orders-list/orders-list";
+import OrdersStat from "../../components/orders-stat/orders-stat";
 import { startFeedConnection, finishFeedConnection } from "../../services/actions/socket-feed";
+import { TResponseGetOrderData } from "../../services/types/order-get.js";
 import styles from "./order-feed.module.css";
 
+import rootReducer from "../../services/reducers/root-reducer.js";
 function OrderFeedPage() {
+  type TStore = ReturnType<typeof rootReducer>;
  
   const dispatch = useDispatch();
 
-  const getOrderFeedData = (store) => store.orderFeedData;
+  const getOrderFeedData = (store: TStore) => store.orderFeedData;
   const { wsFeedConnected, wsFeedMessages, wsFeedError } = useSelector(getOrderFeedData);
 
-  const isEmptyWsFeedMessages = Object.keys(wsFeedMessages).length === 0;
+  //const isEmptyWsFeedMessages: boolean = Object.keys(wsFeedMessages).length === 0;
 
   useEffect(() => {
     dispatch(startFeedConnection());
@@ -23,16 +27,16 @@ function OrderFeedPage() {
       dispatch(finishFeedConnection());
     }
   }, []);
-   
-  if (isEmptyWsFeedMessages) {
+
+  if (wsFeedConnected && !wsFeedMessages && !wsFeedError) {
     return <p className="text text_type_main-medium"> Загрузка... </p>
   } else if (wsFeedError) {
     return <p className="text text_type_main-medium"> При обработке запроса возникла ошибка. Обновите страничку. </p>
-  } else {
+  } else if (wsFeedMessages) {
 
-    const ordersListData = wsFeedMessages.orders;
-    const totalOrders = wsFeedMessages.total;
-    const totalTodayOrders = wsFeedMessages.totalToday;
+    const ordersListData: Array<TResponseGetOrderData> = wsFeedMessages.orders;
+    const totalOrders: number = wsFeedMessages.total;
+    const totalTodayOrders: number = wsFeedMessages.totalToday;
 
     const readyOrdersData = 
       ordersListData.filter(order => order.status === "done").map((order) => order.number);
@@ -47,6 +51,8 @@ function OrderFeedPage() {
         </div>
       </main>   
     )
+  } else {
+    return null;
   }
 
 }

@@ -2,7 +2,7 @@ import { GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED } from "../const";
 import { TResponseIngredientData } from "../types/burger-ingredients";
 
 export type TResponseGetOrderData = {
-  ingredients: Array<TResponseIngredientData>;
+  ingredients: Array<string>;
   _id: string;
   status: string;
   number: number;

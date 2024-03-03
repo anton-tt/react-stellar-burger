@@ -49,6 +49,6 @@ export type TWsFeedActions =
 
 export type TInitialState = {
   wsFeedConnected: boolean;
-  wsFeedMessages: TResponseOrdersDataWhitsTotal | object;
+  wsFeedMessages: TResponseOrdersDataWhitsTotal | undefined;
   wsFeedError: string | undefined;
 }
