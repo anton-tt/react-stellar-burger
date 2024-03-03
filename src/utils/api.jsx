@@ -1,5 +1,5 @@
 import { urlBase, REFRESH_TOKEN, INGREDIENTS_PATH, ORDERS_PATH, AUTHORIZATION_PATH, REGISTER_PAGE, LOGIN_PAGE, 
-  LOGOUT_PATH, PASSWORD_RESET_BASE_PATH, PASSWORD_RESET_PATH } from "./constants.js";
+  LOGOUT_PATH, PASSWORD_RESET_BASE_PATH, PASSWORD_RESET_PATH } from "./constants";
 
 export const checkResponse = (res) => {
   if (res.ok) {

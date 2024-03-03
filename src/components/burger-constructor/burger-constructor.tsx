@@ -3,19 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { useNavigate, useLocation} from "react-router-dom";
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-//import { TStore } from "../../services/store.js";
+import { TStore } from "../../services/store";
 import Filling from "../filling/filling";
-import ModalBase from "../modal-base/modal-base.jsx";
+import ModalBase from "../modal-base/modal-base";
 import OrderDetails from "../order-details/order-details";
-import { REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants.js";
+import { REFRESH_TOKEN, LOGIN_PAGE } from "../../utils/constants";
 import { TResponseIngredientData } from "../../services/types/burger-ingredients";
 import { createOrder, removeOrderNumber } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import styles from "./burger-constructor.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function BurgerConstructor() {
-  type TStore = ReturnType<typeof rootReducer>;
 
   const dispatch = useDispatch();
 

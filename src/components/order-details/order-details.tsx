@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux';
-//import { TStore } from "../../services/store.js";
+import { TStore } from "../../services/store";
 import checkmark from "../../images/checkmark.png";
 import styles from "./order-details.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function OrderDetails() {
-  type TStore = ReturnType<typeof rootReducer>;
+
     // Вытаскиваем селектором нужные данные из хранилища
   const getOrderNumber = (store: TStore) => store.orderNumber;  
   const { orderNumber, orderRequest, orderFailed } = useSelector(getOrderNumber);

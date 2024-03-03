@@ -1,15 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-//import { TStore } from "../../services/store.js";
+import { TStore } from "../../services/store";
 import OrdersList from "../../components/orders-list/orders-list";
 import OrdersStat from "../../components/orders-stat/orders-stat";
 import { startFeedConnection, finishFeedConnection } from "../../services/actions/socket-feed";
-import { TResponseGetOrderData } from "../../services/types/order-get.js";
+import { TResponseGetOrderData } from "../../services/types/order-get";
 import styles from "./order-feed.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function OrderFeedPage() {
-  type TStore = ReturnType<typeof rootReducer>;
  
   const dispatch = useDispatch();
 

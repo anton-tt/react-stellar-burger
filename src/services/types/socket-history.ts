@@ -31,7 +31,7 @@ export interface IWsHistoryConnectionFinishAction {
 
 export interface IWsHistoryGetMessageAction {
   readonly type: typeof WS_HISTORY_GET_MESSAGE;
-  payload: TResponseGetMessageData;
+  payload: TResponseGetMessageData | undefined;
 }
 
 export interface IWsHistorySendMessageAction {

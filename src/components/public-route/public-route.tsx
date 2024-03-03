@@ -1,8 +1,11 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { REFRESH_TOKEN, HOME_PAGE } from "../../utils/constants.js";
-import PropTypes from "prop-types";
+import { REFRESH_TOKEN, HOME_PAGE } from "../../utils/constants";
 
-function PublicRoute({ element }) {
+type TPublicRouteProps = {
+  element: JSX.Element;
+};
+
+function PublicRoute({ element }: TPublicRouteProps) {
 
   const location = useLocation();
   
@@ -13,10 +16,6 @@ function PublicRoute({ element }) {
   }
   return element;
 
-}
- 
-PublicRoute.propTypes = { 
-  element: PropTypes.node.isRequired
 }
 
 export default PublicRoute;

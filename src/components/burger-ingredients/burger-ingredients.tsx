@@ -1,14 +1,12 @@
 import { useMemo, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { useInView } from "react-intersection-observer";
-//import { TStore } from "../../services/store.js";
-import Tabs from "../tabs/tabs.jsx";
-import IngredientsGroup from "../ingredients-group/ingredients-group.jsx";
+import { TStore } from "../../services/store";
+import Tabs from "../tabs/tabs";
+import IngredientsGroup from "../ingredients-group/ingredients-group";
 import styles from "./burger-ingredients.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function BurgerIngredients() {
-  type TStore = ReturnType<typeof rootReducer>;
 
   const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
@@ -32,6 +30,10 @@ function BurgerIngredients() {
     }
   }, [bunsInView, saucesInView, mainsInIView])
 
+  const tabClick = (tab: string) => {
+    setState(tab);
+  }
+
   if (ingredientsFailed) {
     return <p className="text text_type_main-medium">Произошла ошибка при получении данных</p>
   } else if (ingredientsRequest) {
@@ -41,7 +43,7 @@ function BurgerIngredients() {
       <section className={`pt-10 ${styles.box}`}>
         <h1 className="text text_type_main-large pb-5"> Соберите бургер </h1>
       
-        <Tabs state={state} />
+        <Tabs state={state} tabClick={tabClick} />
         
         <ul className={`pt-10 ${styles.ingredients}`}> 
           <li>

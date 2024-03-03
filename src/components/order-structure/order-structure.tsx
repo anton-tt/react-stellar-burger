@@ -2,45 +2,51 @@ import { useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TStore } from "../../services/store";
 import { STRING_EMPTY, STATUS_CREATED, STATUS_PENDING, STATUS_DONE, ORDER_CREATED, ORDER_PENDING, ORDER_DONE, ORDER_HISTORY_PAGE, 
-  ORDER_FEED_PAGE } from "../../utils/constants.js";
-import IngredientLines from "../ingredient-lines/ingredient-lines.jsx";
+  ORDER_FEED_PAGE } from "../../utils/constants";
+import IngredientLines from "../ingredient-lines/ingredient-lines";
+import { TResponseGetOrderData } from "../../services/types/order-get";
 import { getOrder } from "../../services/actions/order-get";
 import styles from "./order-structure.module.css";
- 
-function OrderStructure({newPage}) {
+
+type TOrderStructureProps = {
+  newPage: boolean;
+};
+
+function OrderStructure({newPage}: TOrderStructureProps) {
 
   const location = useLocation();
   const prevPage = location.state?.prev;
 
   const dispatch = useDispatch();
 
-  const getOrderFeedData = (store) => store.orderFeedData;
+  const getOrderFeedData = (store: TStore) => store.orderFeedData;
   const { wsFeedConnected, wsFeedMessages, wsFeedError } = useSelector(getOrderFeedData);
 
-  const getOrderHistoryData = (store) => store.orderHistoryData;
+  const getOrderHistoryData = (store: TStore) => store.orderHistoryData;
   const { wsHistoryConnected, wsHistoryMessages, wsHistoryError } = useSelector(getOrderHistoryData);
 
-  const getIngredientsData = (store) => store.ingredientsData;
+  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
-  const getOrderStructureData = (store) => store.orderStructureData;
+  const getOrderStructureData = (store: TStore) => store.orderStructureData;
   const { getOrderRequest, getOrderFailed, getOrderData, getOrderSuccess } = useSelector(getOrderStructureData);
 
-  const orderNumberData = useParams();
-  const orderNumber  = orderNumberData.number;
+  const orderNumberData = useParams().number;
+  const orderNumber  = orderNumberData ? +orderNumberData : -1;
   
   useEffect(() => {
-    (newPage) && dispatch(getOrder(orderNumber));
+    (newPage) && (orderNumber !== -1) && dispatch(getOrder(orderNumber));
   }, [dispatch]);
   
-  let order = {};
+  let order: TResponseGetOrderData | undefined;
   if (prevPage === ORDER_FEED_PAGE) {
-    const ordersData = wsFeedMessages.orders;
-    order = ordersData?.find((item) => item.number == orderNumber);
+    const ordersData = wsFeedMessages?.orders;
+    order = ordersData?.find((item) => item.number === orderNumber);
   } else if (prevPage === ORDER_HISTORY_PAGE) {
-    const ordersData = wsHistoryMessages.orders;
-    order = ordersData?.find((item) => item.number == orderNumber);
+    const ordersData = wsHistoryMessages?.orders;
+    order = ordersData?.find((item) => item.number === orderNumber);
   } else  {
     order = getOrderData;
   }
@@ -48,17 +54,19 @@ function OrderStructure({newPage}) {
   const ingredients = order?.ingredients;
   const name = order?.name;
   const status = order?.status;
-  const createdAt = order?.createdAt;
+  const createdAt = order?.createdAt ? order.createdAt : "";
   
   const ingredientsOneOrder = ingredients?.map((id) => {
       return ingredientsData.find(ingredient => ingredient._id === id);
     });
 
-  const filling = useMemo(() => ingredientsOneOrder?.filter((item) => item.type !== 'bun'), [ingredientsOneOrder]);
-  const bun = useMemo(() => ingredientsOneOrder?.find((item) => item.type === 'bun'), [ingredientsOneOrder]);
-  const fillingPrice = filling?.map((item) => item.price).reduce((currentSum, currentNumber) => currentSum + currentNumber, 0);
+  const filling = useMemo(() => ingredientsOneOrder?.filter((item) => item?.type !== 'bun'), [ingredientsOneOrder]);
+  const bun = useMemo(() => ingredientsOneOrder?.find((item) => item?.type === 'bun'), [ingredientsOneOrder]);
+  const fillingPrice = filling?.map((item) => item ? item.price : 0)
+    .reduce((currentSum, currentNumber) => currentSum + currentNumber, 0);
   let orderPrice = 0;
-  fillingPrice && (orderPrice = fillingPrice +  bun.price * 2);
+  const bunPrice = bun ? (bun.price * 2) : 0;
+  fillingPrice && (orderPrice = fillingPrice + bunPrice);
 
   let orderStatus = STRING_EMPTY;
   if (status === STATUS_CREATED) {

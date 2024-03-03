@@ -3,14 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
-import { LOGIN_PAGE, FORGOT_MESSAGE_SUCCESS } from "../../utils/constants.js";
-//import { TStore } from "../../services/store.js";
+import { LOGIN_PAGE, FORGOT_MESSAGE_SUCCESS } from "../../utils/constants";
+import { TStore } from "../../services/store";
 import { resetPassword, resetPasswordResetData } from "../../services/actions/password-reset";
 import styles from "./password-reset.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function PasswordResetPage() {
-  type TStore = ReturnType<typeof rootReducer>;
     
   const dispatch = useDispatch();
 

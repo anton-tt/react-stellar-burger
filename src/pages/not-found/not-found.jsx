@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { HOME_PAGE } from "../../utils/constants.js";
+import { HOME_PAGE } from "../../utils/constants";
 import styles from "./not-found.module.css";
 
 function NotFoundPage() {

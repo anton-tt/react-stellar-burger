@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-import Ingredient from "../ingredient/ingredient.jsx";
+import { TResponseIngredientData } from "../../services/types/burger-ingredients";
+import Ingredient from "../ingredient/ingredient";
 import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details";
 import styles from "./ingredients-group.module.css";
-import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
 
-function IngredientsGroup({ groupData }) {
+type TIngredientsGroup = {
+  groupData: Array<TResponseIngredientData>;
+}; 
+
+function IngredientsGroup({ groupData }: TIngredientsGroup) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch();
   
-  const openModal = (ingredient) => {
+  const openModal = (ingredient: TResponseIngredientData) => {
     setIsOpenModal(true);
     dispatch(addIngredientData(ingredient));
   }
@@ -33,10 +36,6 @@ function IngredientsGroup({ groupData }) {
     </ul>
   );
 
-}
-
-IngredientsGroup.propTypes = { 
-  groupData: PropTypes.arrayOf(ingredientPropType).isRequired
 }
 
 export default IngredientsGroup;

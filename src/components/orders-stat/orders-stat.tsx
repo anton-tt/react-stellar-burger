@@ -1,7 +1,7 @@
-import { useMemo, FC } from "react";
+import { useMemo } from "react";
 import styles from "./orders-stat.module.css";
 
-type TStats = {
+type TOrdersStatProps = {
   stats: {
     totalOrders: number; 
     totalTodayOrders: number;   
@@ -10,9 +10,7 @@ type TStats = {
   };
 }
 
-const OrdersStat: FC<TStats> = ({ stats }) => {
-
-//function OrdersStat({stats}: TStats) {
+function OrdersStat ({ stats }: TOrdersStatProps) {
   
   const { totalOrders, totalTodayOrders, readyOrdersData, unreadyOrdersData } = stats;
   

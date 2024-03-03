@@ -2,24 +2,25 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import PublicRoute from "../../components/public-route/public-route.jsx";
-import ProtectedRoute from "../../components/protected-route/protected-route.jsx";  
+import PublicRoute from "../public-route/public-route";
+import ProtectedRoute from "../protected-route/protected-route";  
 
-import AppHeader from "../app-header/app-header.jsx";
-import BurgerConstructorContainer from "../burger-constructor-container/burger-constructor-container.jsx";
-import ModalBase from "../modal-base/modal-base.jsx";
-import RegisterPage from "../../pages/register/register.tsx";
-import LoginPage from "../../pages/login/login.tsx";
-import PasswordForgotPage from "../../pages/password-forgot/password-forgot.tsx";
-import PasswordResetPage from "../../pages/password-reset/password-reset.tsx";
-import ProfilePage from "../../pages/profile/profile.tsx";
-import OrderFeedPage from "../../pages/order-feed/order-feed.tsx";
-import NotFoundPage from "../../pages/not-found/not-found.jsx";
+import AppHeader from "../app-header/app-header";
+import BurgerConstructorContainer from "../burger-constructor-container/burger-constructor-container";
+import ModalBase from "../modal-base/modal-base";
+import RegisterPage from "../../pages/register/register";
+import LoginPage from "../../pages/login/login";
+import PasswordForgotPage from "../../pages/password-forgot/password-forgot";
+import PasswordResetPage from "../../pages/password-reset/password-reset";
+import ProfilePage from "../../pages/profile/profile";
+import OrderFeedPage from "../../pages/order-feed/order-feed";
+import NotFoundPage from "../../pages/not-found/not-found";
 
 import { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, PASSWORD_FORGOT_PAGE, PASSWORD_RESET_PAGE, PROFILE_PAGE, ORDER_FEED_PAGE, 
-  ORDER_HISTORY_PAGE, ORDER_PAGE, INGREDIENT_PAGE, NOT_FOUND_PAGE } from "../../utils/constants.js";
-import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-import OrderStructure from "../order-structure/order-structure.jsx";
+  ORDER_HISTORY_PAGE, ORDER_PAGE, INGREDIENT_PAGE, NOT_FOUND_PAGE } from "../../utils/constants";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderStructure from "../order-structure/order-structure";
+import { TStore } from "../../services/store";
 import { getIngredientsList } from "../../services/actions/burger-ingredients";
 import styles from "./app.module.css";
 
@@ -33,10 +34,10 @@ function App() {
 
   const background = location.state && location.state.background;
 
-  const getCurrentUserData = (store) => store.getUserData;
-  const { successGetUser, getUserData } = useSelector(getCurrentUserData);
+  const getCurrentUserData = (store: TStore) => store.getUserData;
+  const { getUserSuccess, getUserData } = useSelector(getCurrentUserData);
 
-  const getIngredientsData = (store) => store.ingredientsData;
+  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   useEffect(()=> {
@@ -75,7 +76,7 @@ function App() {
 
           <Route path={ORDER_FEED_PAGE} element={ <OrderFeedPage /> } />
 
-          <Route path={INGREDIENT_PAGE} element={ <IngredientDetails /> } />
+          <Route path={INGREDIENT_PAGE} element={ <IngredientDetails  newPage={true}/> } />
 
           <Route path={ORDER_PAGE} element={ <OrderStructure newPage={true} /> } />
         
@@ -95,7 +96,7 @@ function App() {
         (<Routes>
           <Route path={ORDER_PAGE} element={ 
             <ModalBase closeModal={closeModal} >
-              <OrderStructure /> 
+              <OrderStructure newPage={false} /> 
             </ModalBase>}
           />
         </Routes> )}

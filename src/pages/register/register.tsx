@@ -3,14 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
-import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants.js";
-//import { TStore } from "../../services/store.js";
+import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants";
+import { TStore } from "../../services/store";
 import { registerUser, resetRegisterUserData } from "../../services/actions/user-register";
 import styles from "./register.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function RegisterPage() {
-  type TStore = ReturnType<typeof rootReducer>;
 
   const dispatch = useDispatch();
 

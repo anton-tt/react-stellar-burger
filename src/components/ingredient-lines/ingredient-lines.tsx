@@ -1,7 +1,13 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TResponseIngredientData } from "../../services/types/burger-ingredients";
 import styles from "./ingredient-lines.module.css";
 
-function IngredientLines({bunData, fillingData}) {
+type TIngredientLinesProps = {
+  bunData: TResponseIngredientData | undefined;
+  fillingData: Array<TResponseIngredientData | undefined> | undefined;
+};
+
+function IngredientLines({bunData, fillingData}: TIngredientLinesProps) {
   
   if (bunData) {
     return ( 
@@ -19,13 +25,13 @@ function IngredientLines({bunData, fillingData}) {
 
         { fillingData?.map((element) => {
           return ( 
-            <li className={styles.element} key={element._id}>
+            <li className={styles.element} key={element?._id}>
               <div className={styles.component}>
-                <img  className={styles.image} src={element.image_mobile} />    
-                <p className="pl-4 text text_type_main-small"> {element.name} </p>
+                <img  className={styles.image} src={element?.image_mobile} />    
+                <p className="pl-4 text text_type_main-small"> {element?.name} </p>
               </div>
               <div  className={styles.component}>
-                <p className={`text text_type_digits-default ${styles.count}`}> 1 x {element.price} </p>
+                <p className={`text text_type_digits-default ${styles.count}`}> 1 x {element?.price} </p>
                 <CurrencyIcon type="primary"/> 
               </div>
             </li>);

@@ -1,18 +1,17 @@
 import { useEffect, SyntheticEvent } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/constants.js";
+import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/constants";
+import { TStore } from "../../services/store";
 import ProfileForm from "../../components/profile-form/profile-form";
 import OrderHistoryPage from "../order-history/order-history";
-//import { TStore } from "../../services/store.js";
 import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout";
 import { getUser, resetGetUserData } from "../../services/actions/user-get";
 import { resetUpdateUserData } from "../../services/actions/user-update";
 import styles from "./profile.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function ProfilePage() {
-  type TStore = ReturnType<typeof rootReducer>;
+
   const dispatch = useDispatch();
   
   const navigate = useNavigate();

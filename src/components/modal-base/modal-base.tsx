@@ -1,16 +1,20 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
-import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from "./modal-base.module.css";
-import PropTypes from "prop-types";
 
-function ModalBase({ closeModal, children }) {
+type ModalBaseProps = {
+  closeModal: () => void;
+  children: ReactNode;
+};
 
-  const modalRoot = document.getElementById("react-modals");
+function ModalBase({ closeModal, children }: ModalBaseProps) {
+
+  const modalRoot = document.getElementById("react-modals") as HTMLElement;
     
   useEffect(() => {
-    const handleEscClose = (event) => {
+    const handleEscClose = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         closeModal();
       }
@@ -34,10 +38,5 @@ function ModalBase({ closeModal, children }) {
     modalRoot);      
 
 }
-    
-  ModalBase.propTypes = { 
-    closeModal: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired
-  }
   
-  export default ModalBase;
+export default ModalBase;

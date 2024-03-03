@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants.js";
-//import { TStore } from "../../services/store.js";
+import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants";
+import { TStore } from "../../services/store";
 import OrdersList from "../../components/orders-list/orders-list";
 import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history";
 import { TResponseGetOrderData } from "../../services/types/order-get";
 import { tokenUpdate } from "../../services/actions/token-update";
 import styles from "./order-history.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function OrderHistoryPage() {
-  type TStore = ReturnType<typeof rootReducer>;
+  
   const dispatch = useDispatch();
 
   const getOrderHistoryData = (store: TStore) => store.orderHistoryData;

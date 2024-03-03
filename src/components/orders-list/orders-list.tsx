@@ -2,11 +2,11 @@ import OrderCard from "../order-card/order-card";
 import { TResponseGetOrderData } from "../../services/types/order-get";
 import styles from "./orders-list.module.css";
 
-type TOrdersListData = {
+type TOrdersListProps = {
   ordersListData: Array<TResponseGetOrderData>;
 };
 
-function OrdersList({ordersListData}: TOrdersListData) {
+function OrdersList({ordersListData}: TOrdersListProps) {
   
   return (
     <section className={styles.section}> 

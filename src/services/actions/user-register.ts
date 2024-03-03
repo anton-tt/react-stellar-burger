@@ -1,5 +1,5 @@
 import { REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED, REGISTER_USER_RESET_DATA } from "../const";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants.js";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { TRequestUserData, TResponseUserData, IRegisterUserAction, IRegisterUserSuccessAction, IRegisterUserFailedAction, 
   IRegisterUserResetDataAction } from "../types/user-register"; 
 import { registerApi } from "../../utils/api.jsx";

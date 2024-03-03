@@ -1,15 +1,14 @@
 import { useEffect, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TStore } from "../../services/store";
 import useForm from "../../hooks/useForm";
-//import { TStore } from "../../services/store.js";
 import { updateUser } from "../../services/actions/user-update";
 import { getUser } from "../../services/actions/user-get";
 import styles from "./profile-form.module.css";
 
-import rootReducer from "../../services/reducers/root-reducer.js";
 function ProfileForm() {
-  type TStore = ReturnType<typeof rootReducer>;
+
   const dispatch = useDispatch();
 
   const { formValues, handleChange, setFormValues } = useForm({

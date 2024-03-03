@@ -3,13 +3,17 @@ import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INGREDIENTS_PATH } from "../../utils/constants.js";
+import { TStore } from "../../services/store";
+import { TResponseIngredientData } from "../../services/types/burger-ingredients";
+import { INGREDIENTS_PATH } from "../../utils/constants";
 import styles from "./ingredient.module.css";
-import { ingredientPropType } from "../../utils/prop-types.js";
-import PropTypes from "prop-types";
 
-function Ingredient({openModal, ingredientData}) {
-  
+type TIngredientProps = { 
+  openModal: (ingredientData: TResponseIngredientData) => void;
+  ingredientData: TResponseIngredientData;
+};
+
+function Ingredient({openModal, ingredientData}: TIngredientProps) {
   const location = useLocation();
   
   const [{isDrag}, dragRef] = useDrag({
@@ -20,7 +24,7 @@ function Ingredient({openModal, ingredientData}) {
     })
   });
 
-  const getConstructorData = (store) => store.constructorData;
+  const getConstructorData = (store: TStore) => store.constructorData;
   const { bunsData, fillingData } = useSelector(getConstructorData);
 
   const ingredientCount = useMemo(() => {
@@ -40,7 +44,7 @@ function Ingredient({openModal, ingredientData}) {
   return ( 
     <Link to={`${INGREDIENTS_PATH}/${ingredientData._id}`} state={{ background: location }} className={styles.link}>
 
-      <div className={`${styles.ingredient} ${highlightBox}`} onClick={openModal} ref={dragRef} >
+      <div className={`${styles.ingredient} ${highlightBox}`} onClick={() => openModal} ref={dragRef} >
         {((ingredientCount > 0) || isDrag) ?  (  
           <Counter count={ingredientCount} size="default" extraClass="m-1" />
         ) : null} 
@@ -55,11 +59,6 @@ function Ingredient({openModal, ingredientData}) {
     </Link>
   );
   
-}
-
-Ingredient.propTypes = { 
-  ingredientData: ingredientPropType.isRequired,
-  openModal: PropTypes.func.isRequired 
 }
 
 export default Ingredient;

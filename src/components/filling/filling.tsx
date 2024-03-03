@@ -6,11 +6,11 @@ import { TIngredientDataWithLocalId } from "../../services/types/burger-construc
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor";
 import styles from "./filling.module.css";
 
-type TFilling = {
+type TFillingProps = {
   ingredientData: TIngredientDataWithLocalId;
 };
 
-const Filling: FC<TFilling> = ({ ingredientData }) => {
+const Filling: FC<TFillingProps> = ({ ingredientData }) => {
 
   const dispatch = useDispatch();
   

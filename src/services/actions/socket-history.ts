@@ -3,7 +3,7 @@ import { WS_HISTORY_CONNECTION_START, WS_HISTORY_CONNECTION_SUCCESS, WS_HISTORY_
 import { IWsHistoryConnectionStartAction, IWsHistoryConnectionSuccessAction, IWsHistoryConnectionErrorAction, 
   IWsHistoryConnectionClosedAction, IWsHistoryConnectionFinishAction, IWsHistoryGetMessageAction, 
   IWsHistorySendMessageAction, TResponseGetMessageData } from "../types/socket-history";  
-import { ACCESS_TOKEN } from "../../utils/constants.js";
+import { ACCESS_TOKEN } from "../../utils/constants";
 import { getCookie } from "../../utils/cookie.js";
 
 export function startHistoryConnection(): IWsHistoryConnectionStartAction { 

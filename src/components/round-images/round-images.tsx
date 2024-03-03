@@ -1,13 +1,13 @@
 import { useMemo } from "react";
-import styles from "./round-images.module.css";
 import { TResponseIngredientData } from "../../services/types/burger-ingredients";
+import styles from "./round-images.module.css";
 
 
-type TIngredients = {
+type TIngredientsProps = {
   ingredients: Array<TResponseIngredientData | undefined> ;
 };
 
-function RoundImages({ingredients}: TIngredients) {
+function RoundImages({ingredients}: TIngredientsProps) {
 
 
   const ingredientImages = useMemo(() => ingredients.map((item) => item?.image_mobile), [ingredients]);
@@ -36,7 +36,6 @@ function RoundImages({ingredients}: TIngredients) {
       </>
     );
  }
-
 
 }
         

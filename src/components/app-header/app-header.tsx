@@ -1,6 +1,6 @@
 import { useLocation, NavLink } from "react-router-dom";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { HOME_PAGE, ORDER_FEED_PAGE, PROFILE_PAGE } from "../../utils/constants.js";
+import { HOME_PAGE, ORDER_FEED_PAGE, PROFILE_PAGE } from "../../utils/constants";
 import styles from "./app-header.module.css"
 
 function AppHeader() {
@@ -9,8 +9,8 @@ function AppHeader() {
 
   const pathBeginning = "/" + location.pathname.split('/')[1];
   const baseClassLink = "text text_type_main-default"; 
-  const getBurgerIconType = (path) => (path === pathBeginning) ? "primary" : "secondary";
-  const getLinkTextClass = (path) => (path === pathBeginning) ? baseClassLink : `${baseClassLink} text_color_inactive`;
+  const getBurgerIconType = (path: string) => (path === pathBeginning) ? "primary" : "secondary";
+  const getLinkTextClass = (path: string) => (path === pathBeginning) ? baseClassLink : `${baseClassLink} text_color_inactive`;
   
   return (  
     <header>

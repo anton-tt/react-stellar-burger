@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants.js";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, LOGOUT_USER_RESET_DATA } from "../const";
 import { ILogoutUserAction, ILogoutUserSuccessAction, ILogoutUserFailedAction, 
   ILogoutUserResetDataAction } from "../types/user-logout";   

@@ -1,4 +1,4 @@
-import { urlBase, REFRESH_TOKEN, ACCESS_TOKEN, AUTHORIZATION_PATH, TOKEN_PATH, USER_PATH, ORDERS_PATH } from "./constants.js";
+import { urlBase, REFRESH_TOKEN, ACCESS_TOKEN, AUTHORIZATION_PATH, TOKEN_PATH, USER_PATH, ORDERS_PATH } from "./constants";
 import { setCookie, getCookie } from "./cookie.js";
 import { checkResponse, request } from "./api.jsx";
 

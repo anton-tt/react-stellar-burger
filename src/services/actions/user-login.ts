@@ -1,5 +1,5 @@
 import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_RESET_DATA } from "../const";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants.js"; 
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants"; 
 import { TRequestUserData, TResponseUserData, ILoginUserAction, ILoginUserSuccessAction, ILoginUserFailedAction, 
   ILoginUserResetDataAction } from "../types/user-login"; 
 import { loginApi } from "../../utils/api.jsx";

@@ -1,10 +1,15 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { TStore } from "../../services/store";
 import styles from "./ingredient-details.module.css";
 
-function IngredientDetails() {
+type TIngredientDetailsProps = {
+  newPage: boolean;
+};
 
-  const getIngredientsData = (store) => store.ingredientsData;
+function IngredientDetails({ newPage }: TIngredientDetailsProps) {
+
+  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const ingredientIdData = useParams();
