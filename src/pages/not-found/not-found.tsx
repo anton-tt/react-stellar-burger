@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { HOME_PAGE } from "../../utils/constants";
+import { HOME_PAGE, NOT_FOUND_PAGE } from "../../utils/constants";
 import styles from "./not-found.module.css";
 
 function NotFoundPage() {
@@ -22,7 +22,7 @@ function NotFoundPage() {
         </p>
         <p className="text text_type_main-default text_color_inactive"> 
           Вы можете 
-          <Link className={styles.link} onClick={goBack}> вернуться назад</Link>
+          <Link className={styles.link} onClick={goBack} to={NOT_FOUND_PAGE}> вернуться назад</Link>
           , воспользоваться меню сайта или перейти 
           <Link className={styles.link} to={HOME_PAGE}> на домашнюю страницу </Link>
         </p>

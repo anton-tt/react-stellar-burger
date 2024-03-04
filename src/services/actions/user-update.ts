@@ -1,14 +1,14 @@
 import { UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAILED, UPDATE_USER_RESET_DATA } from "../const";
-import { TRequestUserData, TResponseUserData, IUpdateUserAction, IUpdateUserSuccessAction, IUpdateUserFailedAction, 
+import { TRequestUpdateUserData, TResponseUpdateUserData, IUpdateUserAction, IUpdateUserSuccessAction, IUpdateUserFailedAction, 
   IUpdateUserResetDataAction } from "../types/user-update";
-import { updateUserData } from "../../utils/apiWithAuthorization.jsx";
+import { updateUserData } from "../../utils/apiWithAuthorization";
 import { AppDispatch } from "../types/types";
 
 const updateUserFeed = (): IUpdateUserAction => ({
   type: UPDATE_USER
 });
 
-const updateUserSuccess = (success: boolean, user: TResponseUserData): IUpdateUserSuccessAction => ({
+const updateUserSuccess = (success: boolean, user: TResponseUpdateUserData): IUpdateUserSuccessAction => ({
   type: UPDATE_USER_SUCCESS,
   success,
   user
@@ -22,7 +22,7 @@ const resetData = (): IUpdateUserResetDataAction => ({
   type: UPDATE_USER_RESET_DATA
 });
 
-export function updateUser(userData: TRequestUserData) {
+export function updateUser(userData: TRequestUpdateUserData) {
   
   return function (dispatch: AppDispatch) {
     dispatch(updateUserFeed());

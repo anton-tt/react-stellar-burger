@@ -33,5 +33,5 @@ export type TBurgerConstructorActions =
 
 export type TInitialState = {
   bunsData: TIngredientDataWithLocalId | undefined;
-  fillingData: ReadonlyArray<TIngredientDataWithLocalId>;
+  fillingData: Array<TIngredientDataWithLocalId>;
 }

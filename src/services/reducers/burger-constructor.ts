@@ -1,5 +1,5 @@
 import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSTRUCTOR } from "../const";
-import { moveArrayElements } from "../../utils/utils.js";
+import { moveArrayElements } from "../../utils/utils";
 import { TInitialState, TBurgerConstructorActions } from "../types/burger-constructor";
 
 const initialState: TInitialState = {

@@ -1,8 +1,8 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { UPDATE_TOKEN, UPDATE_TOKEN_SUCCESS, UPDATE_TOKEN_FAILED } from "../const";
 import { IUpdateTokenAction, IUpdateTokenSuccessAction, IUpdateTokenFailedAction } from "../types/update-token";
-import { updateToken } from "../../utils/apiWithAuthorization.jsx";
-import { setCookie } from "../../utils/cookie.js";
+import { updateToken } from "../../utils/apiWithAuthorization";
+import { setCookie } from "../../utils/cookie";
 import { AppDispatch } from "../types/types";
 
 const updateTokenFeed = (): IUpdateTokenAction => ({

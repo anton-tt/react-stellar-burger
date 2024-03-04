@@ -1,9 +1,9 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILED, LOGOUT_USER_RESET_DATA } from "../const";
 import { ILogoutUserAction, ILogoutUserSuccessAction, ILogoutUserFailedAction, 
-  ILogoutUserResetDataAction } from "../types/user-logout";   
-import { logoutApi } from "../../utils/api.jsx";
-import { deleteCookie } from "../../utils/cookie.js";
+  ILogoutUserResetDataAction } from "../types/user-logout";
+import { logoutApi } from "../../utils/api";
+import { deleteCookie } from "../../utils/cookie";
 import { AppDispatch } from "../types/types.js";
 
 const logoutUserFeed = (): ILogoutUserAction => ({

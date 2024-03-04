@@ -1,6 +1,6 @@
 import { FORGOT_PASSWORD, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_RESET_DATA } from "../const";
 
-export type TRequestData = {
+export type TRequestForgotData = {
   email: string;
 };
   

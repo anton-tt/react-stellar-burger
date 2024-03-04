@@ -1,5 +1,5 @@
 import { GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED } from "../const";
-import { getOrderStructure } from "../../utils/api.jsx";
+import { getOrderStructure } from "../../utils/api";
 import { TResponseGetOrderData, IGetOrderAction, IGetOrderSuccessAction, IGetOrderFailedAction } from "../types/order-get";
 import { AppDispatch } from "../types/types";
 

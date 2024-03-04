@@ -1,6 +1,6 @@
 import { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, GET_USER_RESET_DATA } from "../const";
   
-export type TResponseUserData = {
+export type TResponseGetUserData = {
   email: string;
   name: string;
 }; 
@@ -12,7 +12,7 @@ export interface IGetUserAction {
 export interface IGetUserSuccessAction {
   readonly type: typeof GET_USER_SUCCESS;
   success: boolean;
-  user: TResponseUserData;
+  user: TResponseGetUserData;
 }
   
 export interface IGetUserFailedAction {
@@ -32,6 +32,6 @@ export type TGetUserActions =
 export type TInitialState = {
   getUserRequest: boolean;
   getUserFailed: boolean;
-  getUserData: TResponseUserData | undefined;
+  getUserData: TResponseGetUserData | undefined;
   getUserSuccess: boolean;
 }

@@ -1,6 +1,13 @@
-const socketMiddleware = (wsUrl, wsActions) => {
+import { Middleware } from "redux";
+import { wsFeedActions, wsHistoryActions } from "../store";
+
+type TWsHistoryActions = 
+typeof wsFeedActions | typeof wsHistoryActions;
+
+
+const socketMiddleware = (wsUrl: string, wsActions: TWsHistoryActions): Middleware => {
   return store => {
-    let socket = null;
+    let socket: WebSocket | null = null;
   
     return next => action => {
       const { dispatch } = store;

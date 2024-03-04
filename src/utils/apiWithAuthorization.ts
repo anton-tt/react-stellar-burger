@@ -1,6 +1,8 @@
 import { urlBase, REFRESH_TOKEN, ACCESS_TOKEN, AUTHORIZATION_PATH, TOKEN_PATH, USER_PATH, ORDERS_PATH } from "./constants";
-import { setCookie, getCookie } from "./cookie.js";
-import { checkResponse, request } from "./api.jsx";
+import { setCookie, getCookie } from "./cookie";
+import { checkResponse, request } from "./api";
+import { TRequestUpdateUserData } from "../services/types/user-update";
+import { TRequestOptions, TResponseData } from "./apiType";
 
 export const updateToken = () => request(`${AUTHORIZATION_PATH}${TOKEN_PATH}`, {
   method: 'POST',
@@ -10,13 +12,13 @@ export const updateToken = () => request(`${AUTHORIZATION_PATH}${TOKEN_PATH}`, {
   })    
 });
 
-export const fetchWithToken = async (endpoint, requestData) => {
+export const fetchWithToken = async (endpoint: string, requestData: TRequestOptions): Promise<Response & TResponseData> => {
   
   try {
     const res = await fetch(`${urlBase}${endpoint}`, requestData);
     return await checkResponse(res);
   } catch (err) {
-    if (err.message === "jwt expired" || "jwt malformed") {
+    if ((err as Error).message === "jwt expired" || "jwt malformed") {
       const tokenData = await updateToken();
       if (!tokenData.success) {
         return Promise.reject(tokenData);
@@ -44,7 +46,7 @@ export function getUserData() {
   })
 };
 
-export function updateUserData(userData) {
+export function updateUserData(userData: TRequestUpdateUserData) {
   return fetchWithToken(`${AUTHORIZATION_PATH}${USER_PATH}`, {
     method: 'PATCH',
     headers: {
@@ -58,7 +60,7 @@ export function updateUserData(userData) {
   })
  };
 
-export function addOrder(ingredientsId) { 
+export function addOrder(ingredientsId: Array<string>) { 
   return fetchWithToken(ORDERS_PATH, {
     method: 'POST',
     headers: {

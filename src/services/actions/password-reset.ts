@@ -1,7 +1,7 @@
 import { RESET_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED, RESET_PASSWORD_RESET_DATA } from "../const";
-import { TRequestData, IResetPasswordAction, IResetPasswordSuccessAction, IResetPasswordFailedAction, 
+import { TRequestResetData, IResetPasswordAction, IResetPasswordSuccessAction, IResetPasswordFailedAction, 
   IResetPasswordResetDataAction } from "../types/password-reset";
-import { resetApi } from "../../utils/api.jsx";
+import { resetApi } from "../../utils/api";
 import { AppDispatch } from "../types/types";
 
 const resetPasswordFeed = (): IResetPasswordAction => ({
@@ -22,7 +22,7 @@ const resetData = (): IResetPasswordResetDataAction => ({
   type: RESET_PASSWORD_RESET_DATA
 });
 
-export function resetPassword(userData: TRequestData) {
+export function resetPassword(userData: TRequestResetData) {
   
   return function (dispatch: AppDispatch) {
     dispatch(resetPasswordFeed());

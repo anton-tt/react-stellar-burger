@@ -1,6 +1,6 @@
 import { RESET_PASSWORD, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED, RESET_PASSWORD_RESET_DATA } from "../const";
 
-export type TRequestData = {
+export type TRequestResetData = {
   password: string;
   token: string;
 };

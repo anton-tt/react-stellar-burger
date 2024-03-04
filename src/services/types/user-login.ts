@@ -1,11 +1,11 @@
 import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILED, LOGIN_USER_RESET_DATA } from "../const";
 
-export type TRequestUserData = {
+export type TRequestLoginUserData = {
   email: string;
   password: string;
 };
   
-export type TResponseUserData = {
+export type TResponseLoginUserData = {
   email: string;
   name: string;
 }; 
@@ -18,7 +18,7 @@ export interface ILoginUserAction {
 export interface ILoginUserSuccessAction {
   readonly type: typeof LOGIN_USER_SUCCESS;
   success: boolean;
-  user: TResponseUserData;
+  user: TResponseLoginUserData;
 }
   
 export interface ILoginUserFailedAction {
@@ -40,6 +40,6 @@ export type TLoginUserActions =
 export type TInitialState = {
   loginRequest: boolean;
   loginFailed: boolean;
-  userData: TResponseUserData | undefined;
+  userData: TResponseLoginUserData | undefined;
   loginSuccess: boolean;
 }

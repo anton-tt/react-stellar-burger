@@ -2,7 +2,7 @@ import { CREATE_ORDER, CREATE_ORDER_SUCCESS, CREATE_ORDER_FAILED, CLEAR_CONSTRUC
   REMOVE_ORDER_NUMBER } from "../const";
 import { TResponseOrderData, IOrderDetailsAction, IOrderDetailsSuccessAction, IOrderDetailsFailedAction, 
   IOrderDetailsResetDataAction } from "../types/order-details";
-import { addOrder } from "../../utils/apiWithAuthorization.jsx";  
+import { addOrder } from "../../utils/apiWithAuthorization";  
 import { clearConstructor } from "../actions/burger-constructor";
 import { AppDispatch } from "../types/types"; 
 

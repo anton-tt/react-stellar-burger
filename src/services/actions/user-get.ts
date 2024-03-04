@@ -1,14 +1,14 @@
 import { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, GET_USER_RESET_DATA } from "../const";
-import { TResponseUserData, IGetUserAction, IGetUserSuccessAction, IGetUserFailedAction, 
+import { TResponseGetUserData, IGetUserAction, IGetUserSuccessAction, IGetUserFailedAction, 
   IGetUserResetDataAction } from "../types/user-get";
-import { getUserData } from "../../utils/apiWithAuthorization.jsx";
+import { getUserData } from "../../utils/apiWithAuthorization";
 import { AppDispatch } from "../types/types";
 
 const getUserFeed = (): IGetUserAction => ({
   type: GET_USER
 });
 
-const getUserSuccess = (success: boolean, user: TResponseUserData): IGetUserSuccessAction => ({
+const getUserSuccess = (success: boolean, user: TResponseGetUserData): IGetUserSuccessAction => ({
   type: GET_USER_SUCCESS,
   success,
   user

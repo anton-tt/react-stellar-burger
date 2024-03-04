@@ -1,12 +1,12 @@
 import { REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED, REGISTER_USER_RESET_DATA } from "../const";
 
-export type TRequestUserData = {
+export type TRequestRegisterUserData = {
   email: string;
   password: string;
   name: string;
 };
   
-export type TResponseUserData = {
+export type  TResponseRegisterUserData = {
   email: string;
   name: string;
 }; 
@@ -18,7 +18,7 @@ export interface IRegisterUserAction {
 export interface IRegisterUserSuccessAction {
   readonly type: typeof REGISTER_USER_SUCCESS;
   success: boolean;
-  user: TResponseUserData;
+  user:  TResponseRegisterUserData;
 }
   
 export interface IRegisterUserFailedAction {
@@ -38,6 +38,6 @@ export type TRegisterUserActions =
 export type TInitialState = {
   registerRequest: boolean;
   registerFailed: boolean;
-  userData: TResponseUserData | undefined;
+  userData:  TResponseRegisterUserData | undefined;
   registerSuccess: boolean;
 }  

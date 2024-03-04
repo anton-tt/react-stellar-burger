@@ -4,7 +4,7 @@ import { IWsHistoryConnectionStartAction, IWsHistoryConnectionSuccessAction, IWs
   IWsHistoryConnectionClosedAction, IWsHistoryConnectionFinishAction, IWsHistoryGetMessageAction, 
   IWsHistorySendMessageAction, TResponseGetMessageData } from "../types/socket-history";  
 import { ACCESS_TOKEN } from "../../utils/constants";
-import { getCookie } from "../../utils/cookie.js";
+import { getCookie } from "../../utils/cookie";
 
 export function startHistoryConnection(): IWsHistoryConnectionStartAction { 
   return ({ type: WS_HISTORY_CONNECTION_START,
