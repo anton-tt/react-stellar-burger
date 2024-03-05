@@ -8,6 +8,12 @@ type TIngredientLinesProps = {
 };
 
 function IngredientLines({bunData, fillingData}: TIngredientLinesProps) {
+
+  let fillingIds: Array<string | undefined> = [];
+
+  const countElement = (elementId: string | undefined) => {
+    return fillingData?.filter(item => item?._id === elementId).length
+  }
   
   if (bunData) {
     return ( 
@@ -24,17 +30,23 @@ function IngredientLines({bunData, fillingData}: TIngredientLinesProps) {
         </li>
 
         { fillingData?.map((element) => {
-          return ( 
-            <li className={styles.element} key={element?._id}>
-              <div className={styles.component}>
-                <img  className={styles.image} src={element?.image_mobile} />    
-                <p className="pl-4 text text_type_main-small"> {element?.name} </p>
-              </div>
-              <div  className={styles.component}>
-                <p className={`text text_type_digits-default ${styles.count}`}> 1 x {element?.price} </p>
-                <CurrencyIcon type="primary"/> 
-              </div>
-            </li>);
+          const elementId = element?._id;
+          if (!fillingIds.includes(elementId)) {
+            fillingIds = [...fillingIds, elementId];
+            return ( 
+              <li className={styles.element} key={elementId}>
+                <div className={styles.component}>
+                  <img  className={styles.image} src={element?.image_mobile} />    
+                  <p className="pl-4 text text_type_main-small"> {element?.name} </p>
+                </div>
+                <div  className={styles.component}>
+                  <p className={`text text_type_digits-default ${styles.count}`}> 
+                    {countElement(element?._id)} x {element?.price} 
+                  </p>
+                  <CurrencyIcon type="primary"/> 
+                </div>
+              </li>);
+          }
           })
         }   
       </ul>
