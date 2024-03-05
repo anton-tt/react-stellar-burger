@@ -1,7 +1,7 @@
 import { useEffect, FormEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TStore } from "../../services/store";
+import { getCurrentUserData, getUpdateUserData } from "../../services/selectors";
 import useForm from "../../hooks/useForm";
 import { updateUser } from "../../services/actions/user-update";
 import { getUser } from "../../services/actions/user-get";
@@ -17,10 +17,8 @@ function ProfileForm() {
     password: "" 
   });
 
-  const getCurrentUserData = (store: TStore) => store.getUserData;
   const { getUserRequest, getUserFailed, getUserSuccess, getUserData } = useSelector(getCurrentUserData);
 
-  const getUpdateUserData = (store: TStore) => store.updateUserData;
   const { updateUserRequest, updateUserFailed, updateUserSuccess, updateUserData } = useSelector(getUpdateUserData);
 
   const currentUserName = getUserData? getUserData.name : "";

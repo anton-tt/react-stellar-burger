@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { TStore } from "../../services/store";
+import { useSelector, useDispatch } from "../../hooks/hooks";
+import { getOrderFeedData } from "../../services/selectors";
 import OrdersList from "../../components/orders-list/orders-list";
 import OrdersStat from "../../components/orders-stat/orders-stat";
 import { startFeedConnection, finishFeedConnection } from "../../services/actions/socket-feed";
@@ -11,7 +11,6 @@ function OrderFeedPage() {
  
   const dispatch = useDispatch();
 
-  const getOrderFeedData = (store: TStore) => store.orderFeedData;
   const { wsFeedConnected, wsFeedMessages, wsFeedError } = useSelector(getOrderFeedData);
 
   //const isEmptyWsFeedMessages: boolean = Object.keys(wsFeedMessages).length === 0;

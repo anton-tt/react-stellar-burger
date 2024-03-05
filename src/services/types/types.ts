@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import rootReducer from '../reducers/root-reducer';
 import { TRegisterUserActions } from "./user-register";
 import { TLoginUserActions } from "./user-login";
 import { TForgotPasswordActions } from "./password-forgot";
@@ -14,9 +15,12 @@ import { TGetOrderActions } from "./order-get";
 import { TWsFeedActions } from "./socket-feed";
 import { TWsHistoryActions } from "./socket-history";
 import { TUpdateTokenActions } from "./update-token";
+import store from "../store";
+import { ThunkAction } from 'redux-thunk';
+import { Action, ActionCreator } from 'redux';
 
   // Типизация всех экшенов приложения
-type TApplicationActions = 
+export type TApplicationActions = 
   | TRegisterUserActions
   | TLoginUserActions
   | TForgotPasswordActions
@@ -34,4 +38,14 @@ type TApplicationActions =
   | TUpdateTokenActions;
 
   // Типизация метода dispatch для проверки на валидность отправляемого экшена
-export type AppDispatch = Dispatch<TApplicationActions>; 
+
+
+export type TStore = ReturnType<typeof rootReducer>;
+
+//export type AppDispatch = typeof store.dispatch; 
+
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, TStore, TApplicationActions>
+>;
+
+export type AppDispatch = Dispatch<TApplicationActions>;

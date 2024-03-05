@@ -1,10 +1,10 @@
 import { useEffect, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
 import { HOME_PAGE, LOGIN_PAGE } from "../../utils/constants";
-import { TStore } from "../../services/store";
+import { getRegisterUserData } from "../../services/selectors";
 import { registerUser, resetRegisterUserData } from "../../services/actions/user-register";
 import styles from "./register.module.css";
 
@@ -20,7 +20,6 @@ function RegisterPage() {
     password: "" 
   });
 
-  const getRegisterUserData = (store: TStore) => store.registerUserData;
   const { registerRequest, registerFailed, registerSuccess } = useSelector(getRegisterUserData);
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {

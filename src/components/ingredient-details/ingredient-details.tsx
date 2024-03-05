@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { TStore } from "../../services/store";
+import { useSelector } from "../../hooks/hooks";
+import { getIngredientsData } from "../../services/selectors";
 import styles from "./ingredient-details.module.css";
 
 type TIngredientDetailsProps = {
@@ -9,7 +9,6 @@ type TIngredientDetailsProps = {
 
 function IngredientDetails({ newPage }: TIngredientDetailsProps) {
 
-  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const ingredientIdData = useParams();

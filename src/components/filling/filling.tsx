@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { DragIcon, ConstructorElement  } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from 'react-redux';
+import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
+import { useDispatch } from "../../hooks/hooks";
 import { TIngredientDataWithLocalId } from "../../services/types/burger-constructor";
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor";
 import styles from "./filling.module.css";

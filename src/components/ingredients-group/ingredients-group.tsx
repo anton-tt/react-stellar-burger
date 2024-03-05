@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "../../hooks/hooks";
 import { TResponseIngredientData } from "../../services/types/burger-ingredients";
 import Ingredient from "../ingredient/ingredient";
 import { addIngredientData, removeIngredientData } from "../../services/actions/ingredient-details";

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { INVALID_OR_MISSING_TOKEN } from "../../utils/constants";
-import { TStore } from "../../services/store";
+import { getOrderHistoryData } from "../../services/selectors";
 import OrdersList from "../../components/orders-list/orders-list";
 import { startHistoryConnection, finishHistoryConnection } from "../../services/actions/socket-history";
 import { TResponseGetOrderData } from "../../services/types/order-get";
@@ -12,7 +12,6 @@ function OrderHistoryPage() {
   
   const dispatch = useDispatch();
 
-  const getOrderHistoryData = (store: TStore) => store.orderHistoryData;
   const { wsHistoryConnected, wsHistoryMessages, wsHistoryError } = useSelector(getOrderHistoryData);
 
   useEffect(() => {

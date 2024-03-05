@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "../../hooks/hooks";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TStore } from "../../services/store";
+import { getIngredientsData } from "../../services/selectors";
 import { STRING_EMPTY, STATUS_CREATED, STATUS_PENDING, STATUS_DONE, ORDER_CREATED, ORDER_PENDING, 
   ORDER_DONE, ORDER_FEED_PAGE } from "../../utils/constants";
 import RoundImages from "../round-images/round-images";
@@ -24,7 +24,6 @@ function OrderCard({ orderData }: TOrderDataProps) {
 
   const { ingredients, name, status, number, createdAt } = orderData;
 
-  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
   const ingredientsOneOrder = useMemo(() => {

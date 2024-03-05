@@ -1,8 +1,8 @@
 import { useEffect, SyntheticEvent } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { LOGIN_PAGE, PROFILE_PAGE, ORDER_HISTORY_PAGE } from "../../utils/constants";
-import { TStore } from "../../services/store";
+import { getLogoutUserData } from "../../services/selectors";
 import ProfileForm from "../../components/profile-form/profile-form";
 import OrderHistoryPage from "../order-history/order-history";
 import { logoutUser, resetLogoutUserData } from "../../services/actions/user-logout";
@@ -18,7 +18,6 @@ function ProfilePage() {
   
   const location = useLocation();
 
-  const getLogoutUserData = (store: TStore) => store.logoutUserData;
   const { logoutRequest, logoutFailed, logoutSuccess } = useSelector(getLogoutUserData);
 
   const logout = (event: SyntheticEvent) => {

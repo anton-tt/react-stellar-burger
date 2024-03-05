@@ -1,8 +1,8 @@
 import { useMemo, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TStore } from "../../services/store";
+import { getOrderFeedData, getOrderHistoryData, getIngredientsData, getOrderStructureData } from "../../services/selectors";
 import { STRING_EMPTY, STATUS_CREATED, STATUS_PENDING, STATUS_DONE, ORDER_CREATED, ORDER_PENDING, ORDER_DONE, ORDER_HISTORY_PAGE, 
   ORDER_FEED_PAGE } from "../../utils/constants";
 import IngredientLines from "../ingredient-lines/ingredient-lines";
@@ -21,16 +21,12 @@ function OrderStructure({newPage}: TOrderStructureProps) {
 
   const dispatch = useDispatch();
 
-  const getOrderFeedData = (store: TStore) => store.orderFeedData;
   const { wsFeedConnected, wsFeedMessages, wsFeedError } = useSelector(getOrderFeedData);
 
-  const getOrderHistoryData = (store: TStore) => store.orderHistoryData;
   const { wsHistoryConnected, wsHistoryMessages, wsHistoryError } = useSelector(getOrderHistoryData);
 
-  const getIngredientsData = (store: TStore) => store.ingredientsData;
   const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(getIngredientsData);
 
-  const getOrderStructureData = (store: TStore) => store.orderStructureData;
   const { getOrderRequest, getOrderFailed, getOrderData, getOrderSuccess } = useSelector(getOrderStructureData);
 
   const orderNumberData = useParams().number;

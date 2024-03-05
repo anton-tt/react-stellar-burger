@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { useDrop } from "react-dnd";
 import { useNavigate, useLocation} from "react-router-dom";
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TStore } from "../../services/store";
+import { getConstructorData } from "../../services/selectors";
 import Filling from "../filling/filling";
 import ModalBase from "../modal-base/modal-base";
 import OrderDetails from "../order-details/order-details";
@@ -23,7 +23,6 @@ function BurgerConstructor() {
 
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
-  const getConstructorData = (store: TStore) => store.constructorData;
   const { bunsData, fillingData } = useSelector(getConstructorData);
   
   const ingredientsId = useMemo(() => {

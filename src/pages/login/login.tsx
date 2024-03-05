@@ -1,10 +1,10 @@
 import { useEffect, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
 import { REGISTER_PAGE, PASSWORD_FORGOT_PAGE } from "../../utils/constants";
-import { TStore } from "../../services/store";
+import { getLoginUserData } from "../../services/selectors";
 import { loginUser, resetLoginUserData } from "../../services/actions/user-login";
 import { getUser } from "../../services/actions/user-get";
 import styles from "./login.module.css";
@@ -13,7 +13,6 @@ function LoginPage() {
 
   const dispatch = useDispatch();
   
-  const getLoginUserData = (store: TStore) => store.loginUserData;
   const { loginRequest, loginFailed, loginSuccess } = useSelector(getLoginUserData);
 
   const { formValues, handleChange, setFormValues } = useForm({ 

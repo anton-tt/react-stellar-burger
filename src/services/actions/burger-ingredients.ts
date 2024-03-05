@@ -2,7 +2,8 @@ import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from
 import { TResponseIngredientData, IGetIngredientsAction, IGetIngredientsSuccessAction, 
   IGetIngredientsFailedAction } from "../types/burger-ingredients";
 import { getIngredientsInfo } from "../../utils/api";
-import { AppDispatch } from "../types/types";
+import { AppDispatch, AppThunk } from "../types/types";
+import { TApplicationActions } from "../types/types";
 
 const getIngredientsFeed = (): IGetIngredientsAction => ({
   type: GET_INGREDIENTS
@@ -17,12 +18,9 @@ const getIngredientsFailed = (): IGetIngredientsFailedAction => ({
   type: GET_INGREDIENTS_FAILED
 });
 
-
-export function getIngredientsList() {
-
-  return function (dispatch: AppDispatch) {
-    dispatch(getIngredientsFeed());
-    getIngredientsInfo()
+export const getIngredientsList: AppThunk = () => (dispatch: AppDispatch) => {
+  dispatch(getIngredientsFeed());
+  getIngredientsInfo()
     .then((res) => {  
       if (res && res.success) {
         dispatch(getIngredientsSuccess(res.data));
@@ -33,6 +31,4 @@ export function getIngredientsList() {
       dispatch(getIngredientsFailed())
       console.log(err);
     }) 
-  }
-
 }

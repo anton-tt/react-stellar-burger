@@ -1,9 +1,9 @@
-import {  useMemo } from "react";
-import { useSelector } from 'react-redux';
+import { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "../../hooks/hooks";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TStore } from "../../services/store";
+import { getConstructorData } from "../../services/selectors";
 import { TResponseIngredientData } from "../../services/types/burger-ingredients";
 import { INGREDIENTS_PATH } from "../../utils/constants";
 import styles from "./ingredient.module.css";
@@ -24,7 +24,6 @@ function Ingredient({openModal, ingredientData}: TIngredientProps) {
     })
   });
 
-  const getConstructorData = (store: TStore) => store.constructorData;
   const { bunsData, fillingData } = useSelector(getConstructorData);
 
   const ingredientCount = useMemo(() => {

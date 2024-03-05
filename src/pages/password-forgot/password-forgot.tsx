@@ -1,10 +1,10 @@
 import { useEffect, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/hooks";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import useForm from "../../hooks/useForm";
 import { PASSWORD_RESET_PAGE, LOGIN_PAGE } from "../../utils/constants";
-import { TStore } from "../../services/store";
+import { getForgotPasswordData } from "../../services/selectors";
 import { forgotPassword, resetForgotPasswordData } from "../../services/actions/password-forgot";
 import styles from "./password-forgot.module.css";
 
@@ -18,7 +18,6 @@ function PasswordForgotPage() {
     email: ""
   });
 
-  const getForgotPasswordData = (store: TStore) => store.forgotPasswordData;
   const { forgotRequest, forgotFailed, forgotSuccess } = useSelector(getForgotPasswordData);
   
   const submitForm = (event: FormEvent<HTMLFormElement>) => {

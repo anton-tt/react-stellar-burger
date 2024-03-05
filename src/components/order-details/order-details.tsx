@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
-import { TStore } from "../../services/store";
+import { useSelector } from '../../hooks/hooks';
+import {getOrderNumber } from "../../services/selectors";
 import checkmark from "../../images/checkmark.png";
 import styles from "./order-details.module.css";
 
 function OrderDetails() {
 
     // Вытаскиваем селектором нужные данные из хранилища
-  const getOrderNumber = (store: TStore) => store.orderNumber;  
   const { orderNumber, orderRequest, orderFailed } = useSelector(getOrderNumber);
     
     // Используем условный рендеринг для разных состояний хранилища
